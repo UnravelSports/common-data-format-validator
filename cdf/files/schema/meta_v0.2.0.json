@@ -1,0 +1,484 @@
+{
+  "title": "CDF Meta Data Schema",
+  "version": "0.2.0",
+  "type": "object",
+  "required": [
+    "competition",
+    "season",
+    "match",
+    "teams",
+    "stadium",
+    "meta"
+  ],
+  "properties": {
+    "competition": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the competition"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the competition"
+        },
+        "format": {
+          "type": "string",
+          "description": "Format of the competition (e.g., 'league_18', 'league_20')"
+        },
+        "age_restriction": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Age restriction for the competition (e.g., 'U18', 'U20')"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of competition (e.g., 'youth', 'mens', 'womens')"
+        }
+      }
+    },
+    "season": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the season"
+        },
+        "name": {
+          "type": "string",
+          "description": "Season name (e.g., '2022/23')"
+        }
+      }
+    },
+    "match": {
+      "type": "object",
+      "required": [
+        "id",
+        "kickoff_time",
+        "periods",
+        "whistles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the match"
+        },
+        "kickoff_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Scheduled kickoff time in UTC"
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "period",
+              "play_direction"
+            ],
+            "properties": {
+              "period": {
+                "type": "string",
+                "enum": [
+                  "first_half",
+                  "second_half",
+                  "first_half_extratime",
+                  "second_half_extratime",
+                  "shootout"
+                ],
+                "description": "Period of the match"
+              },
+              "play_direction": {
+                "type": "string",
+                "enum": [
+                  "left_right",
+                  "right_left"
+                ],
+                "description": "The direction of play for the home team"
+              },
+              "time_start": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Start time of the period in UTC"
+              },
+              "time_end": {
+                "type": "string",
+                "format": "date-time",
+                "description": "End time of the period in UTC"
+              },
+              "frame_id_start": {
+                "type": "integer",
+                "description": "Frame ID at the start of the period"
+              },
+              "frame_id_end": {
+                "type": "integer",
+                "description": "Frame ID at the start of the period"
+              },
+              "left_team_id": {
+                "type": "string",
+                "description": "Unique team identifier of the team playing on the left side of the pitch in this period. The left_team_id and right_team_id should be the actual, nonstandardized sides."
+              },
+              "right_team_id": {
+                "type": "string",
+                "description": "Unique team identifier of the team playing on the left side of the pitch in this period. The left_team_id and right_team_id should be the actual, nonstandardized sides."
+              }
+            }
+          }
+        },
+        "whistles": {
+          "description": "Whistles that start and end major periods of play",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "sub_type",
+              "time"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Examples of types 'first_half', 'second_half', 'weather_delay', 'health_delay', 'injury_treatment', 'fan_health_delay' etc."
+              },
+              "sub_type": {
+                "type": "string",
+                "description": "Sub type related to an interruption, for example 'start' or 'end'"
+              },
+              "time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The time in UTC of the whistle"
+              }
+            }
+          }
+        },
+        "round": {
+          "type": "string",
+          "description": "Round of the match (e.g. 1, 2, 3, final, semi_final)"
+        },
+        "scheduled_kickoff_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Scheduled kickoff time in UTC"
+        },
+        "local_kickoff_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Local kickoff time"
+        },
+        "misc": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string",
+              "description": "Country where the match is played"
+            },
+            "city": {
+              "type": "string",
+              "description": "City where the match is played"
+            },
+            "percipitation": {
+              "type": "number",
+              "description": "Percipitation during the match in millimetres"
+            },
+            "is_open_roof": {
+              "type": "boolean",
+              "description": "Indicates if the roof is open (true) or closed (false)"
+            }
+          }
+        }
+      }
+    },
+    "teams": {
+      "type": "object",
+      "required": [
+        "home",
+        "away"
+      ],
+      "properties": {
+        "home": {
+          "$ref": "#/definitions/team"
+        },
+        "away": {
+          "$ref": "#/definitions/team"
+        }
+      }
+    },
+    "stadium": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the stadium"
+        },
+        "pitch_length": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Length of the pitch in metres, null if not available"
+        },
+        "pitch_width": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Width of the pitch in metres, null if not available"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the stadium"
+        },
+        "turf": {
+          "type": "string",
+          "description": "Information on the tuf of the pitch (e.g., 'grass', 'natural_reinforced')"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "video",
+        "tracking",
+        "limb",
+        "meta",
+        "cdf"
+      ],
+      "properties": {
+        "video": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Video meta data information, null if not relevant",
+          "required": [
+            "perspective",
+            "version",
+            "name",
+            "fps"
+          ],
+          "properties": {
+            "perspective": {
+              "type": "string",
+              "description": "Camera perspective (e.g. in 'stadium', 'broadcast', 'tactical', 'tactical_wide')"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version number for the video data collection in use (e.g. '0.1.0')"
+            },
+            "name": {
+              "type": "string",
+              "description": "Vendor name of the video data"
+            },
+            "fps": {
+              "type": "integer",
+              "description": "Frames per second (i.e., frame rate) of video"
+            }
+          }
+        },
+        "event": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Event data meta information, null if not relevant",
+          "required": [
+            "collection_timing"
+          ],
+          "properties": {
+            "collection_timing": {
+              "type": "string",
+              "description": "Indicates if the event data was collected live or post match"
+            }
+          }
+        },
+        "tracking": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Tracking data meta information, null if not relevant",
+          "required": [
+            "version",
+            "name",
+            "fps",
+            "collection_timing"
+          ],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version number for the tracking data collection in use (e.g. '0.1.0')"
+            },
+            "name": {
+              "type": "string",
+              "description": "Vendor name of the tracking data"
+            },
+            "fps": {
+              "type": "integer",
+              "description": "Frames per second (i.e., frame rate) of tracking"
+            },
+            "collection_timing": {
+              "type": "string",
+              "description": "Indicates if the tracking data was collected live or post match"
+            }
+          }
+        },
+        "limb": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Limb tracking data meta information, null if not relevant",
+          "required": [
+            "version",
+            "name",
+            "fps",
+            "collection_timing"
+          ],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version number for the limb data collection in use (e.g. '0.1.0')"
+            },
+            "name": {
+              "type": "string",
+              "description": "Vendor name of the limb tracking data"
+            },
+            "fps": {
+              "type": "integer",
+              "description": "Frames per second (i.e., frame rate) of limb tracking"
+            },
+            "collection_timing": {
+              "type": "string",
+              "description": "Indicates if the limb data was collected live or post match"
+            }
+          }
+        },
+        "ball": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Ball tracking data meta information, null if not relevant. Only relevant when providing an independent ball file.",
+          "required": [
+            "version",
+            "name",
+            "fps",
+            "collection_timing"
+          ],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version number for the ball data collection in use"
+            },
+            "name": {
+              "type": "string",
+              "description": "Vendor name of the ball data"
+            },
+            "fps": {
+              "type": "integer",
+              "description": "Frames per second (i.e., frame rate) of ball tracking"
+            },
+            "collection_timing": {
+              "type": "string",
+              "description": "Indicates if the ball data was collected live or post match"
+            }
+          }
+        },
+        "meta": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Meta information",
+          "required": [
+            "version",
+            "name"
+          ],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version number for the meta data collection in use"
+            },
+            "name": {
+              "type": "string",
+              "description": "Vendor name of the meta data"
+            }
+          }
+        },
+        "cdf": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Common Data Format (CDF) meta information",
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version number for the CDF in use"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+      "team": {
+        "type": "object",
+        "required": [
+          "id",
+          "players"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the home team"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "team_id",
+                "jersey_number",
+                "is_starter"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique player identifier"
+                },
+                "team_id": {
+                  "type": "string",
+                  "description": "Unique team identifier denoting the team the player plays for"
+                },
+                "jersey_number": {
+                  "type": "integer",
+                  "description": "Jersey number for a player"
+                },
+                "is_starter": {
+                  "type": "boolean",
+                  "description": "Denotes whether a player started the game (true) or not (false)"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,206 @@
+{
+    "title": "CDF Tracking Data Schema",
+    "version": "0.2.0",
+    "type": "object",
+    "required": [
+        "frame_id",
+        "period",
+        "match",
+        "teams",
+        "ball"
+    ],
+    "properties": {
+        "frame_id": {
+            "type": "integer"
+        },
+        "period": {
+            "type": "string",
+            "enum": [
+                "first_half",
+                "second_half",
+                "first_half_extratime",
+                "second_half_extratime",
+                "shootout"
+            ]
+        },
+        "match": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "teams": {
+            "type": "object",
+            "required": [
+                "home",
+                "away"
+            ],
+            "properties": {
+                "home": {
+                    "$ref": "#/definitions/team"
+                },
+                "away": {
+                    "$ref": "#/definitions/team"
+                }
+            }
+        },
+        "ball": {
+            "type": "object",
+            "required": [
+                "x",
+                "y",
+                "z"
+            ],
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                },
+                "z": {
+                    "type": "number"
+                }
+            }
+        },
+        "referees": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "x",
+                    "y"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "x": {
+                        "type": "number"
+                    },
+                    "y": {
+                        "type": "number"
+                    },
+                    "z": {
+                        "type": "number"
+                    },
+                    "vel": {
+                        "type": "number"
+                    },
+                    "acc": {
+                        "type": "number"
+                    },
+                    "lat": {
+                        "type": "number"
+                    },
+                    "long": {
+                        "type": "number"
+                    },
+                    "is_visible": {
+                        "type": "boolean"
+                    },
+                    "minutes_played": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "ball_status": {
+            "type": "boolean"
+        },
+        "ball_poss_team_id": {
+            "type": "string"
+        },
+        "ball_poss_status": {
+            "type": "string"
+        },
+        "vendor": {
+            "type": "object",
+            "properties": {
+                "event": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tracking": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "team": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "players": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "x",
+                            "y"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "x": {
+                                "type": "number"
+                            },
+                            "y": {
+                                "type": "number"
+                            },
+                            "z": {
+                                "type": "number"
+                            },
+                            "vel": {
+                                "type": "number"
+                            },
+                            "acc": {
+                                "type": "number"
+                            },
+                            "lat": {
+                                "type": "number"
+                            },
+                            "long": {
+                                "type": "number"
+                            },
+                            "is_visible": {
+                                "type": "boolean"
+                            },
+                            "minutes_played": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "jersey_colour": {
+                    "type": "string"
+                },
+                "formation": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

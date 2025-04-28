@@ -1,0 +1,593 @@
+{
+    "title": "Official Match Data",
+    "description": "Schema for validating match data according to the CDF specification",
+    "type": "object",
+    "required": [
+        "match",
+        "teams",
+        "referees",
+        "events",
+        "meta"
+    ],
+    "properties": {
+        "match": {
+            "type": "object",
+            "required": [
+                "id",
+                "status",
+                "result"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique match identifier"
+                },
+                "status": {
+                    "type": "object",
+                    "required": [
+                        "is_neutral",
+                        "has_extratime",
+                        "has_shootout"
+                    ],
+                    "properties": {
+                        "is_neutral": {
+                            "type": "boolean",
+                            "description": "Denotes whether the game was hosted in a neutral venue (true) or not (false)"
+                        },
+                        "has_extratime": {
+                            "type": "boolean",
+                            "description": "Denotes whether the game went to extra time (true) or not (false)"
+                        },
+                        "has_shootout": {
+                            "type": "boolean",
+                            "description": "Denotes whether the game had a penalty shootout (true) or not (false)"
+                        }
+                    }
+                },
+                "result": {
+                    "type": "object",
+                    "required": [
+                        "final",
+                        "final_winning_team_id",
+                        "first_half",
+                        "second_half"
+                    ],
+                    "properties": {
+                        "final": {
+                            "type": "object",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "Final result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "Final result for away team"
+                                }
+                            }
+                        },
+                        "final_winning_team_id": {
+                            "type": "string",
+                            "description": "Unique identifier of the winning team"
+                        },
+                        "first_half": {
+                            "type": "object",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "First half result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "First half result for away team"
+                                }
+                            }
+                        },
+                        "second_half": {
+                            "type": "object",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "Second half result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "Second half result for away team"
+                                }
+                            }
+                        },
+                        "first_half_extratime": {
+                            "type": "object",
+                            "description": "Required if has_extratime is true",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "First half extratime result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "First half extratime result for away team"
+                                }
+                            }
+                        },
+                        "second_half_extratime": {
+                            "type": "object",
+                            "description": "Required if has_extratime is true",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "Second half extratime result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "Second half extratime result for away team"
+                                }
+                            }
+                        },
+                        "shootout": {
+                            "type": "object",
+                            "description": "Required if has_shootout is true",
+                            "required": [
+                                "home",
+                                "away"
+                            ],
+                            "properties": {
+                                "home": {
+                                    "type": "integer",
+                                    "description": "Shootout result for home team"
+                                },
+                                "away": {
+                                    "type": "integer",
+                                    "description": "Shootout result for away team"
+                                }
+                            }
+                        }
+                    },
+                    "allOf": [
+                        {
+                            "if": {
+                                "properties": {
+                                    "has_extratime": {
+                                        "const": true
+                                    }
+                                }
+                            },
+                            "then": {
+                                "required": [
+                                    "first_half_extratime",
+                                    "second_half_extratime"
+                                ]
+                            }
+                        },
+                        {
+                            "if": {
+                                "properties": {
+                                    "has_shootout": {
+                                        "const": true
+                                    }
+                                }
+                            },
+                            "then": {
+                                "required": [
+                                    "shootout"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "teams": {
+            "type": "object",
+            "required": [
+                "home",
+                "away"
+            ],
+            "properties": {
+                "home": {
+                    "$ref": "#/definitions/team"
+                },
+                "away": {
+                    "$ref": "#/definitions/team"
+                }
+            }
+        },
+        "referees": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique referee identifier"
+                    },
+                    "official_type": {
+                        "type": "string",
+                        "description": "The type of referee (e.g. video_assistant_referee, main_referee, assistant_referee or fourth_official"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "First name"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Last name"
+                    },
+                    "short_name": {
+                        "type": "string",
+                        "description": "Short name"
+                    }
+                }
+            }
+        },
+        "events": {
+            "type": "object",
+            "required": [
+                "goals",
+                "substitutions",
+                "cards"
+            ],
+            "properties": {
+                "goals": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "time",
+                            "period",
+                            "team_id",
+                            "player_id",
+                            "is_own_goal",
+                            "is_penalty",
+                            "score"
+                        ],
+                        "properties": {
+                            "time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time a player scored"
+                            },
+                            "period": {
+                                "type": "string",
+                                "enum": [
+                                    "first_half",
+                                    "second_half",
+                                    "first_half_extratime",
+                                    "second_half_extratime",
+                                    "shootout"
+                                ],
+                                "description": "Period of the game when the goal was scored"
+                            },
+                            "team_id": {
+                                "type": "string",
+                                "description": "Identifier of the team who scored"
+                            },
+                            "player_id": {
+                                "type": "string",
+                                "description": "Identifier of the player who scored"
+                            },
+                            "assist_id": {
+                                "type": ["string", "null"],
+                                "description": "Identifier of the player who assisted"
+                            },
+                            "is_own_goal": {
+                                "type": "boolean",
+                                "description": "Denotes whether it was an own goal (true) or not (false)"
+                            },
+                            "is_penalty": {
+                                "type": "boolean",
+                                "description": "Denotes whether it was a penalty (true) or not (false)"
+                            },
+                            "score": {
+                                "type": "object",
+                                "required": [
+                                    "home",
+                                    "away"
+                                ],
+                                "properties": {
+                                    "home": {
+                                        "type": "integer",
+                                        "description": "Home team score after this goal"
+                                    },
+                                    "away": {
+                                        "type": "integer",
+                                        "description": "Away team score after this goal"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substitutions": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "team_id",
+                            "in_time",
+                            "in_player_id",
+                            "out_time",
+                            "out_player_id",
+                            "period"
+                        ],
+                        "properties": {
+                            "team_id": {
+                                "type": "string",
+                                "description": "Identifier of the team who scored"
+                            },
+                            "in_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time a player is substituted in"
+                            },
+                            "period": {
+                                "type": "string",
+                                "enum": [
+                                    "first_half",
+                                    "second_half",
+                                    "first_half_extratime",
+                                    "second_half_extratime"
+                                ],
+                                "description": "Period of the game when the substitution occurred"
+                            },
+                            "in_player_id": {
+                                "type": "string",
+                                "description": "Identifier of the player that is substituted in"
+                            },
+                            "out_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time a player is substituted out"
+                            },
+                            "out_player_id": {
+                                "type": "string",
+                                "description": "Identifier of the player that is substituted out"
+                            }
+                        }
+                    }
+                },
+                "cards": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "team_id",
+                            "time",
+                            "period",
+                            "player_id",
+                            "type"
+                        ],
+                        "properties": {
+                            "team_id": {
+                                "type": "string",
+                                "description": "Identifier of the team who scored"
+                            },
+                            "time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time a player received a card"
+                            },
+                            "period": {
+                                "type": "string",
+                                "enum": [
+                                    "first_half",
+                                    "second_half",
+                                    "first_half_extratime",
+                                    "second_half_extratime"
+                                ],
+                                "description": "Period of the game when the card was shown"
+                            },
+                            "player_id": {
+                                "type": "string",
+                                "description": "Identifier of the player who received a card"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "yellow_card",
+                                    "red_card",
+                                    "second_yellow_card"
+                                ],
+                                "description": "Type of card which can be yellow card, red card or second yellow card"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "meta": {
+            "type": "object",
+            "required": [
+                "vendor"
+            ],
+            "properties": {
+                "vendor": {
+                    "type": "string",
+                    "description": "Match sheet data vendor name"
+                }
+            }
+        }
+    },
+    "definitions": {
+        "team": {
+            "type": "object",
+            "required": [
+                "id",
+                "players"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the team"
+                },
+                "short_name": {
+                    "type": "string",
+                    "description": "Short name of the team"
+                },
+                "formation": {
+                    "type": "string",
+                    "description": "Formation label of the team (e.g. '4-4-2')"
+                },
+                "players": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "first_name",
+                            "last_name",
+                            "team_id",
+                            "jersey_number",
+                            "is_starter",
+                            "has_played"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique player identifier"
+                            },
+                            "first_name": {
+                                "type": "string",
+                                "description": "First name"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "description": "Last name"
+                            },
+                            "short_name": {
+                                "type": "string",
+                                "description": "Short name"
+                            },
+                            "team_id": {
+                                "type": "string",
+                                "description": "Unique team identifier denoting the team the player plays for"
+                            },
+                            "jersey_number": {
+                                "type": "integer",
+                                "description": "Jersey number for a player"
+                            },
+                            "is_starter": {
+                                "type": "boolean",
+                                "description": "Denotes whether a player started the game (true) or not (false)"
+                            },
+                            "has_played": {
+                                "type": "boolean",
+                                "description": "Denotes whether a player played in game (true) or not (false)"
+                            },
+                            "maiden_name": {
+                                "type": "string",
+                                "description": "Maiden name"
+                            },
+                            "position_group": {
+                                "type": "string",
+                                "description": "Position group acronym given according to the CDF-compatible groups",
+                                "enum": ["GK", "DF", "MF", "FW", "SUB"]
+                            },
+                            "position": {
+                                "type": "string",
+                                "description": "Position label acronym per player given according to the CDF-compatible labels",
+                                "enum": [
+                                    "GK", 
+                                    "LB", "LCB", "CB", "RCB", "RB", 
+                                    "LDM", "CDM", "RDM", 
+                                    "LM", "LCM", "CM", "RCM", "RM",
+                                    "LAM", "CAM", "RAM", 
+                                    "LW", "LCF", "CF", "RCF", "RW",
+                                    "SUB"
+                                ]
+                            },
+                            "is_captain": {
+                                "type": "boolean",
+                                "description": "Whether the player is a captain (true) or not (false)"
+                            },
+                            "date_of_birth": {
+                                "type": "string",
+                                "format": "date",
+                                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                                "description": "A player's date of birth in YYYY-MM-DD format"
+                            },
+                            "height": {
+                                "type": "integer",
+                                "description": "Height of a player in cm"
+                            },
+                            "foot": {
+                                "type": "string",
+                                "enum": [
+                                    "left",
+                                    "right",
+                                    "both"
+                                ],
+                                "description": "A player's dominant foot, which can take the values left, right or both"
+                            },
+                            "alternative_id": {
+                                "type": "string",
+                                "description": "Additional identifier(s) of the player"
+                            }
+                        }
+                    }
+                },
+                "coaches": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "first_name",
+                            "last_name"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for a coach"
+                            },
+                            "first_name": {
+                                "type": "string",
+                                "description": "First name"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "description": "Last name"
+                            },
+                            "short_name": {
+                                "type": "string",
+                                "description": "Short name"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

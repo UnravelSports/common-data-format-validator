@@ -1,0 +1,5 @@
+jsonlines==4.0.0
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
+requests==2.32.3
+setuptools==79.0.0

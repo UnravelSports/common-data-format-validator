@@ -1,0 +1,254 @@
+{
+    "type": "object",
+    "required": [
+        "match",
+        "meta",
+        "event"
+    ],
+    "properties": {
+        "match": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique match identifier"
+                }
+            }
+        },
+        "meta": {
+            "type": "object",
+            "required": [
+                "is_synced"
+            ],
+            "properties": {
+                "is_synced": {
+                    "type": "boolean",
+                    "description": "Indicates if synced tracking data is available (true) or not (false)"
+                }
+            }
+        },
+        "event": {
+            "type": "object",
+            "required": [
+                "id",
+                "time",
+                "period",
+                "type",
+                "sub_type",
+                "outcome",
+                "outcome_detailed",
+                "player_id",
+                "team_id",
+                "receiver_id",
+                "receiver_time",
+                "x",
+                "y",
+                "x_end",
+                "y_end",
+                "body_part",
+                "related_event_ids"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier of the event"
+                },
+                "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Absolute time in UTC of when the event started"
+                },
+                "period": {
+                    "type": "string",
+                    "description": "Period of the match",
+                    "enum": [
+                        "first_half",
+                        "second_half",
+                        "first_half_extratime",
+                        "second_half_extratime",
+                        "shootout"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Name of the event type"
+                },
+                "sub_type": {
+                    "type": ["string", "null"],
+                    "description": "Name of the event subtype"
+                },
+                "outcome": {
+                    "type": "boolean",
+                    "description": "Denotes whether the event was successful (true) or not (false)"
+                },
+                "outcome_detailed": {
+                    "type": "string",
+                    "description": "Detailed event outcome options"
+                },
+                "player_id": {
+                    "type": "string",
+                    "description": "Unique identifier of the player performing the action"
+                },
+                "team_id": {
+                    "type": "string",
+                    "description": "Unique team identifier of the player performing the action"
+                },
+                "receiver_id": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Unique identifier of the player receiving a pass, leave null if event is not a pass"
+                },
+                "receiver_time": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time",
+                    "description": "Absolute time in UTC of the first moment the ball was received"
+                },
+                "x": {
+                    "type": "number",
+                    "description": "x location where the action of player_id happened (m)"
+                },
+                "y": {
+                    "type": "number",
+                    "description": "y location where the action of player_id happened (m)"
+                },
+                "x_end": {
+                    "type": "number",
+                    "description": "x location where the action of player_id ended (m)"
+                },
+                "y_end": {
+                    "type": "number",
+                    "description": "y location where the action of player_id ended (m)"
+                },
+                "body_part": {
+                    "type": "string",
+                    "description": "Denotes the body part used by player_id",
+                    "enum": [
+                        "left_foot",
+                        "right_foot",
+                        "head",
+                        "other"
+                    ]
+                },
+                "related_event_ids": {
+                    "type": ["array", "null"],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Unique identifier(s) of the events related to the action"
+                },
+                "match_clock": {
+                    "type": "string",
+                    "description": "The match clock as a string in format MM:SS.mm"
+                },
+                "metrics": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "properties": {
+                        "xg": {
+                            "type": [
+                                "number",
+                                "null"
+                            ],
+                            "description": "Calculated xG value between [0,1]"
+                        },
+                        "post_shot_xg": {
+                            "type": [
+                                "number",
+                                "null"
+                            ],
+                            "description": "Calculated post-shot xG value between [0,1]"
+                        },
+                        "xpass": {
+                            "type": [
+                                "number",
+                                "null"
+                            ],
+                            "description": "Calculated xPass value between [0,1]"
+                        },
+                        "epv": {
+                            "type": [
+                                "number",
+                                "null"
+                            ],
+                            "description": "Expected possession value between [-1,1]"
+                        },
+                        "packing_traditional": {
+                            "type": [
+                                "integer",
+                                "null"
+                            ],
+                            "description": "Number of opposing players that have been outplayed by a pass according to the traditional packing approach"
+                        },
+                        "packing_horizontal": {
+                            "type": [
+                                "integer",
+                                "null"
+                            ],
+                            "description": "Number of opposing players that have been outplayed by a pass according to the horizontal packing approach"
+                        }
+                    }
+                },
+                "var": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "properties": {
+                        "reviewed": {
+                            "type": "boolean",
+                            "description": "Was this event reviewed by the video assistant referee (true) or not (false"
+                        },
+                        "upheld": {
+                            "type": "boolean",
+                            "description": "Was the ruling on the field confirmed (true) or not (false)"
+                        }
+                    }
+                }
+            }
+        },
+        "tracking": {
+            "type": "object",
+            "properties": {
+                "frame_id": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "description": "Frame identifier from the tracking data related to the event at (x, y)"
+                },
+                "frame_id_end": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "description": "Frame identifier from the tracking data related to the event at (x_end, y_end)"
+                },
+                "player": {
+                    "type": "object",
+                    "properties": {
+                        "x": {
+                            "type": "number",
+                            "description": "x location of the player committing the action according to the tracking data"
+
+                        },
+                        "y": {
+                            "type": "number",
+                            "description": "y location of the player committing the action according to the tracking data"
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

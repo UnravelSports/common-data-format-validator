@@ -1,0 +1,1 @@
+{"frame_id":123456,"period":"first_half","match":{"id":"match_12345"},"ball_status": true,"teams":{"home":{"id":"team_1","players":[{"id":"player_1","x":23.5,"y":45.2},{"id":"player_2","x":56.3,"y":12.8}]},"away":{"id":"team_2","players":[{"id":"player_3","x":78.1,"y":34.9},{"id":"player_4","x":45.6,"y":89}]}},"ball":{"x":50,"y":50,"z":0.5}}
