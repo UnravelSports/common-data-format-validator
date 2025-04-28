@@ -104,7 +104,7 @@ No changes. Not yet supported in this package.
 - `meta/id_space/event` removed.
 - `meta/id_space/tracking` removed.
 
-#### Table 6. Optional Meta Data
+#### Table 10. Optional Meta Data
 - `match/round` description changed to reflect snake case (e.g. _semi_final_)
 - `match/misc/percipitation` data type changed to `Integer`
 - `stadium/turf` description changed to reflect snake case (e.g. `natural_reinforced`)
