@@ -8,7 +8,9 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 
 ## Changelog v0.2.0 (alpha)
 
-### Table 1. Mandatory Match Sheet Data
+### Match Sheet Data
+
+#### Table 1. Mandatory Match Sheet Data
 
 **match**
 - `match/result/final/winning_team_id` is of type String
@@ -37,20 +39,72 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
     - recorded in UTC.
 - `events/cards/{i}/team_id` It denotes the unique team identifier of the team that received the card.
 
-### Table 2. Mandatory Video Footage Data
+#### Table 7. Optional Match Sheet Data
+- `teams/{home|away}/players/{i}/date_of_birth` description changed to: "A player's data of birth in YYYY-MM-DD format*".
+- `teams/(home|away)/coaches/{i}/coach_id` renamed to `teams/(home|away)/coaches/{i}/id`
+- `teams/(home|away)/coaches/{i}/short_name` description changed to "Short name, a combination of First name (first) and Last name (e.g. Jane Doe, **not** J. Doe)"
+
+----
+
+### Video Footage Data
+
+#### Table 2. Mandatory Video Footage Data
 
 No changes. Not yet supported in this package.
 
-### Table 3. Mandatory Event Datas
+----
+
+### Mandatory Event Data
+
+#### Table 3. Mandatory Event Data
 - `event/type` description changed to: "Name of the event type _(e.g. shot, pass, referee, misc)_"
 - `event/outcome_detailed` description changed to: "[...] pass - (_e.g._ successful, out_of_play, intercepted) [...]"
 - `event/related_event_ids` shall be `null` if no related events exist.
 
-### Table 4. Mandatory Tracking Data
+#### Table 8. Mandatory Event Data
+- `tracking/frame_end_id` renamed to `tracking/frame_id_end`.
+- `tracking/x_player` renamed to `tracking/player/x`
+- `tracking/y_player` renamed to `tracking/player/y`
+- `event/metrics/xpass` renamed to `event/metrics/expected_pass`
+- `event/metrics/expected_poss_value` renamed to `event/metrics/epv`
+- `event/var/reviewed` is:
+    - changed to type Boolean.
+    - description changed to: "Was this event reviewed by the video assistant referee (true) or not (false)"
+- `event/var/upheld` is:
+    - changed to type Boolean.
+    - description changed to: "Was the on-field ruling confirmed (true) or overturned (false)"
+
+----
+
+### Mandatory Tracking Data
+
+#### Table 4. Mandatory Tracking Data
 - `period` description changed to: "Period of the match (first_half, second_half, _first_half_extratime_, _second_half_extratime_, shootout)"
+
+#### Table 9. Optional Tracking Data
+- `vendor/event` and `vendor/tracking` renamed to `vendor/{event|tracking}/name`
+- `teams/{home|away}/jersey_colour` description changed to reflect British spelling ("Jersey colour")
+
+---
+### Mandory Skeletal Data
 
 ### Table 5. Mandory Skeletal Data
 
 No changes. Not yet supported in this package.
 
-### Table 6. Mandatory Match Meta Data
+---
+
+### Meta Data
+
+#### Table 6. Mandatory Meta Data
+- `match/periods/{i}/period` renamed to `match/periods/{i}/type`.
+- `stadium/pitch_length` description changed to: "Length of the pitch (m), _null_ if not available."
+- `stadium/pitch_width` description changed to: "Width of the pitch (m), _null_ if not available."
+- `meta/id_space/match_data` removed.
+- `meta/id_space/event` removed.
+- `meta/id_space/tracking` removed.
+
+#### Table 6. Optional Meta Data
+- `match/round` description changed to reflect snake case (e.g. _semi_final_)
+- `match/misc/percipitation` data type changed to `Integer`
+- `stadium/turf` description changed to reflect snake case (e.g. `natural_reinforced`)
