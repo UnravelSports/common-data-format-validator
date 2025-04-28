@@ -1,5 +1,5 @@
 # ⚽ Common Data Format Schema Validator
-JSON Schema Validition for the Soccer Common Data Format (Anzer et al. 2025)
+JSON and JSONLines Schema Validition for the Soccer Common Data Format (Anzer et al. 2025)
 
 ----
 
