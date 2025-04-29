@@ -63,12 +63,12 @@ The validator checks:
 - Snake case is adhered for each key and for values (except for player names, city names, venue names etc.)
 - Data types are correct (e.g. boolean, integer etc.)
 - Value entries for specific fields are correct (e.g. period type can only be one of 5 values)
-- Position groups and positions follow naming conventions in CDF Appendix C Figure 7
+- [Position groups and positions follow naming conventions](https://github.com/UnravelSports/common-data-format-validator/blob/main/assets/positions-v0.2.0.pdf)
 
 The validator (currently) does not check:
 - Correct JSONLines line separator ('\n')
 - Correct UTF-8 encoding
-- Correct pitch dimensions ()
+- [Correct pitch dimensions](https://github.com/UnravelSports/common-data-format-validator/blob/main/assets/pitch-dimensions-v0.2.0.pdf)
 - British spelling
 - Color codes are hex (e.g. #FFC107)
 - If player_ids (or other ids) in meta are in tracking, event etc. or vice versa
