@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+authors:
+  - family-names: "Anzer"
+    given-names: "Gabriel"
+    affiliation: "RB Leipzig, Leipzig, Germany"
+  - family-names: "Arnsmeyer"
+    given-names: "Kilian"
+    affiliation: "Deutscher Fußball-Bund (DFB), Frankfurt, Germany"
+  - family-names: "Bauer"
+    given-names: "Pascal"
+    affiliation: "Deutscher Fußball-Bund (DFB), Frankfurt, Germany; Saarland University, Saarbrücken, Germany"
+  - family-names: "Bekkers"
+    given-names: "Joris"
+    affiliation: "U.S. Soccer Federation, Chicago, USA; UnravelSports, Breda, Netherlands; PySport, Eindhoven, Netherlands"
+  - family-names: "Brefeld"
+    given-names: "Ulf"
+    affiliation: "Leuphana University, Lüneburg, Germany"
+  - family-names: "Davis"
+    given-names: "Jesse"
+    affiliation: "KU Leuven, Leuven.AI, & LISS, Heverlee, Belgium"
+  - family-names: "Evans"
+    given-names: "Nicolas"
+    affiliation: "FIFA, Zurich, Switzerland"
+  - family-names: "Kempe"
+    given-names: "Matthias"
+    affiliation: "University of Groningen, Groningen, Netherlands"
+  - family-names: "Robertson"
+    given-names: "Samuel J"
+    affiliation: "FIFA, Zurich, Switzerland"
+  - family-names: "Smith"
+    given-names: "Joshua Wyatt"
+    affiliation: "Wyatt AI Inc., Montreal, Canada; Concordia University, Montreal, Canada"
+  - family-names: "Van Haaren"
+    given-names: "Jan"
+    affiliation: "KU Leuven, Leuven.AI, & LISS, Heverlee, Belgium; Club Brugge, Brugge, Belgium"
+title: "Common Data Format (CDF)—a Standardized Format for Match-Data in Football (Soccer)"
+version: 0.2.0
+date-released: 2025
+repository-code: "https://github.com/UnravelSports/common-data-format-validator"
+keywords:
+  - football
+  - soccer
+  - data format
+  - standardization
+  - match data
+license: MIT  
