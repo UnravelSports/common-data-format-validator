@@ -3,6 +3,8 @@ import json
 import jsonschema
 import pathlib
 import jsonlines
+from importlib import resources
+from typing import Literal
 
 
 from . import __cdf_version__, SCHEMA_PATH
@@ -55,17 +57,30 @@ class SchemaValidator:
         )
 
     @staticmethod
-    def _load_json(path):
-        with open(path, "r") as f:
-            schema_dict = json.load(f)
-        return schema_dict
+    def _load_json(path, folder: Literal["schema", "sample"] = "schema"):
+        base_filename = path.name
+
+        try:
+            # Using the newer resources.files API
+            with resources.files(f"cdf.files.{folder}").joinpath(base_filename).open(
+                "r"
+            ) as f:
+                schema_dict = json.load(f)
+                return schema_dict
+        except (FileNotFoundError, ValueError):
+            # Fallback to direct file access if needed
+            if path.exists():
+                with open(path, "r") as f:
+                    schema_dict = json.load(f)
+                    return schema_dict
+            raise FileNotFoundError(f"Schema file {path} not found")
 
     def _load_schema(self, schema):
         schema_path = pathlib.Path(schema)
 
         if schema_path.exists() and schema_path.is_file():
             if schema_path.suffix.lower() == ".json":
-                return self._load_json(schema_path)
+                return self._load_json(schema_path, folder="schema")
 
             else:
                 raise ValueError(
@@ -84,7 +99,7 @@ class SchemaValidator:
                     for i, json_object in enumerate(reader, 1):
                         return json_object
             elif sample_path.suffix.lower() == ".json":
-                return self._load_json(sample_path)
+                return self._load_json(sample_path, folder="sample")
             else:
                 raise ValueError(
                     f"Tracking Sample must be a dictionary (of a single frame) or a valid path to a JSONLines file, got {type(sample_path)}"

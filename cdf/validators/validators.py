@@ -23,3 +23,15 @@ class TrackingSchemaValidator(SchemaValidator):
     @classmethod
     def validator_type(cls):
         return "tracking"
+
+
+class SkeletalSchemaValidator(SchemaValidator):
+    @classmethod
+    def validator_type(cls):
+        return "skeletal"
+
+
+class VideoSchemaValidator(SchemaValidator):
+    @classmethod
+    def validator_type(cls):
+        return "video"

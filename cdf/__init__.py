@@ -3,6 +3,8 @@ from .validators import (
     MatchSchemaValidator,
     EventSchemaValidator,
     TrackingSchemaValidator,
+    SkeletalSchemaValidator,
+    VideoSchemaValidator,
     SCHEMA_PATH,
     __cdf_version__,
     __version__,

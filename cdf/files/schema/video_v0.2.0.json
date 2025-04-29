@@ -1,0 +1,111 @@
+{
+    "title": "Video Footage CDF Schema",
+    "type": "object",
+    "required": [
+        "match",
+        "recording",
+        "whistles"
+    ],
+    "properties": {
+        "match": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the match"
+                }
+            }
+        },
+        "recording": {
+            "type": "object",
+            "required": [
+                "fps",
+                "resolution",
+                "start_time",
+                "type",
+                "operation_type",
+                "perspective",
+                "camera"
+            ],
+            "properties": {
+                "fps": {
+                    "type": "integer",
+                    "description": "Frames per second (i.e. frame rate) from vendor"
+                },
+                "resolution": {
+                    "type": "string",
+                    "description": "Resolution of the video in pixels (e.g., 3840x2160, 1920x1080, ...)"
+                },
+                "start_time": {
+                    "type": "string",
+                    "description": "The start time in UTC of the recording",
+                    "format": "date-time"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Information how the video was recorded (e.g. fixed camera, camcorder,...)"
+                },
+                "operation_type": {
+                    "type": "string",
+                    "description": "Information whether the camera operation was manual or automated"
+                },
+                "perspective": {
+                    "type": "string",
+                    "description": "Camera angle (tactical_wide, camera_1, high_behind_right, high_behind_left, cable_camera, 16m_right, 16m_left, broadcast)"
+                },
+                "camera": {
+                    "type": "object",
+                    "required": ["x", "y", "z"],
+                    "properties": {
+                        "x": {
+                            "type": ["number", "null"],
+                            "description": "x location of the camera in relation to the pitch center (m)"
+                        },
+                        "y": {
+                            "type": ["number", "null"],
+                            "description": "y location of the camera in relation to the pitch center (m)"
+                        },
+                        "z": {
+                            "type": ["number", "null"],
+                            "description": "z location of the camera in relation to the pitch center (m)"
+                        }
+                    }
+                }
+            }
+        },
+        "whistles": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "sub_type",
+                    "time",
+                    "video_time"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "Whistles that start and end major periods of play such as the start and end of halves and interruptions"
+                    },
+                    "sub_type": {
+                        "type": "string",
+                        "description": "Sub type related to an interruption, for example start or end"
+                    },
+                    "time": {
+                        "type": "string",
+                        "description": "The time in UTC of the whistle",
+                        "format": "date-time"
+                    },
+                    "video_time": {
+                        "type": "integer",
+                        "description": "The time tag of the whistle in milliseconds"
+                    }
+                }
+            }
+        }
+    }
+}

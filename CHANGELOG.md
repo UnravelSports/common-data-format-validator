@@ -49,8 +49,16 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 ### Video Footage Data
 
 #### Table 2. Mandatory Video Footage Data
-
-No changes. Not yet supported in this package.
+- `match_id` is renamed to `match/id`.
+- `fps` is renamed to `recording/fps`.
+- `resolution` is renamed to `recording/resolution`.
+- `start_time` is renamed to `recording/start_time`.
+- `operation_type` is renamed to `recording/operation_type`.
+- `recording_type` is renamed to `recording/type`.
+- `perspective`  is renamed to `recording/perspective`.
+- `camera_location_x` is renamed to `recording/camera/x`
+- `camera_location_y` is renamed to `recording/camera/y`
+- `camera_location_z` is renamed to `recording/camera/z`
 
 ----
 
@@ -90,7 +98,7 @@ No changes. Not yet supported in this package.
 
 ### Table 5. Mandory Skeletal Data
 
-No changes. Not yet supported in this package.
+No changes.
 
 ---
 

@@ -11,4 +11,6 @@ from .validators import (
     MatchSchemaValidator,
     EventSchemaValidator,
     TrackingSchemaValidator,
+    SkeletalSchemaValidator,
+    VideoSchemaValidator,
 )
