@@ -1,5 +1,7 @@
 # ⚽ Common Data Format Schema Validator
-JSON and JSONLines Schema Validition for the Soccer Common Data Format (Anzer et al. 2025)
+JSON and JSONLines Schema Validition for the Soccer Common Data Format.
+
+> Anzer, G., Arnsmeyer, K., Bauer, P., Bekkers, J., Brefeld, U., Davis, J., Evans, N., Kempe, M., Robertson, S. J., Smith, J. W., & Van Haaren, J. (2025). Common Data Format (CDF)—a Standardized Format for Match-Data in Football (Soccer). [Unpublished manuscript / Preprint].
 
 ---
 
