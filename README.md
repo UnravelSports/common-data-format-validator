@@ -31,27 +31,27 @@ import cdf
 
 # Example valid tracking data
 validator = cdf.TrackingSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/tracking_v0.2.0.jsonl")
+validator.validate_schema(sample="tracking_v0.2.0.jsonl")
 
 # Example valid meta data
 validator = cdf.MetaSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/meta_v0.2.0.json")
+validator.validate_schema(sample="meta_v0.2.0.json")
 
 # Example valid event data
 validator = cdf.EventSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/event_v0.2.0.jsonl")
+validator.validate_schema(sample="event_v0.2.0.jsonl")
 
 # Example valid match data
 validator = cdf.MatchSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/match_v0.2.0.json")
+validator.validate_schema(sample="match_v0.2.0.json")
 
 # Example valid skeletal data
 validator = cdf.SkeletalSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/skeletal_v0.2.0.jsonl")
+validator.validate_schema(sample="skeletal_v0.2.0.jsonl")
 
 # Example valid video data
 validator = cdf.VideoSchemaValidator()
-validator.validate_schema(sample="cdf/files/sample/video_v0.2.0.json")
+validator.validate_schema(sample="video_v0.2.0.json")
 ```
 
 ----

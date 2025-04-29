@@ -5,6 +5,7 @@ import pathlib
 import jsonlines
 from importlib import resources
 from typing import Literal
+from io import StringIO
 
 
 from . import __cdf_version__, SCHEMA_PATH
@@ -58,54 +59,92 @@ class SchemaValidator:
 
     @staticmethod
     def _load_json(path, folder: Literal["schema", "sample"] = "schema"):
-        base_filename = path.name
+        """Internal utility to load JSON files from disk or package resources."""
+        # If file exists on disk, load it directly
+        if isinstance(path, pathlib.Path) and path.exists():
+            with open(path, "r") as f:
+                return json.load(f)
+
+        # Otherwise, try loading from package resources
+        filename = (
+            path.name if isinstance(path, pathlib.Path) else pathlib.Path(path).name
+        )
 
         try:
-            # Using the newer resources.files API
-            with resources.files(f"cdf.files.{folder}").joinpath(base_filename).open(
+            with resources.files(f"cdf.files.{folder}").joinpath(filename).open(
                 "r"
             ) as f:
-                schema_dict = json.load(f)
-                return schema_dict
-        except (FileNotFoundError, ValueError):
-            # Fallback to direct file access if needed
-            if path.exists():
-                with open(path, "r") as f:
-                    schema_dict = json.load(f)
-                    return schema_dict
-            raise FileNotFoundError(f"Schema file {path} not found")
-
-    def _load_schema(self, schema):
-        schema_path = pathlib.Path(schema)
-
-        if schema_path.exists() and schema_path.is_file():
-            if schema_path.suffix.lower() == ".json":
-                return self._load_json(schema_path, folder="schema")
-
-            else:
-                raise ValueError(
-                    f"Schema must be a dictionary or a valid path to a JSON file, got {type(schema)}"
-                )
-        else:
-            raise FileNotFoundError(f"File not found: {schema_path}")
+                return json.load(f)
+        except (FileNotFoundError, ValueError, ModuleNotFoundError):
+            raise FileNotFoundError(
+                f"JSON file '{filename}' not found on disk or in package resources ({folder})."
+            )
 
     def _load_sample(self, sample):
-        sample_path = pathlib.Path(sample)
+        # If sample is a dictionary, return it directly
+        if isinstance(sample, dict):
+            return sample
 
-        if sample_path.exists() and sample_path.is_file():
+        # Convert to Path if it's a string
+        sample_path = pathlib.Path(sample) if isinstance(sample, str) else sample
 
-            if sample_path.suffix.lower() == ".jsonl":
+        # Handle JSONL files
+        if sample_path.suffix.lower() == ".jsonl":
+            # If file exists on disk, use jsonlines
+            if sample_path.exists() and sample_path.is_file():
                 with jsonlines.open(sample_path) as reader:
                     for i, json_object in enumerate(reader, 1):
-                        return json_object
-            elif sample_path.suffix.lower() == ".json":
-                return self._load_json(sample_path, folder="sample")
+                        return json_object  # Return the first object
             else:
-                raise ValueError(
-                    f"Tracking Sample must be a dictionary (of a single frame) or a valid path to a JSONLines file, got {type(sample_path)}"
-                )
+                # For package resources, read the content and use jsonlines reader
+                try:
+                    filename = sample_path.name
+                    content = (
+                        resources.files("cdf.files.sample")
+                        .joinpath(filename)
+                        .read_text()
+                    )
+                    reader = jsonlines.Reader(StringIO(content))
+                    for i, json_object in enumerate(reader, 1):
+                        return json_object  # Return the first object
+                except (FileNotFoundError, ValueError, ModuleNotFoundError):
+                    raise FileNotFoundError(
+                        f"Sample JSONL file not found: {sample_path}"
+                    )
+
+        # Handle JSON files
+        elif sample_path.suffix.lower() == ".json" or not sample_path.exists():
+            try:
+                return self._load_json(sample_path, folder="sample")
+            except FileNotFoundError:
+                raise FileNotFoundError(f"Sample JSON file not found: {sample_path}")
+
+        # Invalid file type
         else:
-            raise FileNotFoundError(f"File not found: {sample_path}")
+            raise ValueError(
+                f"Sample must be a dictionary or a valid path to a JSON/JSONL file, got {sample_path.suffix}"
+            )
+
+    def _load_schema(self, schema):
+        # If schema is a dictionary, return it directly
+        if isinstance(schema, dict):
+            return schema
+
+        # Convert to Path if it's a string
+        schema_path = pathlib.Path(schema) if isinstance(schema, str) else schema
+
+        # Validate file extension if it exists on disk
+        if schema_path.exists() and schema_path.is_file():
+            if schema_path.suffix.lower() != ".json":
+                raise ValueError(
+                    f"Schema must be a dictionary or a valid path to a JSON file, got {schema_path.suffix}"
+                )
+
+        # Try to load the file
+        try:
+            return self._load_json(schema_path, folder="schema")
+        except FileNotFoundError as e:
+            raise FileNotFoundError(f"Schema file not found: {schema_path}")
 
     def is_snake_case(self, s):
         """Check if string follows snake_case pattern (lowercase with underscores)"""

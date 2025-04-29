@@ -15,11 +15,10 @@ setup(
     url="https://github.com/unravelsports/common-data-format-validator",
     packages=find_packages(),
     package_data={
-        "cdf": ["files/schema/*.json", "files/sample/*.json"],
+        "cdf": ["files/schema/*.json", "files/sample/*.json", "files/sample/*.jsonl"],
     },
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.10",
