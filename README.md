@@ -85,3 +85,4 @@ This validator currently relies on CDF "alpha" version 2, but includes all logic
 
 ----
 
+Software by [Joris Bekkers](https://www.linkedin.com/in/joris-bekkers-33138288/)
