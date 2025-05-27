@@ -37,6 +37,8 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 - `events/cards/{i}/card_time` is:
     - renamed to `events/cards/{i}/time`.
     - recorded in UTC.
+- `events/cards/{i}/card_player_id` is renamed to `events/cards/{i}/player_id`
+- `events/cards/{i}/card_type` is renamed to `events/cards/{i}/type`
 - `events/cards/{i}/team_id` It denotes the unique team identifier of the team that received the card.
 
 #### Table 7. Optional Match Sheet Data
@@ -56,16 +58,22 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 - `operation_type` is renamed to `recording/operation_type`.
 - `recording_type` is renamed to `recording/type`.
 - `perspective`  is renamed to `recording/perspective`.
-- `camera_location_x` is renamed to `recording/camera/x`
-- `camera_location_y` is renamed to `recording/camera/y`
-- `camera_location_z` is renamed to `recording/camera/z`
+- `camera_location_x` is:
+    - Renamed to `recording/camera/x`
+    - Type changed from `Integer` to `Float`
+- `camera_location_y` is:
+    - Renamed to `recording/camera/y`
+    - Type changed from `Integer` to `Float`
+- `camera_location_z`is:
+    - Renamed to `recording/camera/z`
+    - Type changed from `Integer` to `Float`
 
 ----
 
 ### Mandatory Event Data
 
 #### Table 3. Mandatory Event Data
-- `event/type` description changed to: "Name of the event type _(e.g. shot, pass, referee, misc)_"
+- `event/type` description changed to: "Name of the event type _(e.g. shot, pass, referee, misc etc.)_"
 - `event/outcome_detailed` description changed to: "[...] pass - (_e.g._ successful, out_of_play, intercepted) [...]"
 - `event/related_event_ids` shall be `null` if no related events exist.
 
@@ -73,7 +81,6 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 - `tracking/frame_end_id` renamed to `tracking/frame_id_end`.
 - `tracking/x_player` renamed to `tracking/player/x`
 - `tracking/y_player` renamed to `tracking/player/y`
-- `event/metrics/xpass` renamed to `event/metrics/expected_pass`
 - `event/metrics/expected_poss_value` renamed to `event/metrics/epv`
 - `event/var/reviewed` is:
     - changed to type Boolean.
