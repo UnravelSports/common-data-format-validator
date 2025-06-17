@@ -31,29 +31,29 @@ Once you have created your schema, you can check it's validity using the availab
 ```python
 import cdf
 
-# Example valid tracking data
+# # Example valid tracking data
 validator = cdf.TrackingSchemaValidator()
-validator.validate_schema(sample="tracking_v0.2.0.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/tracking.jsonl")
 
 # Example valid meta data
 validator = cdf.MetaSchemaValidator()
-validator.validate_schema(sample="meta_v0.2.0.json")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/meta.json")
 
 # Example valid event data
 validator = cdf.EventSchemaValidator()
-validator.validate_schema(sample="event_v0.2.0.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/event.jsonl")
 
 # Example valid match data
 validator = cdf.MatchSchemaValidator()
-validator.validate_schema(sample="match_v0.2.0.json")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/match.json")
 
 # Example valid skeletal data
 validator = cdf.SkeletalSchemaValidator()
-validator.validate_schema(sample="skeletal_v0.2.0.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/skeletal.jsonl")
 
 # Example valid video data
 validator = cdf.VideoSchemaValidator()
-validator.validate_schema(sample="video_v0.2.0.json")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/video.json")
 ```
 
 ----

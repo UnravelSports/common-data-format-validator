@@ -34,7 +34,7 @@ authors:
     given-names: "Jan"
     affiliation: "KU Leuven, Leuven.AI, & LISS, Heverlee, Belgium; Club Brugge, Brugge, Belgium"
 title: "Common Data Format (CDF)—a Standardized Format for Match-Data in Football (Soccer)"
-version: 0.2.0
+version: 0.2.1
 date-released: 2025
 repository-code: "https://github.com/UnravelSports/common-data-format-validator"
 keywords:

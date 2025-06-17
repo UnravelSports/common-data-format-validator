@@ -14,10 +14,11 @@ from cdf import (
     MetaSchemaValidator,
     EventSchemaValidator,
     MatchSchemaValidator,
-    __cdf_version__,
+    SkeletalSchemaValidator,
+    VERSION,
 )
 
-SAMPLE_PATH = Path("cdf", "files", "sample")
+SAMPLE_PATH = Path("cdf", "files")
 
 
 # Setup fixtures for each validator
@@ -41,14 +42,20 @@ def match_validator():
     return MatchSchemaValidator()
 
 
+@pytest.fixture
+def skeletal_validator():
+    return SkeletalSchemaValidator()
+
+
 # Sample file paths
 @pytest.fixture
 def sample_files():
     return {
-        "tracking": SAMPLE_PATH / f"tracking_v{__cdf_version__}.jsonl",
-        "meta": SAMPLE_PATH / f"meta_v{__cdf_version__}.json",
-        "event": SAMPLE_PATH / f"event_v{__cdf_version__}.jsonl",
-        "match": SAMPLE_PATH / f"match_v{__cdf_version__}.json",
+        "tracking": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"tracking.jsonl",
+        "meta": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"meta.json",
+        "event": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"event.jsonl",
+        "match": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"match.json",
+        "skeletal": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"skeletal.jsonl",
     }
 
 
@@ -65,6 +72,12 @@ def test_tracking_schema_validation(tracking_validator, sample_files):
 def test_meta_schema_validation(meta_validator, sample_files):
     """Test that meta schema validation runs without errors."""
     result = meta_validator.validate_schema(sample=sample_files["meta"])
+    assert result is None or result is True
+
+
+def test_skeleta_schema_validation(skeletal_validator, sample_files):
+    """Test that skeletal schema validation runs without errors."""
+    result = skeletal_validator.validate_schema(sample=sample_files["skeletal"])
     assert result is None or result is True
 
 

@@ -8,7 +8,7 @@ from typing import Literal
 from io import StringIO
 
 
-from . import __cdf_version__, SCHEMA_PATH
+from . import VERSION, FILES_PATH
 
 from .custom import validate_formation
 
@@ -37,7 +37,7 @@ CUSTOM_VALIDATORS = {"formation": validate_formation}
 class SchemaValidator:
     def __init__(self, schema=None, *args, **kwargs):
         if schema is None:
-            schema = SCHEMA_PATH / f"{self.validator_type()}_v{__cdf_version__}.json"
+            schema = FILES_PATH / f"v{VERSION}" / "schema" / f"{self.validator_type()}.json"
 
         # Handle schema as either dict or path to JSON file
         if not isinstance(schema, dict):
@@ -168,7 +168,7 @@ class SchemaValidator:
                 print(error)
         else:
             print(
-                f"Your {self.validator_type().capitalize()}Data schema is valid for version {__cdf_version__}."
+                f"Your {self.validator_type().capitalize()}Data schema is valid for version {VERSION}."
             )
 
     def _validate_item(self, item, path):
