@@ -37,7 +37,9 @@ CUSTOM_VALIDATORS = {"formation": validate_formation}
 class SchemaValidator:
     def __init__(self, schema=None, *args, **kwargs):
         if schema is None:
-            schema = FILES_PATH / f"v{VERSION}" / "schema" / f"{self.validator_type()}.json"
+            schema = (
+                FILES_PATH / f"v{VERSION}" / "schema" / f"{self.validator_type()}.json"
+            )
 
         # Handle schema as either dict or path to JSON file
         if not isinstance(schema, dict):
