@@ -1,4 +1,4 @@
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 from .validators import (
     MetaSchemaValidator,
@@ -7,6 +7,6 @@ from .validators import (
     TrackingSchemaValidator,
     SkeletalSchemaValidator,
     VideoSchemaValidator,
-    SCHEMA_PATH,
-    __cdf_version__,
+    FILES_PATH,
+    VERSION,
 )

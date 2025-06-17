@@ -1,8 +1,8 @@
 from pathlib import Path
 
-__cdf_version__ = "0.2.0"
+VERSION = "0.2.1"
 
-SCHEMA_PATH = Path("cdf", "files", "schema")
+FILES_PATH = Path("cdf", "files")
 
 from .validators import (
     MetaSchemaValidator,

@@ -6,11 +6,91 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 
 ---
 
-## Changelog v0.2.0 (alpha)
+## 🗒️ Changelog v0.2.1 (alpha) - June 17th 2025
 
-### Match Sheet Data
+### General
+
+- Added table "Optional Video Data" to the Appendix (B.2.). This means all table numbers after this are now shifted by 1 (e.g. Optional Event Data was Table 8, it is now Table 9).
+
+### Match Sheet Data 
 
 #### Table 1. Mandatory Match Sheet Data
+No changes
+#### Table 7. Optional Match Sheet Data
+No changes
+
+---
+
+### Video Footage Data
+
+#### Table 2. Mandatory Video Footage Data
+- Removed `recording/location/x`
+- Removed `recording/location/y`
+- Removed `recording/location/z`
+
+#### Table 8. Optional Video Footage Data
+- Created this table in the Appendix
+- Added `recording/location/x`
+- Added `recording/location/y`
+- Added `recording/location/z`
+
+---
+
+### Mandatory Event Data
+
+#### Table 3. Mandatory Event Data
+- Renamed `event/outcome` to `event/is_successful`
+- Renamed `event/outcome_detailed` to `event/outcome_type`
+- Changed description of `receiver_id` to "Unique identifier of the player receiving a pass. Leave _null_ when the event is not a pass **or when the pass has no receiver.**" 
+- Changed description of `receiver_time` to "Absolute time in UTC of the first moment the ball was received. Leave _null_ when the event is not a pass **or when the pass has no receiver.**" 
+
+#### Table 9. Mandatory Event Data
+- Changed to Table 9.
+
+----
+
+### Mandatory Tracking Data
+
+In Section 5.2: "Every period starts with frame = 0" is changed to "Frame identifiers should be monotonically increasing unique integers starting at 0."
+
+#### Table 4. Mandatory Tracking Data
+- Added the field `timestamp` with description "Timestamp of the frame in UTC."
+
+#### Table 10. Optional Tracking Data
+- Changed to Table 10.
+
+---
+
+### Mandory Skeletal Data
+
+### Table 5. Mandory Skeletal Data
+- Added the field `timestamp` with description "Timestamp of the frame in UTC."
+- Changed Description of `teams/{home|away}/players/{i}/landmarks/{j}/name` to "Name for a landmark".
+- Changed Type of `is_visible` to Boolean.
+- Changed Description of `is_visible` to " If landmark is detected (i.e., not occluded) or inferred (false)"
+
+---
+
+### Meta Data
+
+#### Table 6. Mandatory Meta Data
+- Renamed `meta/limb` to `meta/landmarks`
+- Renamed `meta/{event|tracking|video|limb|ball|meta|cdf}` to `meta/{event|tracking|video|landmarks|ball|meta|cdf}` 
+- Renamed `meta/{event|tracking|video|limb|ball|meta}` to `meta/{event|tracking|video|landmarks|ball|meta}`
+- Renamed `meta/{tracking|video|limb|ball}` to `meta/{tracking|video|landmarks|ball}`
+- Renamed `meta/{event|tracking|limb|ball}` to `meta/{event|tracking|landmarks|ball}`
+- Updated `meta/{event|tracking|video|landmarks|ball|meta|cdf}` to include "event"
+- Updated `meta/{event|tracking|video|landmarks|ball|meta}` to include "event"
+
+#### Table 10. Optional Meta Data
+
+---
+
+## 🗒️  Changelog v0.2.0 (alpha) - April 29th 2025
+
+### Match Sheet Data 
+
+---
 
 **match**
 - `match/result/final/winning_team_id` is of type String
@@ -123,3 +203,5 @@ No changes.
 - `match/round` description changed to reflect snake case (e.g. _semi_final_)
 - `match/misc/percipitation` data type changed to `Integer`
 - `stadium/turf` description changed to reflect snake case (e.g. `natural_reinforced`)
+
+

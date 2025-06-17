@@ -1,9 +1,10 @@
 {
     "title": "CDF Tracking Data Schema",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "type": "object",
     "required": [
         "frame_id",
+        "timestamp",
         "period",
         "match",
         "teams",
@@ -12,6 +13,10 @@
     "properties": {
         "frame_id": {
             "type": "integer"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
         },
         "period": {
             "type": "string",
