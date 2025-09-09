@@ -1,4 +1,6 @@
 from setuptools import setup, find_packages
+
+builtins.__CDFV_SETUP__ = True
 from cdf import __version__ as package_version
 
 with open("README.md", "r", encoding="utf-8") as fh:
