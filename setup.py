@@ -1,3 +1,4 @@
+import builtins
 from setuptools import setup, find_packages
 
 builtins.__CDFV_SETUP__ = True
