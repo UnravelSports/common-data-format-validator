@@ -15,4 +15,4 @@ if not __CDFV_SETUP__:
         VERSION,
     )
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
