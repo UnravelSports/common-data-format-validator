@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: generate-domain-files
+        name: Generate latest domain files
+        entry: python generate_latest_domain.py
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
