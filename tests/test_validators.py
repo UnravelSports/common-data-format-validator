@@ -104,3 +104,30 @@ def test_tracking_schema_validation_failure(tracking_validator, tmp_path):
     # Expect validation to fail
     with pytest.raises(Exception):  # Replace with specific exception if known
         tracking_validator.validate_schema(sample=str(invalid_file))
+
+
+def test_all_domain_files_have_correct_version():
+    """Ensure all generated domain files match the current VERSION."""
+    domain_dir = Path("cdf/domain/latest")
+    expected_header = f"# Auto-generated from JSON Schema v{VERSION}"
+
+    files_to_check = [f for f in domain_dir.glob("*.py") if f.name != "__init__.py"]
+
+    assert len(files_to_check) > 0, "No domain files found"
+
+    failed_files = []
+
+    for file_path in files_to_check:
+        with open(file_path) as f:
+            first_line = f.readline().strip()
+
+        if expected_header not in first_line:
+            failed_files.append(file_path.name)
+
+    if failed_files:
+        pytest.fail(
+            f"❌ These files have wrong version headers:\n  "
+            + "\n  ".join(failed_files)
+            + f"\n\nExpected: {expected_header}\n"
+            f"Run: python generate_latest_domain.py"
+        )
