@@ -1,10 +1,17 @@
+# .pre-commit-config.yaml
 repos:
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3.11
+  
   - repo: local
     hooks:
-      - id: generate-domain-files
-        name: Generate latest domain files
-        entry: python generate_latest_domain.py
+      - id: pytest-check
+        name: Run tests
+        entry: pytest tests
         language: system
         pass_filenames: false
         always_run: true
-        stages: [commit]
+        stages: [pre-commit]

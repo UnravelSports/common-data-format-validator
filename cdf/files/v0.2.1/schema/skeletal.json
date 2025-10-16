@@ -24,8 +24,8 @@
             "enum": [
                 "first_half",
                 "second_half",
-                "first_half_extra",
-                "second_half_extra",
+                "first_half_extratime",
+                "second_half_extratime",
                 "shootout"
             ],
             "description": "Period of the match"

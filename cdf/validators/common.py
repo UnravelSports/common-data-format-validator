@@ -40,7 +40,7 @@ class SchemaValidator:
             # Use importlib.resources to access package data
             schema_files = resources.files("cdf") / "files" / f"v{VERSION}" / "schema"
             schema_path = schema_files / f"{self.validator_type()}.json"
-            
+
             # Read the schema file
             with schema_path.open("r") as f:
                 schema_dict = json.load(f)
@@ -93,19 +93,21 @@ class SchemaValidator:
 
         # Otherwise, try loading from package resources
         filename = sample_path.name
-        
+
         if filename.endswith(".jsonl"):
             try:
                 content = (
-                    resources.files("cdf") / "files" / f"v{VERSION}" / "sample" / filename
+                    resources.files("cdf")
+                    / "files"
+                    / f"v{VERSION}"
+                    / "sample"
+                    / filename
                 ).read_text()
                 reader = jsonlines.Reader(StringIO(content))
                 for json_object in reader:
                     return json_object  # Return the first object
             except (FileNotFoundError, ValueError, ModuleNotFoundError):
-                raise FileNotFoundError(
-                    f"Sample JSONL file not found: {filename}"
-                )
+                raise FileNotFoundError(f"Sample JSONL file not found: {filename}")
         elif filename.endswith(".json"):
             try:
                 return self._load_json_from_package(VERSION, "sample", filename)
@@ -135,10 +137,10 @@ class SchemaValidator:
 
         # Otherwise, try loading from package resources
         filename = schema_path.name
-        
+
         if not filename.endswith(".json"):
             raise ValueError(f"Schema must be a JSON file, got {filename}")
-            
+
         try:
             return self._load_json_from_package(VERSION, "schema", filename)
         except (FileNotFoundError, ValueError, ModuleNotFoundError):
