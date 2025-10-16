@@ -37,12 +37,15 @@ CUSTOM_VALIDATORS = {"formation": validate_formation}
 class SchemaValidator:
     def __init__(self, schema=None, *args, **kwargs):
         if schema is None:
-            schema = (
-                FILES_PATH / f"v{VERSION}" / "schema" / f"{self.validator_type()}.json"
-            )
-
-        # Handle schema as either dict or path to JSON file
-        if not isinstance(schema, dict):
+            # Use importlib.resources to access package data
+            schema_files = resources.files("cdf") / "files" / f"v{VERSION}" / "schema"
+            schema_path = schema_files / f"{self.validator_type()}.json"
+            
+            # Read the schema file
+            with schema_path.open("r") as f:
+                schema_dict = json.load(f)
+        elif not isinstance(schema, dict):
+            # Handle schema as path (for backwards compatibility)
             schema_dict = self._load_schema(schema)
         else:
             schema_dict = schema
@@ -60,27 +63,11 @@ class SchemaValidator:
         )
 
     @staticmethod
-    def _load_json(path, folder: Literal["schema", "sample"] = "schema"):
-        """Internal utility to load JSON files from disk or package resources."""
-        # If file exists on disk, load it directly
-        if isinstance(path, pathlib.Path) and path.exists():
-            with open(path, "r") as f:
-                return json.load(f)
-
-        # Otherwise, try loading from package resources
-        filename = (
-            path.name if isinstance(path, pathlib.Path) else pathlib.Path(path).name
-        )
-
-        try:
-            with resources.files(f"cdf.files.{folder}").joinpath(filename).open(
-                "r"
-            ) as f:
-                return json.load(f)
-        except (FileNotFoundError, ValueError, ModuleNotFoundError):
-            raise FileNotFoundError(
-                f"JSON file '{filename}' not found on disk or in package resources ({folder})."
-            )
+    def _load_json_from_package(version, folder: Literal["schema", "sample"], filename):
+        """Load JSON file from package resources."""
+        file_path = resources.files("cdf") / "files" / f"v{version}" / folder / filename
+        with file_path.open("r") as f:
+            return json.load(f)
 
     def _load_sample(self, sample):
         # If sample is a dictionary, return it directly
@@ -90,41 +77,43 @@ class SchemaValidator:
         # Convert to Path if it's a string
         sample_path = pathlib.Path(sample) if isinstance(sample, str) else sample
 
-        # Handle JSONL files
-        if sample_path.suffix.lower() == ".jsonl":
-            # If file exists on disk, use jsonlines
-            if sample_path.exists() and sample_path.is_file():
+        # If file exists on disk, load it directly
+        if sample_path.exists() and sample_path.is_file():
+            if sample_path.suffix.lower() == ".jsonl":
                 with jsonlines.open(sample_path) as reader:
-                    for i, json_object in enumerate(reader, 1):
+                    for json_object in reader:
                         return json_object  # Return the first object
+            elif sample_path.suffix.lower() == ".json":
+                with open(sample_path, "r") as f:
+                    return json.load(f)
             else:
-                # For package resources, read the content and use jsonlines reader
-                try:
-                    filename = sample_path.name
-                    content = (
-                        resources.files("cdf.files.sample")
-                        .joinpath(filename)
-                        .read_text()
-                    )
-                    reader = jsonlines.Reader(StringIO(content))
-                    for i, json_object in enumerate(reader, 1):
-                        return json_object  # Return the first object
-                except (FileNotFoundError, ValueError, ModuleNotFoundError):
-                    raise FileNotFoundError(
-                        f"Sample JSONL file not found: {sample_path}"
-                    )
+                raise ValueError(
+                    f"Sample must be a JSON or JSONL file, got {sample_path.suffix}"
+                )
 
-        # Handle JSON files
-        elif sample_path.suffix.lower() == ".json" or not sample_path.exists():
+        # Otherwise, try loading from package resources
+        filename = sample_path.name
+        
+        if filename.endswith(".jsonl"):
             try:
-                return self._load_json(sample_path, folder="sample")
-            except FileNotFoundError:
-                raise FileNotFoundError(f"Sample JSON file not found: {sample_path}")
-
-        # Invalid file type
+                content = (
+                    resources.files("cdf") / "files" / f"v{VERSION}" / "sample" / filename
+                ).read_text()
+                reader = jsonlines.Reader(StringIO(content))
+                for json_object in reader:
+                    return json_object  # Return the first object
+            except (FileNotFoundError, ValueError, ModuleNotFoundError):
+                raise FileNotFoundError(
+                    f"Sample JSONL file not found: {filename}"
+                )
+        elif filename.endswith(".json"):
+            try:
+                return self._load_json_from_package(VERSION, "sample", filename)
+            except (FileNotFoundError, ValueError, ModuleNotFoundError):
+                raise FileNotFoundError(f"Sample JSON file not found: {filename}")
         else:
             raise ValueError(
-                f"Sample must be a dictionary or a valid path to a JSON/JSONL file, got {sample_path.suffix}"
+                f"Sample must be a dictionary or a valid path to a JSON/JSONL file"
             )
 
     def _load_schema(self, schema):
@@ -135,18 +124,25 @@ class SchemaValidator:
         # Convert to Path if it's a string
         schema_path = pathlib.Path(schema) if isinstance(schema, str) else schema
 
-        # Validate file extension if it exists on disk
+        # If file exists on disk, load it directly
         if schema_path.exists() and schema_path.is_file():
             if schema_path.suffix.lower() != ".json":
                 raise ValueError(
-                    f"Schema must be a dictionary or a valid path to a JSON file, got {schema_path.suffix}"
+                    f"Schema must be a JSON file, got {schema_path.suffix}"
                 )
+            with open(schema_path, "r") as f:
+                return json.load(f)
 
-        # Try to load the file
+        # Otherwise, try loading from package resources
+        filename = schema_path.name
+        
+        if not filename.endswith(".json"):
+            raise ValueError(f"Schema must be a JSON file, got {filename}")
+            
         try:
-            return self._load_json(schema_path, folder="schema")
-        except FileNotFoundError as e:
-            raise FileNotFoundError(f"Schema file not found: {schema_path}")
+            return self._load_json_from_package(VERSION, "schema", filename)
+        except (FileNotFoundError, ValueError, ModuleNotFoundError):
+            raise FileNotFoundError(f"Schema file not found: {filename}")
 
     def is_snake_case(self, s):
         """Check if string follows snake_case pattern (lowercase with underscores)"""
@@ -207,5 +203,5 @@ class SchemaValidator:
             ):
                 if not self.is_snake_case(item):
                     self.errors.append(
-                        f"String value at '{current_path}' is not in snake_case  value {value}"
+                        f"String value at '{current_path}' is not in snake_case value {item}"
                     )
