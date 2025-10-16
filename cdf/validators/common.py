@@ -8,7 +8,7 @@ from typing import Literal
 from io import StringIO
 
 
-from . import VERSION, FILES_PATH
+from . import VERSION
 
 from .custom import validate_formation
 

@@ -11,8 +11,7 @@ if not __CDFV_SETUP__:
         TrackingSchemaValidator,
         SkeletalSchemaValidator,
         VideoSchemaValidator,
-        FILES_PATH,
         VERSION,
     )
 
-__version__ = "0.0.7"
+__version__ = "0.0.8"
