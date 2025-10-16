@@ -20,6 +20,7 @@ setup(
     package_data={
         "cdf": ["files/v*/schema/*.json", "files/v*/sample/*.json", "files/v*/sample/*.jsonl"],
     },
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",

@@ -3,3 +3,5 @@ include LICENSE
 include requirements.txt
 recursive-include cdf *.json
 recursive-include cdf *.jsonl
+recursive-include cdf/files *.json
+recursive-include cdf/files *.jsonl
