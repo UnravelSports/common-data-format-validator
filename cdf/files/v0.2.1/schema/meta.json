@@ -93,8 +93,7 @@
                   "first_half_extratime",
                   "second_half_extratime",
                   "shootout"
-                ],
-                "description": "Period of the match"
+                ]
               },
               "play_direction": {
                 "type": "string",
@@ -437,48 +436,48 @@
     }
   },
   "definitions": {
-      "team": {
-        "type": "object",
-        "required": [
-          "id",
-          "players"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for the home team"
-          },
-          "players": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "id",
-                "team_id",
-                "jersey_number",
-                "is_starter"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "Unique player identifier"
-                },
-                "team_id": {
-                  "type": "string",
-                  "description": "Unique team identifier denoting the team the player plays for"
-                },
-                "jersey_number": {
-                  "type": "integer",
-                  "description": "Jersey number for a player"
-                },
-                "is_starter": {
-                  "type": "boolean",
-                  "description": "Denotes whether a player started the game (true) or not (false)"
-                }
+    "team": {
+      "type": "object",
+      "required": [
+        "id",
+        "players"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the home team"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "team_id",
+              "jersey_number",
+              "is_starter"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique player identifier"
+              },
+              "team_id": {
+                "type": "string",
+                "description": "Unique team identifier denoting the team the player plays for"
+              },
+              "jersey_number": {
+                "type": "integer",
+                "description": "Jersey number for a player"
+              },
+              "is_starter": {
+                "type": "boolean",
+                "description": "Denotes whether a player started the game (true) or not (false)"
               }
             }
           }
         }
       }
     }
+  }
 }

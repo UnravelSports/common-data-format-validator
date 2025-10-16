@@ -63,7 +63,6 @@
                 },
                 "period": {
                     "type": "string",
-                    "description": "Period of the match",
                     "enum": [
                         "first_half",
                         "second_half",
@@ -77,7 +76,10 @@
                     "description": "Name of the event type"
                 },
                 "sub_type": {
-                    "type": ["string", "null"],
+                    "type": [
+                        "string",
+                        "null"
+                    ],
                     "description": "Name of the event subtype"
                 },
                 "is_successful": {
@@ -138,7 +140,10 @@
                     ]
                 },
                 "related_event_ids": {
-                    "type": ["array", "null"],
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "items": {
                         "type": "string"
                     },
@@ -239,12 +244,10 @@
                         "x": {
                             "type": "number",
                             "description": "x location of the player committing the action according to the tracking data"
-
                         },
                         "y": {
                             "type": "number",
                             "description": "y location of the player committing the action according to the tracking data"
-
                         }
                     }
                 }
