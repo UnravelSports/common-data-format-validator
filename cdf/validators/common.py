@@ -10,7 +10,7 @@ from io import StringIO
 
 from . import VERSION
 
-from .custom import validate_formation
+from .custom import validate_formation, ValidationWarning
 
 SKIP_SNAKE_CASE = [
     "country",
@@ -150,7 +150,7 @@ class SchemaValidator:
         """Check if string follows snake_case pattern (lowercase with underscores)"""
         return bool(re.match(r"^[a-z][a-z0-9_]*$", s))
 
-    def validate_schema(self, sample):
+    def validate_schema(self, sample, soft: bool = True):
         """Validate the instance against the schema plus snake_case etc"""
         instance = self._load_sample(sample)
 
@@ -163,9 +163,15 @@ class SchemaValidator:
         self._validate_item(instance, [])
 
         if self.errors:
-            print("A validation error occurred...")
             for error in self.errors:
-                print(error)
+                if not soft:
+                    from jsonschema.exceptions import ValidationError
+
+                    raise ValidationError(error)
+                else:
+                    import warnings
+
+                    warnings.warn(f"{error}", ValidationWarning)
         else:
             print(
                 f"Your {self.validator_type().capitalize()}Data schema is valid for version {VERSION}."
