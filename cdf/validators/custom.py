@@ -1,5 +1,7 @@
 import re
 
+import warnings
+
 
 def validate_formation(s):
     # Check format using regex
@@ -12,3 +14,9 @@ def validate_formation(s):
     total = sum(numbers)
 
     return 7 <= total <= 10
+
+
+class ValidationWarning(UserWarning):
+    """Warning for validation issues."""
+
+    pass
