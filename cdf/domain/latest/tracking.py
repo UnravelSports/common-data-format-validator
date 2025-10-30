@@ -1,10 +1,10 @@
-# Auto-generated from JSON Schema v0.2.1
+# Auto-generated from JSON Schema v0.2.2
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import List, Literal, TypedDict
+from typing import List, Literal, Optional, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -14,16 +14,16 @@ class Match(TypedDict):
 
 
 class Ball(TypedDict):
-    x: float
-    y: float
-    z: float
+    x: Optional[float]
+    y: Optional[float]
+    z: Optional[float]
 
 
 class Referee(TypedDict):
     id: str
-    x: float
-    y: float
-    z: NotRequired[float]
+    x: Optional[float]
+    y: Optional[float]
+    z: NotRequired[Optional[float]]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -47,9 +47,9 @@ class Vendor(TypedDict):
 
 class Player(TypedDict):
     id: str
-    x: float
-    y: float
-    z: NotRequired[float]
+    x: Optional[float]
+    y: Optional[float]
+    z: NotRequired[Optional[float]]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -59,8 +59,8 @@ class Player(TypedDict):
 
 
 class Team(TypedDict):
-    id: NotRequired[str]
-    players: NotRequired[List[Player]]
+    id: str
+    players: List[Player]
     name: NotRequired[str]
     jersey_colour: NotRequired[str]
     formation: NotRequired[str]

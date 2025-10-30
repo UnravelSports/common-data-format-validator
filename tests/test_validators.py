@@ -129,5 +129,5 @@ def test_all_domain_files_have_correct_version():
             f"❌ These files have wrong version headers:\n  "
             + "\n  ".join(failed_files)
             + f"\n\nExpected: {expected_header}\n"
-            f"Run: python generate_latest_domain.py"
+            f">>> Run: python generate_latest_domain.py"
         )
