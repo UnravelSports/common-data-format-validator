@@ -4,6 +4,28 @@ This changelog references Anzer et al. 2025. The changelog is structured to foll
 
 Each table in the paper discusses mandatory and optional Match Sheet, Video Footage, Event, Tracking, Skeletal and Meta data.
 
+--
+
+## 🗒️ Changelog v0.2.2 (alpha) - October 30th 2025
+
+---
+
+### Mandatory Tracking Data
+
+#### Table 4. Mandatory Tracking Data
+- Changed `player/x`, `player/y`, `player/z` from Mandatory to Optional (to accommodate missing data as `None`; these fields remain **explicitly required** in practice)
+- Changed `ball/x`, `ball/y`, `ball/z` from Mandatory to Optional (to accommodate missing data as `None`; these fields remain **explicitly required** in practice)
+- Changed `referee/x`, `referee/y`, `referee/z` from Mandatory to Optional (to accommodate missing data as `None`; these fields remain **explicitly required** in practice)
+- Clarified that `teams/home/id` and `teams/away/id` are **strictly required** for each frame
+- Clarified that `teams/home/players` and `teams/away/players` lists are **strictly required** for each frame
+
+---
+
+### Meta Data
+
+#### Table 6. Mandatory Meta Data
+- Renamed all references from "limb" to "landmarks" (terminology update across meta schema)
+
 ---
 
 ## 🗒️ Changelog v0.2.1 (alpha) - June 17th 2025

@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.1
+# Auto-generated from JSON Schema v0.2.2
 # Do not edit manually - run generate_latest_domain.py
 
 

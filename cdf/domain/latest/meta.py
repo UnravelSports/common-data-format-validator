@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.1
+# Auto-generated from JSON Schema v0.2.2
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -113,10 +113,12 @@ class Tracking(TypedDict):
     )
 
 
-class Limb(TypedDict):
-    version: str  # Version number for the limb data collection in use (e.g. '0.1.0')
-    name: str  # Vendor name of the limb tracking data
-    fps: int  # Frames per second (i.e., frame rate) of limb tracking
+class Landmarks(TypedDict):
+    version: (
+        str  # Version number for the landmark data collection in use (e.g. '0.1.0')
+    )
+    name: str  # Vendor name of the landmark tracking data
+    fps: int  # Frames per second (i.e., frame rate) of landmark tracking
     collection_timing: (
         str  # Indicates if the limb data was collected live or post match
     )
@@ -146,9 +148,9 @@ class Meta(TypedDict):
         Optional[Event]
     ]  # Event data meta information, null if not relevant
     tracking: Optional[Tracking]  # Tracking data meta information, null if not relevant
-    limb: NotRequired[
-        Optional[Limb]
-    ]  # Limb tracking data meta information, null if not relevant
+    landmarks: Optional[
+        Landmarks
+    ]  # Landmark tracking data meta information, null if not relevant
     ball: NotRequired[
         Optional[Ball]
     ]  # Ball tracking data meta information, null if not relevant. Only relevant when providing an independent ball file.
