@@ -1,6 +1,7 @@
 {
-    "title": "Official Match Data",
-    "description": "Schema for validating match data according to the CDF specification",
+    "title": "Common Data Format - Official Match Data",
+    "version": "0.2.2",
+    "description": "**Version 0.2.2**\n\nThis schema defines the Official Match Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).",
     "type": "object",
     "required": [
         "match",

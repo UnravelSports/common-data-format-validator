@@ -1,6 +1,6 @@
 {
-    "title": "CDF Skeletal Tracking Data Schema",
-    "version": "0.3.0",
+    "title": "Common Data Format - Skeletal Tracking Data Schema",
+    "description": "**Version 0.2.2**\n\nThis schema defines the Skeletal Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).\n\nThis schema describes a single JSON Object with a JSON Lines file.",
     "type": "object",
     "required": [
         "frame_id",

@@ -1,4 +1,6 @@
 {
+    "title": "Common Data Format - Event Data Schema",
+    "description": "**Version 0.2.2**\n\nThis schema defines the Event Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).\n\nThis schema describes a single JSON Object with a JSON Lines file.",
     "type": "object",
     "required": [
         "match",
