@@ -2,6 +2,8 @@ import pytest
 import os
 from pathlib import Path
 import sys
+import json
+import re
 
 # Get the project root directory
 project_root = Path(__file__).parent.parent
@@ -47,6 +49,12 @@ def skeletal_validator():
     return SkeletalSchemaValidator()
 
 
+@pytest.fixture
+def index_html_path():
+    """Return the path to the index.html file."""
+    return Path("docs/index.html")
+
+
 # Sample file paths
 @pytest.fixture
 def sample_files():
@@ -56,6 +64,17 @@ def sample_files():
         "event": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"event.jsonl",
         "match": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"match.json",
         "skeletal": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"skeletal.jsonl",
+    }
+
+
+@pytest.fixture
+def schema_files():
+    return {
+        "tracking": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"tracking.json",
+        "meta": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"meta.json",
+        "event": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"event.json",
+        "match": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"match.json",
+        "skeletal": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"skeletal.json",
     }
 
 
@@ -131,3 +150,59 @@ def test_all_domain_files_have_correct_version():
             + f"\n\nExpected: {expected_header}\n"
             f">>> Run: python generate_latest_domain.py"
         )
+
+
+def test_schema_has_version_in_description(schema_files):
+    """
+    Test that each schema file has the correct VERSION in its description.
+
+    Args:
+        schema_files: Path to the schema files to test
+    """
+
+    for schema, schema_file in schema_files.items():
+
+        # Load the schema
+        with open(schema_file, "r", encoding="utf-8") as f:
+            schema = json.load(f)
+
+        # Check that description key exists
+        assert "description" in schema, f"{schema_file} is missing 'description' key"
+
+        description = schema["description"]
+
+        assert VERSION in description, (
+            f"{schema_file} description does not contain VERSION '{VERSION}'. "
+            f"Description: {description}"
+        )
+
+
+def test_index_html_has_correct_version(index_html_path):
+    """
+    Test that the index.html file contains the correct VERSION in the version badge.
+
+    Looks for pattern: <span class="version-badge">Version X.Y.Z</span>
+    """
+    # Read the HTML file
+    with open(index_html_path, "r", encoding="utf-8") as f:
+        html_content = f.read()
+
+    # Check if the file contains any version badge
+    version_badge_pattern = r'<span class="version-badge">Version ([^<]+)</span>'
+    match = re.search(version_badge_pattern, html_content)
+
+    assert match, (
+        f"Could not find version badge in {index_html_path}. "
+        f'Expected pattern: <span class="version-badge">Version X.Y.Z</span>'
+    )
+
+    # Extract the version from HTML
+    html_version = match.group(1).strip()
+
+    # Compare with the VERSION from cdf package
+    assert html_version == VERSION, (
+        f"Version mismatch in {index_html_path}:\n"
+        f"  HTML version: {html_version}\n"
+        f"  Expected (from cdf.VERSION): {VERSION}\n"
+        f"Please update the version in index.html to match cdf.VERSION"
+    )

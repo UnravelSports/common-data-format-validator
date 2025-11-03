@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #8FABD4 0%, #4A70A9 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.version-badge {
+    display: inline-block;
+    background: #CD2C58;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.content {
+    padding: 40px;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #666;
+}
+
+.intro p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.intro a {
+    color: #4A70A9;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.intro a:hover {
+    text-decoration: underline;
+}
+
+.validator-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.validator-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.validator-section p {
+    color: #666;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.install-box {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+    margin: 20px auto;
+    max-width: 600px;
+    position: relative;
+    overflow-x: auto;
+}
+
+.install-box code {
+    color: #68d391;
+}
+
+.schemas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.schema-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.schema-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(143, 171, 212, 0.4);
+    border-color: #4A70A9;
+}
+
+.schema-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.schema-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.schema-card p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.schema-card .view-schema {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #8FABD4 0%, #4A70A9 100%);
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #f8f9fa;
+    color: #666;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #4A70A9;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .schemas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding: 30px 20px;
+    }
+
+    header {
+        padding: 40px 20px;
+    }
+}

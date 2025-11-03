@@ -1,6 +1,6 @@
 {
-    "title": "Video Footage CDF Schema",
-    "type": "object",
+    "title": "Common Data Format - Video Footage Data Schema",
+    "description": "**Version 0.2.2**\n\nThis schema defines the Video Footage Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).",
     "required": [
         "match",
         "recording",

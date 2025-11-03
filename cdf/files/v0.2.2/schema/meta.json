@@ -1,6 +1,6 @@
 {
-  "title": "CDF Meta Data Schema",
-  "version": "0.2.0",
+  "title": "Common Data Format - Meta Data Schema",
+  "description": "**Version 0.2.2**\n\nThis schema defines the Meta Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).",
   "type": "object",
   "required": [
     "competition",
@@ -250,8 +250,10 @@
       "required": [
         "video",
         "tracking",
+        "event",
         "landmarks",
         "meta",
+        "ball",
         "cdf"
       ],
       "properties": {

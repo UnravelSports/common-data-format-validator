@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Data Format - Schema Documentation & Validation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Common Data Format</h1>
+            <p class="subtitle">Schema Documentation & Validation</p>
+            <span class="version-badge">Version 0.2.2</span>
+        </header>
+
+        <div class="content">
+            <div class="intro">
+                <p>
+                    These schemas define the Common Data Format (CDF) as described in 
+                    <a href="https://arxiv.org/pdf/2505.15820" target="_blank" rel="noopener">the CDF paper</a> (Anzer et al. 2025).
+                </p>
+            </div>
+
+            <div class="schemas-grid">
+                <a href="latest/meta.html" class="schema-card">
+                    <div class="schema-icon">📋</div>
+                    <h3>Meta Data</h3>
+                    <p>Match information and information about other provided data.</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>
+
+                <a href="latest/event.html" class="schema-card">
+                    <div class="schema-icon">⚽</div>
+                    <h3>Event Data</h3>
+                    <p>Event-based data including match events and timestamps</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>
+
+                 <a href="latest/tracking.html" class="schema-card">
+                    <div class="schema-icon">🏃🏽‍♂️‍➡️</div>
+                    <h3>Tracking Data</h3>
+                    <p>Player and ball tracking positional coordinate data</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>
+
+                <a href="latest/match.html" class="schema-card">
+                    <div class="schema-icon">ℹ️</div>
+                    <h3>Match Data</h3>
+                    <p>Match-level information, teams, scores, line-ups etc.</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>               
+
+                <a href="latest/skeletal.html" class="schema-card">
+                    <div class="schema-icon">🦵🏽</div>
+                    <h3>Skeletal Data</h3>
+                    <p>Skeletal tracking, body pose estimation and landmarks data</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>
+
+                <a href="latest/video.html" class="schema-card">
+                    <div class="schema-icon">📹</div>
+                    <h3>Video Data</h3>
+                    <p>Video metadata, camera information, and frame references</p>
+                    <span class="view-schema">View Schema →</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="validator-section">
+                <h2>Validate Your Data</h2>
+                <p>
+                    Use the <a href="https://pypi.org/project/common-data-format-validator/" target="_blank" rel="noopener"><strong>common-data-format-validator</strong></a> Python package to validate your data against these schemas.
+                </p>
+                <div class="install-box">
+                    pip install <code>common-data-format-validator</code>
+                </div>
+            </div>
+
+        <footer>
+            <p>Common Data Format Validator | <a href="https://github.com/UnravelSports/common-data-format-validator" target="_blank" rel="noopener">View on GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>
