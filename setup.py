@@ -36,4 +36,10 @@ setup(
         "jsonschema-specifications==2024.10.1",
         "requests==2.32.3",
     ],
+    extras_require={
+        "dev": [
+            "json-schema-for-humans>=1.4.1",
+            "pytest>=8.4.0",
+        ]
+    },
 )

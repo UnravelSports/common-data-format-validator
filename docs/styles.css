@@ -112,6 +112,26 @@ h1 {
     color: #68d391;
 }
 
+.python-code-box {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+    margin: 20px auto;
+    max-width: 600px;
+    position: relative;
+    overflow-x: auto;
+}
+
+.python-code-box code {
+    display: block;
+    white-space: pre;
+    color: #e2e8f0;
+    background: transparent;
+}
+
 .schemas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
