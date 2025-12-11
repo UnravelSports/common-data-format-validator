@@ -12,7 +12,9 @@ from . import VERSION
 
 from .custom import validate_formation, ValidationWarning
 
-SKIP_SNAKE_CASE = [
+# Keys whose VALUES should skip snake_case validation
+# (All keys themselves must always be snake_case)
+SKIP_VALUE_SNAKE_CASE = [
     "country",
     "city",
     "name",
@@ -31,7 +33,70 @@ SKIP_SNAKE_CASE = [
     "out_player_id",
 ]
 
-CUSTOM_VALIDATORS = {"formation": validate_formation}
+# Position groups and their valid positions
+POSITION_GROUPS = {
+    "GK": ["GK"],
+    "DF": ["LB", "LCB", "CB", "RCB", "RB"],
+    "MF": ["LAM", "CAM", "RAM", "LM", "LCM", "CM", "RCM", "RM", "LDM", "CDM", "RDM"],
+    "FW": ["LW", "LCF", "CF", "RCF", "RW"],
+    "SUB": ["SUB"],
+}
+
+# Flatten to get all valid positions
+VALID_POSITIONS = list(
+    set([pos for positions in POSITION_GROUPS.values() for pos in positions])
+)
+VALID_POSITION_GROUPS = list(POSITION_GROUPS.keys())
+
+# Coordinate bounds
+X_MIN, X_MAX = -65.0, 65.0
+Y_MIN, Y_MAX = -42.5, 42.5
+
+
+def validate_hex_colour(value):
+    """Validate hex colour format (e.g., #FFFFFF or #FFF)"""
+    if not isinstance(value, str):
+        return False
+    # Check for valid hex colour pattern: # followed by 3 or 6 hex digits
+    return bool(re.match(r"^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", value))
+
+
+def validate_coordinate(key, value):
+    """Validate coordinate values"""
+    if not isinstance(value, (int, float)):
+        return False, f"Coordinate '{key}' must be a number"
+
+    if key == "x":
+        if not (X_MIN <= value <= X_MAX):
+            return (
+                False,
+                f"x coordinate must be between {X_MIN} and {X_MAX}, got {value}",
+            )
+    elif key == "y":
+        if not (Y_MIN <= value <= Y_MAX):
+            return (
+                False,
+                f"y coordinate must be between {Y_MIN} and {Y_MAX}, got {value}",
+            )
+
+    return True, None
+
+
+def validate_position_group(value):
+    """Validate position_group values"""
+    return value in VALID_POSITION_GROUPS
+
+
+def validate_position(value):
+    """Validate position values"""
+    return value in VALID_POSITIONS
+
+
+CUSTOM_VALIDATORS = {
+    "formation": validate_formation,
+    "position_group": validate_position_group,
+    "position": validate_position,
+}
 
 
 class SchemaValidator:
@@ -54,6 +119,7 @@ class SchemaValidator:
             schema_dict, *args, **kwargs
         )
         self.errors = []
+        self.current_file = None  # Track current file being validated
 
     @classmethod
     def validator_type(cls):
@@ -150,10 +216,59 @@ class SchemaValidator:
         """Check if string follows snake_case pattern (lowercase with underscores)"""
         return bool(re.match(r"^[a-z][a-z0-9_]*$", s))
 
-    def validate_schema(self, sample, soft: bool = True):
-        """Validate the instance against the schema plus snake_case etc"""
-        instance = self._load_sample(sample)
+    def _is_jsonl_file(self, sample):
+        """Check if sample is a JSONL file path"""
+        if isinstance(sample, (str, pathlib.Path)):
+            sample_path = pathlib.Path(sample) if isinstance(sample, str) else sample
+            if (
+                sample_path.exists()
+                and sample_path.is_file()
+                and sample_path.suffix.lower() == ".jsonl"
+            ):
+                return True
+        return False
 
+    def _validate_jsonl_separator(self, file_path):
+        """Validate that JSONL file uses \\n as separator"""
+        with open(file_path, "rb") as f:
+            content = f.read()
+
+        # Check for incorrect line endings
+        if b"\r\n" in content:
+            self.errors.append(
+                f"{file_path.name}: JSONL file uses '\\r\\n' (CRLF) as line separator. Must use '\\n' (LF) only."
+            )
+        elif b"\r" in content:
+            self.errors.append(
+                f"{file_path.name}: JSONL file uses '\\r' (CR) as line separator. Must use '\\n' (LF) only."
+            )
+
+    def validate_schema(self, sample, soft: bool = True, limit: int = 1):
+        """
+        Validate the instance against the schema plus snake_case etc
+
+        Args:
+            sample: Sample data to validate (dict, file path, or JSONL path)
+            soft: If True, emit warnings; if False, raise exceptions
+            limit: Number of lines to validate for JSONL files only (default: 1, None: all lines)
+                   This parameter is ignored for JSON files and dict samples
+        """
+        # Check if sample is a JSONL file
+        if self._is_jsonl_file(sample):
+            sample_path = pathlib.Path(sample) if isinstance(sample, str) else sample
+            self.current_file = sample_path.name
+            self._validate_jsonl_file(sample_path, soft, limit)
+            return
+
+        # Check if sample is a JSON file
+        if isinstance(sample, (str, pathlib.Path)):
+            sample_path = pathlib.Path(sample) if isinstance(sample, str) else sample
+            if sample_path.exists() and sample_path.is_file():
+                self.current_file = sample_path.name
+
+        # For non-JSONL samples (JSON files or dicts), validate single instance
+        # The limit parameter is ignored for these types
+        instance = self._load_sample(sample)
         self.errors = []
 
         # Validate against JSON schema
@@ -162,6 +277,41 @@ class SchemaValidator:
         # Additional validation for snake_case etc.
         self._validate_item(instance, [])
 
+        self._report_errors(soft)
+
+    def _validate_jsonl_file(self, sample_path, soft: bool, limit: int):
+        """Validate JSONL file with optional line limit"""
+        self.errors = []
+
+        # Validate line separator if validating more than 1 line
+        if limit is None or limit > 1:
+            self._validate_jsonl_separator(sample_path)
+
+        line_number = 0
+
+        with jsonlines.open(sample_path) as reader:
+            for json_object in reader:
+                line_number += 1
+
+                # Validate against JSON schema
+                try:
+                    self.validator.validate(json_object)
+                except Exception as e:
+                    self.errors.append(
+                        f"{sample_path.name}/line_{line_number}: Schema validation failed - {str(e)}"
+                    )
+
+                # Additional validation
+                self._validate_item(json_object, [f"line_{line_number}"])
+
+                # Check if we've reached the limit
+                if limit is not None and line_number >= limit:
+                    break
+
+        self._report_errors(soft, lines_validated=line_number)
+
+    def _report_errors(self, soft: bool, lines_validated: int = None):
+        """Report validation errors"""
         if self.errors:
             for error in self.errors:
                 if not soft:
@@ -173,26 +323,69 @@ class SchemaValidator:
 
                     warnings.warn(f"{error}", ValidationWarning)
         else:
-            print(
-                f"Your {self.validator_type().capitalize()}Data schema is valid for version {VERSION}."
-            )
+            if lines_validated is not None:
+                print(
+                    f"Your {self.validator_type().capitalize()}Data schema is valid for version {VERSION}. "
+                    f"Validated {lines_validated} line(s)."
+                )
+            else:
+                print(
+                    f"Your {self.validator_type().capitalize()}Data schema is valid for version {VERSION}."
+                )
+
+    def _format_path(self, path):
+        """Format path with filename prefix if available"""
+        path_str = ".".join(path) if path else "root"
+        if self.current_file:
+            return f"{self.current_file}/{path_str}"
+        return path_str
 
     def _validate_item(self, item, path):
         """Recursively validate items in the data structure"""
         if isinstance(item, dict):
             # Validate dictionary keys
             for key, value in item.items():
-                # Check if key is snake_case
-                if key in SKIP_SNAKE_CASE:
-                    continue
-                elif key in CUSTOM_VALIDATORS:
-                    if not CUSTOM_VALIDATORS[key](value):
+                # Check for American spelling of "color"
+                if "color" in key.lower() and "colour" not in key.lower():
+                    self.errors.append(
+                        f"Key '{self._format_path(path + [key])}' uses American spelling 'color'. Please use British English spelling 'colour'"
+                    )
+
+                # Validate colour hex values
+                if "colour" in key.lower():
+                    if not validate_hex_colour(value):
                         self.errors.append(
-                            f"Key '{'.'.join(path + [key])}' failed custom validation with value {value}"
+                            f"Key '{self._format_path(path + [key])}' must be a valid hex colour (e.g., #FFFFFF or #FFF), got {value}"
                         )
+
+                # Validate coordinates
+                if key in ["x", "y"] and "camera" not in path:
+                    is_valid, error_msg = validate_coordinate(key, value)
+                    if not is_valid:
+                        self.errors.append(
+                            f"{error_msg} at path '{self._format_path(path + [key])}'"
+                        )
+
+                # Run custom validators (position, position_group, formation, etc.)
+                if key in CUSTOM_VALIDATORS:
+                    if not CUSTOM_VALIDATORS[key](value):
+                        if key == "position_group":
+                            self.errors.append(
+                                f"Key '{self._format_path(path + [key])}' got {value}, must be one of {VALID_POSITION_GROUPS}"
+                            )
+                        elif key == "position":
+                            self.errors.append(
+                                f"Key '{self._format_path(path + [key])}' got {value}, must be one of {VALID_POSITIONS}"
+                            )
+                        else:
+                            self.errors.append(
+                                f"Key '{self._format_path(path + [key])}' failed custom validation with value {value}"
+                            )
+
+                # ALWAYS check if key itself is snake_case (no exceptions)
                 if not self.is_snake_case(key):
                     self.errors.append(
-                        f"Key '{'.'.join(path + [key])}' is not in snake_case value {value}"
+                        f"Key '{self._format_path(path + [key])}' is not in snake_case"
                     )
 
                 # Recursively validate nested items
@@ -204,7 +397,13 @@ class SchemaValidator:
                 self._validate_item(value, path + [str(i)])
 
         elif isinstance(item, str):
-            current_path = ".".join(path) if path else "root"
+            # Check if parent key is one that should skip snake_case validation for values
+            parent_key = path[-1] if path else None
+            if parent_key in SKIP_VALUE_SNAKE_CASE:
+                # Skip snake_case validation for values of these keys
+                return
+
+            current_path = self._format_path(path)
             # Only check snake_case for fields that look like identifiers
             if re.match(r"^[a-zA-Z][a-zA-Z0-9_]*$", item) and not re.match(
                 r"^[0-9]+$", item

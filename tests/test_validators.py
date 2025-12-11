@@ -19,6 +19,9 @@ from cdf import (
     SkeletalSchemaValidator,
     VERSION,
 )
+from cdf.validators.custom import ValidationWarning
+from jsonschema.exceptions import ValidationError
+
 
 SAMPLE_PATH = Path("cdf", "files")
 
@@ -120,9 +123,12 @@ def test_tracking_schema_validation_failure(tracking_validator, tmp_path):
     with open(invalid_file, "w") as f:
         f.write('{"invalid_key": "invalid_value"}\n')
 
+    with pytest.warns(ValidationWarning):
+        tracking_validator.validate_schema(sample=str(invalid_file), soft=True)
+
     # Expect validation to fail
-    with pytest.raises(Exception):  # Replace with specific exception if known
-        tracking_validator.validate_schema(sample=str(invalid_file))
+    with pytest.raises(ValidationError):  # Replace with specific exception if known
+        tracking_validator.validate_schema(sample=str(invalid_file), soft=False)
 
 
 def test_all_domain_files_have_correct_version():
