@@ -33,7 +33,7 @@ import cdf
 
 # # Example valid tracking data
 validator = cdf.TrackingSchemaValidator()
-validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/tracking.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/tracking.jsonl", limit=1)
 
 # Example valid meta data
 validator = cdf.MetaSchemaValidator()
@@ -41,7 +41,7 @@ validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/meta.json")
 
 # Example valid event data
 validator = cdf.EventSchemaValidator()
-validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/event.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/event.jsonl", limit=1)
 
 # Example valid match data
 validator = cdf.MatchSchemaValidator()
@@ -49,7 +49,7 @@ validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/match.json")
 
 # Example valid skeletal data
 validator = cdf.SkeletalSchemaValidator()
-validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/skeletal.jsonl")
+validator.validate_schema(sample=f"cdf/files/v{cdf.VERSION}/sample/skeletal.jsonl", limit=1)
 
 # Example valid video data
 validator = cdf.VideoSchemaValidator()
@@ -66,16 +66,17 @@ The validator checks:
 - Data types are correct (e.g. boolean, integer etc.)
 - Value entries for specific fields are correct (e.g. period type can only be one of 5 values)
 - [Position groups and positions follow naming conventions](https://github.com/UnravelSports/common-data-format-validator/blob/main/assets/positions-v0.2.0.pdf)
+- Color codes are hex (e.g. #FFC107)
+- Position labels fit within the formation specifications
+- [Correct pitch dimensions](https://github.com/UnravelSports/common-data-format-validator/blob/main/assets/pitch-dimensions-v0.2.0.pdf) (Simply checks if they are "x" between -65.0 and 65.0 and "y" between -42.5 and +42.5)
+- Correct JSONLines line separator ('\n')
+- Check multiple lines by setting `limit`. Only works for JSONL files. `limit=None` checks the whole file.
+
 
 The validator (currently) does not check:
-- Correct JSONLines line separator ('\n')
 - Correct UTF-8 encoding
-- [Correct pitch dimensions](https://github.com/UnravelSports/common-data-format-validator/blob/main/assets/pitch-dimensions-v0.2.0.pdf)
-- British spelling
-- Color codes are hex (e.g. #FFC107)
+- British spelling (currently only for "color" / "colour" keys)
 - If player_ids (or other ids) in meta are in tracking, event etc. or vice versa
-- Position labels fit within the formation specifications
-
 
 ----
 
