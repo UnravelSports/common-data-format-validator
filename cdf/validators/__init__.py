@@ -10,3 +10,5 @@ from .validators import (
     SkeletalSchemaValidator,
     VideoSchemaValidator,
 )
+
+from .common import POSITION_GROUPS
