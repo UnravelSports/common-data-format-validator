@@ -23,7 +23,7 @@ SKIP_VALUE_SNAKE_CASE = [
     "player_id",
     "first_name",
     "last_name",
-    "short_name",
+    "full_name" "short_name",
     "maiden_name",
     "position_group",
     "position",
