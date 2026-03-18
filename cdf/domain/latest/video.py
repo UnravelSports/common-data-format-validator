@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, TypedDict
+from typing import TypedDict
 
 from typing_extensions import NotRequired
 
@@ -15,13 +15,13 @@ class Match(TypedDict):
 
 class Camera(TypedDict):
     x: NotRequired[
-        Optional[float]
+        float | None
     ]  # x location of the camera in relation to the pitch center (m)
     y: NotRequired[
-        Optional[float]
+        float | None
     ]  # y location of the camera in relation to the pitch center (m)
     z: NotRequired[
-        Optional[float]
+        float | None
     ]  # z location of the camera in relation to the pitch center (m)
 
 
@@ -48,7 +48,7 @@ class Whistle(TypedDict):
     video_time: int  # The time tag of the whistle in milliseconds
 
 
-class CommonDataFormatVideoFootageDataSchema(TypedDict):
+class CdfVideoFootageDataSchema(TypedDict):
     match: Match
     recording: Recording
-    whistles: List[Whistle]
+    whistles: list[Whistle]

@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, TypedDict
+from typing import Literal, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -95,7 +95,7 @@ class Goal(TypedDict):
     ]  # Period of the game when the goal was scored
     team_id: str  # Identifier of the team who scored
     player_id: str  # Identifier of the player who scored
-    assist_id: NotRequired[Optional[str]]  # Identifier of the player who assisted
+    assist_id: NotRequired[str | None]  # Identifier of the player who assisted
     is_own_goal: bool  # Denotes whether it was an own goal (true) or not (false)
     is_penalty: bool  # Denotes whether it was a penalty (true) or not (false)
     score: Score
@@ -125,9 +125,9 @@ class Card(TypedDict):
 
 
 class Events(TypedDict):
-    goals: Optional[List[Goal]]
-    substitutions: Optional[List[Substitution]]
-    cards: Optional[List[Card]]
+    goals: list[Goal] | None
+    substitutions: list[Substitution] | None
+    cards: list[Card] | None
 
 
 class Meta(TypedDict):
@@ -196,8 +196,8 @@ class Team(TypedDict):
     id: str  # Unique identifier for the team
     short_name: NotRequired[str]  # Short name of the team
     formation: NotRequired[str]  # Formation label of the team (e.g. '4-4-2')
-    players: List[Player]
-    coaches: NotRequired[List[Coach]]
+    players: list[Player]
+    coaches: NotRequired[list[Coach]]
 
 
 class Teams(TypedDict):
@@ -205,9 +205,9 @@ class Teams(TypedDict):
     away: Team
 
 
-class CommonDataFormatOfficialMatchData(TypedDict):
+class CdfOfficialMatchData(TypedDict):
     match: Match
     teams: Teams
-    referees: List[Referee]
+    referees: list[Referee]
     events: Events
     meta: Meta
