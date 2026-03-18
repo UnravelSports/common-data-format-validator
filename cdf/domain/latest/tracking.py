@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -71,7 +71,7 @@ class Teams(TypedDict):
     away: Team
 
 
-class CdfTrackingDataSchema(TypedDict):
+class CommonDataFormatTrackingDataSchema(TypedDict):
     frame_id: int
     timestamp: str
     period: Literal[

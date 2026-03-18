@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -48,7 +48,7 @@ class Whistle(TypedDict):
     video_time: int  # The time tag of the whistle in milliseconds
 
 
-class VideoFootageCdfSchema(TypedDict):
+class CommonDataFormatVideoFootageDataSchema(TypedDict):
     match: Match
     recording: Recording
     whistles: List[Whistle]

@@ -6,6 +6,23 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 
 --
 
+## 🗒️ Changelog v0.2.3 (alpha) - Wednesday 18th March 2026
+
+---
+
+### Mandatory Tracking Data
+
+#### Table 4. Mandatory Tracking Data
+- Added `"type": "object"` to `team` definition (consistency fix)
+
+### Mandatory Skeletal Data
+
+#### Table 5. Mandatory Skeletal Data
+- Changed `ball/x`, `ball/y`, `ball/z` from Mandatory to Optional (to accommodate missing data as `None`; these fields remain **explicitly required** in practice)
+- Changed `referee/x`, `referee/y`, `referee/z` from Mandatory to Optional (to accommodate missing data as `None`)
+
+---
+
 ## 🗒️ Changelog v0.2.2 (alpha) - October 30th 2025
 
 ---

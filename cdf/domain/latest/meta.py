@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -144,15 +144,13 @@ class Cdf(TypedDict):
 
 class Meta(TypedDict):
     video: Optional[Video]  # Video meta data information, null if not relevant
-    event: NotRequired[
-        Optional[Event]
-    ]  # Event data meta information, null if not relevant
+    event: Optional[Event]  # Event data meta information, null if not relevant
     tracking: Optional[Tracking]  # Tracking data meta information, null if not relevant
     landmarks: Optional[
         Landmarks
     ]  # Landmark tracking data meta information, null if not relevant
-    ball: NotRequired[
-        Optional[Ball]
+    ball: Optional[
+        Ball
     ]  # Ball tracking data meta information, null if not relevant. Only relevant when providing an independent ball file.
     meta: Optional[Meta1]  # Meta information
     cdf: Optional[Cdf]  # Common Data Format (CDF) meta information
@@ -175,7 +173,7 @@ class Teams(TypedDict):
     away: Team
 
 
-class CdfMetaDataSchema(TypedDict):
+class CommonDataFormatMetaDataSchema(TypedDict):
     competition: Competition
     season: Season
     match: Match

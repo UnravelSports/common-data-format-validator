@@ -97,7 +97,7 @@ def test_meta_schema_validation(meta_validator, sample_files):
     assert result is None or result is True
 
 
-def test_skeleta_schema_validation(skeletal_validator, sample_files):
+def test_skeletal_schema_validation(skeletal_validator, sample_files):
     """Test that skeletal schema validation runs without errors."""
     result = skeletal_validator.validate_schema(sample=sample_files["skeletal"])
     assert result is None or result is True
@@ -129,6 +129,19 @@ def test_tracking_schema_validation_failure(tracking_validator, tmp_path):
     # Expect validation to fail
     with pytest.raises(ValidationError):  # Replace with specific exception if known
         tracking_validator.validate_schema(sample=str(invalid_file), soft=False)
+
+
+def test_skeletal_schema_validation_failure(skeletal_validator, tmp_path):
+    """Test that skeletal schema validation fails with invalid data."""
+    invalid_file = tmp_path / "invalid_skeletal.jsonl"
+    with open(invalid_file, "w") as f:
+        f.write('{"invalid_key": "invalid_value"}\n')
+
+    with pytest.warns(ValidationWarning):
+        skeletal_validator.validate_schema(sample=str(invalid_file), soft=True)
+
+    with pytest.raises(ValidationError):
+        skeletal_validator.validate_schema(sample=str(invalid_file), soft=False)
 
 
 def test_all_domain_files_have_correct_version():

@@ -1,10 +1,10 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import List, Literal, TypedDict
+from typing import List, Literal, Optional, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -14,16 +14,16 @@ class Match(TypedDict):
 
 
 class Ball(TypedDict):
-    x: float
-    y: float
-    z: float
+    x: Optional[float]
+    y: Optional[float]
+    z: Optional[float]
 
 
 class Referee(TypedDict):
     id: str
-    x: float
-    y: float
-    z: NotRequired[float]
+    x: Optional[float]
+    y: Optional[float]
+    z: NotRequired[Optional[float]]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -73,7 +73,7 @@ class Teams(TypedDict):
     away: Team
 
 
-class CdfSkeletalTrackingDataSchema(TypedDict):
+class CommonDataFormatSkeletalTrackingDataSchema(TypedDict):
     frame_id: int  # Unique frame identifier
     timestamp: str  # Timestamp of the frame in UTC
     period: Literal[

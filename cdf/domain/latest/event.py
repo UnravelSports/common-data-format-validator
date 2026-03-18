@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -101,7 +101,7 @@ class Tracking(TypedDict):
     player: NotRequired[Player]
 
 
-class Model(TypedDict):
+class CommonDataFormatEventDataSchema(TypedDict):
     match: Match
     meta: Meta
     event: Event
