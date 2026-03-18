@@ -1,0 +1,247 @@
+{
+    "title": "Common Data Format - Skeletal Tracking Data Schema",
+    "description": "**Version 0.2.3**\n\nThis schema defines the Skeletal Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).\n\nThis schema describes a single JSON Object with a JSON Lines file.",
+    "type": "object",
+    "required": [
+        "frame_id",
+        "timestamp",
+        "period",
+        "match",
+        "teams"
+    ],
+    "properties": {
+        "frame_id": {
+            "type": "integer",
+            "description": "Unique frame identifier"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the frame in UTC"
+        },
+        "period": {
+            "type": "string",
+            "enum": [
+                "first_half",
+                "second_half",
+                "first_half_extratime",
+                "second_half_extratime",
+                "shootout"
+            ],
+            "description": "Period of the match"
+        },
+        "match": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique match identifier"
+                }
+            }
+        },
+        "teams": {
+            "type": "object",
+            "required": [
+                "home",
+                "away"
+            ],
+            "properties": {
+                "home": {
+                    "$ref": "#/definitions/team"
+                },
+                "away": {
+                    "$ref": "#/definitions/team"
+                }
+            }
+        },
+        "ball": {
+            "type": "object",
+            "required": [
+                "x",
+                "y",
+                "z"
+            ],
+            "properties": {
+                "x": {
+                    "type": ["number", "null"]
+                },
+                "y": {
+                    "type": ["number", "null"]
+                },
+                "z": {
+                    "type": ["number", "null"]
+                }
+            }
+        },
+        "ball_status": {
+            "type": "boolean"
+        },
+        "ball_poss_team_id": {
+            "type": "string"
+        },
+        "ball_poss_status": {
+            "type": "string"
+        },
+        "referees": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "x",
+                    "y"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "x": {
+                        "type": ["number", "null"]
+                    },
+                    "y": {
+                        "type": ["number", "null"]
+                    },
+                    "z": {
+                        "type": ["number", "null"]
+                    },
+                    "vel": {
+                        "type": "number"
+                    },
+                    "acc": {
+                        "type": "number"
+                    },
+                    "lat": {
+                        "type": "number"
+                    },
+                    "long": {
+                        "type": "number"
+                    },
+                    "is_visible": {
+                        "type": "boolean"
+                    },
+                    "minutes_played": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "vendor": {
+            "type": "object",
+            "properties": {
+                "event": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tracking": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "team": {
+            "type": "object",
+            "required": [
+                "id",
+                "players"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the team"
+                },
+                "players": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/player"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "jersey_colour": {
+                    "type": "string"
+                },
+                "formation": {
+                    "type": "string"
+                }
+            }
+        },
+        "player": {
+            "type": "object",
+            "required": [
+                "id",
+                "landmarks"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for a player"
+                },
+                "landmarks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/landmark"
+                    }
+                }
+            }
+        },
+        "landmark": {
+            "type": "object",
+            "required": [
+                "index",
+                "name",
+                "x",
+                "y",
+                "z",
+                "children",
+                "is_visible"
+            ],
+            "properties": {
+                "index": {
+                    "type": "string",
+                    "description": "Unique identifier for a landmark"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for a landmark"
+                },
+                "x": {
+                    "type": "number",
+                    "description": "Relative x coordinate of landmark in relation to the point of origin (m)"
+                },
+                "y": {
+                    "type": "number",
+                    "description": "Relative y coordinate of landmark in relation to the point of origin (m)"
+                },
+                "z": {
+                    "type": "number",
+                    "description": "Relative z coordinate of landmark in relation to the point of origin (m)"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of children indexes associated with keypoint"
+                },
+                "is_visible": {
+                    "type": "boolean",
+                    "description": "If landmark is detected (true) or inferred (false)"
+                }
+            }
+        }
+    }
+}

@@ -1,10 +1,10 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, TypedDict
+from typing import Literal, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -16,7 +16,7 @@ class Competition(TypedDict):
         str
     ]  # Format of the competition (e.g., 'league_18', 'league_20')
     age_restriction: NotRequired[
-        Optional[str]
+        str | None
     ]  # Age restriction for the competition (e.g., 'U18', 'U20')
     type: NotRequired[str]  # Type of competition (e.g., 'youth', 'mens', 'womens')
 
@@ -67,8 +67,8 @@ class Misc(TypedDict):
 class Match(TypedDict):
     id: str  # Unique identifier for the match
     kickoff_time: str  # Scheduled kickoff time in UTC
-    periods: List[Period]
-    whistles: List[Whistle]  # Whistles that start and end major periods of play
+    periods: list[Period]
+    whistles: list[Whistle]  # Whistles that start and end major periods of play
     round: NotRequired[str]  # Round of the match (e.g. 1, 2, 3, final, semi_final)
     scheduled_kickoff_time: NotRequired[str]  # Scheduled kickoff time in UTC
     local_kickoff_time: NotRequired[str]  # Local kickoff time
@@ -78,10 +78,10 @@ class Match(TypedDict):
 class Stadium(TypedDict):
     id: str  # Unique identifier for the stadium
     pitch_length: NotRequired[
-        Optional[float]
+        float | None
     ]  # Length of the pitch in metres, null if not available
     pitch_width: NotRequired[
-        Optional[float]
+        float | None
     ]  # Width of the pitch in metres, null if not available
     name: NotRequired[str]  # Name of the stadium
     turf: NotRequired[
@@ -143,19 +143,17 @@ class Cdf(TypedDict):
 
 
 class Meta(TypedDict):
-    video: Optional[Video]  # Video meta data information, null if not relevant
-    event: NotRequired[
-        Optional[Event]
-    ]  # Event data meta information, null if not relevant
-    tracking: Optional[Tracking]  # Tracking data meta information, null if not relevant
-    landmarks: Optional[
-        Landmarks
-    ]  # Landmark tracking data meta information, null if not relevant
-    ball: NotRequired[
-        Optional[Ball]
-    ]  # Ball tracking data meta information, null if not relevant. Only relevant when providing an independent ball file.
-    meta: Optional[Meta1]  # Meta information
-    cdf: Optional[Cdf]  # Common Data Format (CDF) meta information
+    video: Video | None  # Video meta data information, null if not relevant
+    event: Event | None  # Event data meta information, null if not relevant
+    tracking: Tracking | None  # Tracking data meta information, null if not relevant
+    landmarks: (
+        Landmarks | None
+    )  # Landmark tracking data meta information, null if not relevant
+    ball: (
+        Ball | None
+    )  # Ball tracking data meta information, null if not relevant. Only relevant when providing an independent ball file.
+    meta: Meta1 | None  # Meta information
+    cdf: Cdf | None  # Common Data Format (CDF) meta information
 
 
 class Player(TypedDict):
@@ -167,7 +165,7 @@ class Player(TypedDict):
 
 class Team(TypedDict):
     id: str  # Unique identifier for the home team
-    players: List[Player]
+    players: list[Player]
 
 
 class Teams(TypedDict):

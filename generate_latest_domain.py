@@ -68,3 +68,8 @@ for file_type in ["event", "match", "meta", "skeletal", "tracking", "video"]:
     _replace_header_with_stable_version(output_file)
 
     _convert_docstrings_to_comments(output_file)
+
+    # Normalize root class name prefix to Cdf (schema titles use "Common Data Format")
+    content = output_file.read_text()
+    content = content.replace("CommonDataFormat", "Cdf")
+    output_file.write_text(content)

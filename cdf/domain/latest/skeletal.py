@@ -1,10 +1,10 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import List, Literal, TypedDict
+from typing import Literal, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -14,16 +14,16 @@ class Match(TypedDict):
 
 
 class Ball(TypedDict):
-    x: float
-    y: float
-    z: float
+    x: float | None
+    y: float | None
+    z: float | None
 
 
 class Referee(TypedDict):
     id: str
-    x: float
-    y: float
-    z: NotRequired[float]
+    x: float | None
+    y: float | None
+    z: NotRequired[float | None]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -51,18 +51,18 @@ class Landmark(TypedDict):
     x: float  # Relative x coordinate of landmark in relation to the point of origin (m)
     y: float  # Relative y coordinate of landmark in relation to the point of origin (m)
     z: float  # Relative z coordinate of landmark in relation to the point of origin (m)
-    children: List[int]  # List of children indexes associated with keypoint
+    children: list[int]  # List of children indexes associated with keypoint
     is_visible: bool  # If landmark is detected (true) or inferred (false)
 
 
 class Player(TypedDict):
     id: str  # Unique identifier for a player
-    landmarks: List[Landmark]
+    landmarks: list[Landmark]
 
 
 class Team(TypedDict):
     id: str  # Unique identifier for the team
-    players: List[Player]
+    players: list[Player]
     name: NotRequired[str]
     jersey_colour: NotRequired[str]
     formation: NotRequired[str]
@@ -89,5 +89,5 @@ class CdfSkeletalTrackingDataSchema(TypedDict):
     ball_status: NotRequired[bool]
     ball_poss_team_id: NotRequired[str]
     ball_poss_status: NotRequired[str]
-    referees: NotRequired[List[Referee]]
+    referees: NotRequired[list[Referee]]
     vendor: NotRequired[Vendor]

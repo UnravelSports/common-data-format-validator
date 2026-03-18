@@ -1,0 +1,56 @@
+{
+    "match": {
+      "id": "match_20230510_team1_team2"
+    },
+    "recording": {
+      "fps": 60,
+      "resolution": "3840x2160",
+      "start_time": "2023-05-10T19:45:00Z",
+      "type": "fixed camera",
+      "operation_type": "manual",
+      "perspective": "tactical_wide",
+      "camera": {
+        "x": 0,
+        "y": -45,
+        "z": 20
+      }
+    },
+    "whistles": [
+      {
+        "type": "first_half",
+        "sub_type": "start",
+        "time": "2023-05-10T19:45:30Z",
+        "video_time": 30000
+      },
+      {
+        "type": "first_half",
+        "sub_type": "end",
+        "time": "2023-05-10T20:32:15Z",
+        "video_time": 2835000
+      },
+      {
+        "type": "weather_delay",
+        "sub_type": "start",
+        "time": "2023-05-10T20:10:18Z",
+        "video_time": 1518000
+      },
+      {
+        "type": "weather_delay",
+        "sub_type": "end",
+        "time": "2023-05-10T20:15:45Z",
+        "video_time": 1845000
+      },
+      {
+        "type": "second_half",
+        "sub_type": "start",
+        "time": "2023-05-10T20:47:00Z",
+        "video_time": 3720000
+      },
+      {
+        "type": "second_half",
+        "sub_type": "end",
+        "time": "2023-05-10T21:36:42Z",
+        "video_time": 6642000
+      }
+    ]
+  }

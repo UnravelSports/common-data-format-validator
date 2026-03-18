@@ -1,10 +1,10 @@
-# Auto-generated from JSON Schema v0.2.2
+# Auto-generated from JSON Schema v0.2.3
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, TypedDict
+from typing import Literal, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -14,16 +14,16 @@ class Match(TypedDict):
 
 
 class Ball(TypedDict):
-    x: Optional[float]
-    y: Optional[float]
-    z: Optional[float]
+    x: float | None
+    y: float | None
+    z: float | None
 
 
 class Referee(TypedDict):
     id: str
-    x: Optional[float]
-    y: Optional[float]
-    z: NotRequired[Optional[float]]
+    x: float | None
+    y: float | None
+    z: NotRequired[float | None]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -47,9 +47,9 @@ class Vendor(TypedDict):
 
 class Player(TypedDict):
     id: str
-    x: Optional[float]
-    y: Optional[float]
-    z: NotRequired[Optional[float]]
+    x: float | None
+    y: float | None
+    z: NotRequired[float | None]
     vel: NotRequired[float]
     acc: NotRequired[float]
     lat: NotRequired[float]
@@ -60,7 +60,7 @@ class Player(TypedDict):
 
 class Team(TypedDict):
     id: str
-    players: List[Player]
+    players: list[Player]
     name: NotRequired[str]
     jersey_colour: NotRequired[str]
     formation: NotRequired[str]
@@ -84,7 +84,7 @@ class CdfTrackingDataSchema(TypedDict):
     match: Match
     teams: Teams
     ball: Ball
-    referees: NotRequired[List[Referee]]
+    referees: NotRequired[list[Referee]]
     ball_status: NotRequired[bool]
     ball_poss_team_id: NotRequired[str]
     ball_poss_status: NotRequired[str]
