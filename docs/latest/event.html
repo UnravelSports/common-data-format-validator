@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Event Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.2.2</strong></p>
+<span class="description"><p><strong>Version 0.3.0</strong></p>
 
 <p>This schema defines the Event Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 
@@ -200,7 +200,232 @@
             />
         </svg>
     <a href="#event" onclick="anchorLink('event')">event</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<h2 class="handle">
+    <label>Conditional Subschema</label>
+</h2>
+<p>If the conditions in the "If" tab are respected, then the conditions in the "Then" tab should be respected.
+    Otherwise, the conditions in the "Else" tab should be respected.</p>
+<ul class="nav nav-tabs" id="event_condition_tabs" role="tablist">
+    
+    <li class="nav-item">
+        <a class="nav-link active"
+           id="event_if" data-toggle="tab" href="#tab-pane_event_if" role="tab"
+           onclick="setAnchor('#event_if')"
+        >If</a>
+    </li>
 
+    
+        
+        <li class="nav-item">
+            <a class="nav-link"
+               id="event_then" data-toggle="tab" href="#tab-pane_event_then" role="tab"
+               onclick="setAnchor('#event_then')"
+            >Then</a>
+        </li></ul>
+
+<div class="tab-content card">
+    
+    <div class="tab-pane fade card-body active show"
+         id="tab-pane_event_if" role="tabpanel">
+        
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_if" onclick="anchorLink('event_if')">if</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionevent_if_type">
+    <div class="card">
+        <div class="card-header" id="headingevent_if_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_if_type"
+                        aria-expanded="" aria-controls="event_if_type" onclick="setAnchor('#event_if_type')"><span class="property-name">type</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="event_if_type"
+             class="collapse property-definition-div" aria-labelledby="headingevent_if_type"
+             data-parent="#accordionevent_if_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_if" onclick="anchorLink('event_if')">if</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_if_type" onclick="anchorLink('event_if_type')">type</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
+<div class="enum-value" id="event_if_type_enum">
+            <h4>Must be one of:</h4>
+            <ul class="list-group"><li class="list-group-item enum-item">"pass"</li><li class="list-group-item enum-item">"shot"</li></ul>
+            </div>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+    
+        
+        <div class="tab-pane fade card-body"
+             id="tab-pane_event_then" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_then" onclick="anchorLink('event_then')">then</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionevent_then_x_end">
+    <div class="card">
+        <div class="card-header" id="headingevent_then_x_end">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_then_x_end"
+                        aria-expanded="" aria-controls="event_then_x_end" onclick="setAnchor('#event_then_x_end')"><span class="property-name">x_end</span></button>
+            </h2>
+        </div>
+
+        <div id="event_then_x_end"
+             class="collapse property-definition-div" aria-labelledby="headingevent_then_x_end"
+             data-parent="#accordionevent_then_x_end">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_then" onclick="anchorLink('event_then')">then</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_then_x_end" onclick="anchorLink('event_then_x_end')">x_end</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionevent_then_y_end">
+    <div class="card">
+        <div class="card-header" id="headingevent_then_y_end">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_then_y_end"
+                        aria-expanded="" aria-controls="event_then_y_end" onclick="setAnchor('#event_then_y_end')"><span class="property-name">y_end</span></button>
+            </h2>
+        </div>
+
+        <div id="event_then_y_end"
+             class="collapse property-definition-div" aria-labelledby="headingevent_then_y_end"
+             data-parent="#accordionevent_then_y_end">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_then" onclick="anchorLink('event_then')">then</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_then_y_end" onclick="anchorLink('event_then_y_end')">y_end</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div></div>
         
 
         
@@ -607,7 +832,7 @@
             />
         </svg>
     <a href="#event_receiver_id" onclick="anchorLink('event_receiver_id')">receiver_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
-<span class="description"><p>Unique identifier of the player receiving a pass, leave null if event is not a pass</p>
+<span class="description"><p>Unique identifier of the player who ends up in possession of the ball, leave null if the event does not end with a known player in possession</p>
 </span>
         
 
@@ -648,7 +873,48 @@
             />
         </svg>
     <a href="#event_receiver_time" onclick="anchorLink('event_receiver_time')">receiver_time</a></div><span class="badge badge-dark value-type">Type: string or null</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Absolute time in UTC of the first moment the ball was received</p>
+<span class="description"><p>Absolute time in UTC of the first moment the ball was received, leave null if the event does not end with a known player in possession</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionevent_receiver_team_id">
+    <div class="card">
+        <div class="card-header" id="headingevent_receiver_team_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_receiver_team_id"
+                        aria-expanded="" aria-controls="event_receiver_team_id" onclick="setAnchor('#event_receiver_team_id')"><span class="property-name">receiver_team_id</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="event_receiver_team_id"
+             class="collapse property-definition-div" aria-labelledby="headingevent_receiver_team_id"
+             data-parent="#accordionevent_receiver_team_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event" onclick="anchorLink('event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#event_receiver_team_id" onclick="anchorLink('event_receiver_team_id')">receiver_team_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Unique team identifier of the player identified by receiver_id, leave null if the event does not end with a known player in possession</p>
 </span>
         
 
@@ -770,8 +1036,8 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_x_end" onclick="anchorLink('event_x_end')">x_end</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>x location where the action of player_id ended (m)</p>
+    <a href="#event_x_end" onclick="anchorLink('event_x_end')">x_end</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+<span class="description"><p>x location where the action of player_id ended (m), null for single-point events that have no end coordinate</p>
 </span>
         
 
@@ -811,8 +1077,8 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_y_end" onclick="anchorLink('event_y_end')">y_end</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>y location where the action of player_id ended (m)</p>
+    <a href="#event_y_end" onclick="anchorLink('event_y_end')">y_end</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+<span class="description"><p>y location where the action of player_id ended (m), null for single-point events that have no end coordinate</p>
 </span>
         
 
@@ -856,7 +1122,7 @@
 <span class="description"><p>Denotes the body part used by player_id</p>
 </span><div class="enum-value" id="event_body_part_enum">
             <h4>Must be one of:</h4>
-            <ul class="list-group"><li class="list-group-item enum-item">"left_foot"</li><li class="list-group-item enum-item">"right_foot"</li><li class="list-group-item enum-item">"head"</li><li class="list-group-item enum-item">"other"</li></ul>
+            <ul class="list-group"><li class="list-group-item enum-item">"left_foot"</li><li class="list-group-item enum-item">"right_foot"</li><li class="list-group-item enum-item">"head"</li><li class="list-group-item enum-item">"hands"</li><li class="list-group-item enum-item">"upper_body"</li><li class="list-group-item enum-item">"lower_body"</li><li class="list-group-item enum-item">"other"</li></ul>
             </div>
         
 
@@ -1706,6 +1972,6 @@
 </div>
 
     <footer>
-        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a> on 2025-11-03 at 13:33:33 +0100</p>
+        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a></p>
     </footer></body>
 </html>

@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.3
+# Auto-generated from JSON Schema v0.3.0
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -63,16 +63,23 @@ class Event(TypedDict):
     team_id: str  # Unique team identifier of the player performing the action
     receiver_id: (
         str | None
-    )  # Unique identifier of the player receiving a pass, leave null if event is not a pass
+    )  # Unique identifier of the player who ends up in possession of the ball, leave null if the event does not end with a known player in possession
     receiver_time: (
         str | None
-    )  # Absolute time in UTC of the first moment the ball was received
+    )  # Absolute time in UTC of the first moment the ball was received, leave null if the event does not end with a known player in possession
+    receiver_team_id: (
+        str | None
+    )  # Unique team identifier of the player identified by receiver_id, leave null if the event does not end with a known player in possession
     x: float  # x location where the action of player_id happened (m)
     y: float  # y location where the action of player_id happened (m)
-    x_end: float  # x location where the action of player_id ended (m)
-    y_end: float  # y location where the action of player_id ended (m)
+    x_end: (
+        float | None
+    )  # x location where the action of player_id ended (m), null for single-point events that have no end coordinate
+    y_end: (
+        float | None
+    )  # y location where the action of player_id ended (m), null for single-point events that have no end coordinate
     body_part: Literal[
-        "left_foot", "right_foot", "head", "other"
+        "left_foot", "right_foot", "head", "hands", "upper_body", "lower_body", "other"
     ]  # Denotes the body part used by player_id
     related_event_ids: (
         list[str] | None

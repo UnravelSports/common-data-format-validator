@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.3
+# Auto-generated from JSON Schema v0.3.0
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -17,9 +17,12 @@ class Ball(TypedDict):
     x: float | None
     y: float | None
     z: float | None
+    status: NotRequired[bool]
+    poss_team_id: NotRequired[str]
+    poss_status: NotRequired[str]
 
 
-class Referee(TypedDict):
+class Official(TypedDict):
     id: str
     x: float | None
     y: float | None
@@ -29,7 +32,6 @@ class Referee(TypedDict):
     lat: NotRequired[float]
     long: NotRequired[float]
     is_visible: NotRequired[bool]
-    minutes_played: NotRequired[float]
 
 
 class Event(TypedDict):
@@ -55,7 +57,6 @@ class Player(TypedDict):
     lat: NotRequired[float]
     long: NotRequired[float]
     is_visible: NotRequired[bool]
-    minutes_played: NotRequired[float]
 
 
 class Team(TypedDict):
@@ -84,8 +85,5 @@ class CdfTrackingDataSchema(TypedDict):
     match: Match
     teams: Teams
     ball: Ball
-    referees: NotRequired[list[Referee]]
-    ball_status: NotRequired[bool]
-    ball_poss_team_id: NotRequired[str]
-    ball_poss_status: NotRequired[str]
+    officials: NotRequired[list[Official]]
     vendor: NotRequired[Vendor]

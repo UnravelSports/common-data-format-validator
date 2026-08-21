@@ -38,7 +38,9 @@ setup(
     ],
     extras_require={
         "dev": [
-            "json-schema-for-humans>=1.4.1",
+            # Pinned: the docs CI job byte-compares generated HTML, so a
+            # generator upgrade must be a deliberate commit, not a silent bump
+            "json-schema-for-humans==1.4.1",
             "pytest>=8.4.0",
         ]
     },

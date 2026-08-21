@@ -1,4 +1,4 @@
-# Auto-generated from JSON Schema v0.2.3
+# Auto-generated from JSON Schema v0.3.0
 # Do not edit manually - run generate_latest_domain.py
 
 
@@ -34,11 +34,11 @@ class Period(TypedDict):
         "second_half_extratime",
         "shootout",
     ]
-    play_direction: Literal[
-        "left_right", "right_left"
+    play_direction: NotRequired[
+        Literal["left_right", "right_left"]
     ]  # The direction of play for the home team
-    time_start: NotRequired[str]  # Start time of the period in UTC
-    time_end: NotRequired[str]  # End time of the period in UTC
+    start_time: NotRequired[str]  # Start time of the period in UTC
+    end_time: NotRequired[str]  # End time of the period in UTC
     frame_id_start: NotRequired[int]  # Frame ID at the start of the period
     frame_id_end: NotRequired[int]  # Frame ID at the start of the period
     left_team_id: NotRequired[
@@ -75,7 +75,7 @@ class Match(TypedDict):
     misc: NotRequired[Misc]
 
 
-class Stadium(TypedDict):
+class Venue(TypedDict):
     id: str  # Unique identifier for the stadium
     pitch_length: NotRequired[
         float | None
@@ -100,6 +100,8 @@ class Event(TypedDict):
     collection_timing: (
         str  # Indicates if the event data was collected live or post match
     )
+    name: str  # Vendor name of the event data
+    version: str  # Version number for the event data collection in use (e.g. '0.1.0')
 
 
 class Tracking(TypedDict):
@@ -156,11 +158,39 @@ class Meta(TypedDict):
     cdf: Cdf | None  # Common Data Format (CDF) meta information
 
 
+class Official(TypedDict):
+    id: str  # Unique identifier for the official
+    first_name: NotRequired[
+        str | None
+    ]  # First name of the official, null if not available
+    last_name: NotRequired[
+        str | None
+    ]  # Last name of the official, null if not available
+    short_name: NotRequired[
+        str | None
+    ]  # Short name of the official, null if not available
+    type: NotRequired[
+        Literal[
+            "main_referee",
+            "fourth_official",
+            "assistant_referee",
+            "video_assistant_referee",
+            "assistant_video_assistant_referee",
+            "reserve_assistant_referee",
+            "support_video_assistant_referee",
+        ]
+    ]  # Role of the official (e.g., 'main_referee', 'assistant_referee', 'fourth_official')
+
+
 class Player(TypedDict):
     id: str  # Unique player identifier
     team_id: str  # Unique team identifier denoting the team the player plays for
     jersey_number: int  # Jersey number for a player
     is_starter: bool  # Denotes whether a player started the game (true) or not (false)
+    last_name: NotRequired[str | None]  # Last name of the player, null if not available
+    first_name: NotRequired[
+        str | None
+    ]  # First name of the player, null if not available
 
 
 class Team(TypedDict):
@@ -178,5 +208,6 @@ class CdfMetaDataSchema(TypedDict):
     season: Season
     match: Match
     teams: Teams
-    stadium: Stadium
+    venue: Venue
     meta: Meta
+    officials: NotRequired[list[Official]]

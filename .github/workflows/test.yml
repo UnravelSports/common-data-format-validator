@@ -33,4 +33,34 @@ jobs:
     - name: Run pytest
       run: |
         pytest -v
-    
+
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    - name: Regenerate schema docs
+      run: |
+        python generate_docs.py
+
+    - name: Check docs are up to date
+      run: |
+        if [ -n "$(git status --porcelain docs/)" ]; then
+          echo "::error::docs/ is stale. Run 'python generate_docs.py' and commit the result."
+          git status --porcelain docs/
+          git diff -- docs/
+          exit 1
+        fi
+        echo "docs/ is up to date with cdf/files/v$(python -c 'import cdf; print(cdf.VERSION)')/schema/"
