@@ -80,8 +80,6 @@ validator.validate_schema(sample="my_meta.json", mode="extreme")
 
 ---
 
-
-
 ### Note
 
 The validator checks:
@@ -134,22 +132,18 @@ Both generators format their own output.
 
 ---
 
-### Current Version of Common Data Format
+### Versions
 
 This validator currently relies on CDF "alpha" version 2, but includes all logical changes not yet reflected in the text of this version, as discussed in the [Changelog](https://github.com/UnravelSports/common-data-format-validator/blob/main/CHANGELOG.md)
 
-#### Two version numbers
+The format and the package are versioned separately.
 
-The format and the package are versioned separately, so the two numbers do not match and are not meant to.
+|                | Read from           | Currently |
+| -------------- | ------------------- | --------- |
+| CDF format     | `cdf.VERSION`     | 0.3.1     |
+| Python package | `cdf.__version__` | 0.1.0     |
 
-| | Read from | Currently |
-| --- | --- | --- |
-| CDF format | `cdf.VERSION` | 0.3.1 |
-| Python package | `cdf.__version__` | 0.1.0 |
-
-`cdf.VERSION` selects which schemas you validate against, in `cdf/files/v{VERSION}/`, and is the version the Changelog is written against. `cdf.__version__` is the release published to PyPI.
-
-They move independently. A package release can fix a bug in the validator without the format changing, and a format change does not have to wait for one. For reference, package 0.0.14 shipped CDF 0.2.3.
+`cdf.VERSION` selects which CDF schemas you validate against, in `cdf/files/v{VERSION}/`, and is the version the Changelog is written against. `cdf.__version__` is the package release published to PyPI.
 
 ---
 
