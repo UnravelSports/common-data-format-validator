@@ -1,8 +1,20 @@
 import builtins
+import pathlib
+import re
 from setuptools import setup, find_packages
 
 builtins.__CDFV_SETUP__ = True
 from cdf import __version__ as package_version
+
+# Read the CDF schema version from the source rather than importing it. The
+# __CDFV_SETUP__ flag above deliberately stops cdf/__init__.py pulling in the
+# validators, so `from cdf import VERSION` is not available here, and importing
+# cdf.validators directly would require jsonschema at build time.
+schema_version = re.search(
+    r'^VERSION = "([^"]+)"',
+    pathlib.Path("cdf/validators/__init__.py").read_text(encoding="utf-8"),
+    re.MULTILINE,
+).group(1)
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -12,7 +24,10 @@ setup(
     version=package_version,
     author="Joris Bekkers",
     author_email="joris@pysport.org",
-    description="A package for validating common data format files",
+    description=(
+        "Validates football match data against the Common Data Format "
+        f"(currently CDF v{schema_version})"
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/unravelsports/common-data-format-validator",
