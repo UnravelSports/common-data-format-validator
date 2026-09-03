@@ -1,6 +1,6 @@
 from importlib import resources
 
-VERSION = "0.2.3"
+VERSION = "0.3.1"
 
 from .validators import (
     MetaSchemaValidator,
@@ -8,6 +8,7 @@ from .validators import (
     EventSchemaValidator,
     TrackingSchemaValidator,
     SkeletalSchemaValidator,
+    LandmarkSchemaValidator,
     VideoSchemaValidator,
 )
 

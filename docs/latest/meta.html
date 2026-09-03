@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Meta Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.2.2</strong></p>
+<span class="description"><p><strong>Version 0.3.1</strong></p>
 
 <p>This schema defines the Meta Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 </span>
@@ -554,7 +554,226 @@
             />
         </svg>
     <a href="#match_periods_items" onclick="anchorLink('match_periods_items')">periods items</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<h2 class="handle">
+    <label>Conditional Subschema</label>
+</h2>
+<p>If the conditions in the "If" tab are respected, then the conditions in the "Then" tab should be respected.
+    Otherwise, the conditions in the "Else" tab should be respected.</p>
+<ul class="nav nav-tabs" id="match_periods_items_condition_tabs" role="tablist">
+    
+    <li class="nav-item">
+        <a class="nav-link active"
+           id="match_periods_items_if" data-toggle="tab" href="#tab-pane_match_periods_items_if" role="tab"
+           onclick="setAnchor('#match_periods_items_if')"
+        >If</a>
+    </li>
 
+    
+        
+        <li class="nav-item">
+            <a class="nav-link"
+               id="match_periods_items_then" data-toggle="tab" href="#tab-pane_match_periods_items_then" role="tab"
+               onclick="setAnchor('#match_periods_items_then')"
+            >Then</a>
+        </li><li class="nav-item">
+            <a class="nav-link"
+               id="match_periods_items_else" data-toggle="tab" href="#tab-pane_match_periods_items_else" role="tab"
+               onclick="setAnchor('#match_periods_items_else')"
+            >Else</a>
+        </li></ul>
+
+<div class="tab-content card">
+    
+    <div class="tab-pane fade card-body active show"
+         id="tab-pane_match_periods_items_if" role="tabpanel">
+        
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match" onclick="anchorLink('match')">match</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods" onclick="anchorLink('match_periods')">periods</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items" onclick="anchorLink('match_periods_items')">periods items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items_if" onclick="anchorLink('match_periods_items_if')">if</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionmatch_periods_items_if_period">
+    <div class="card">
+        <div class="card-header" id="headingmatch_periods_items_if_period">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_if_period"
+                        aria-expanded="" aria-controls="match_periods_items_if_period" onclick="setAnchor('#match_periods_items_if_period')"><span class="property-name">period</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="match_periods_items_if_period"
+             class="collapse property-definition-div" aria-labelledby="headingmatch_periods_items_if_period"
+             data-parent="#accordionmatch_periods_items_if_period">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match" onclick="anchorLink('match')">match</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods" onclick="anchorLink('match_periods')">periods</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items" onclick="anchorLink('match_periods_items')">periods items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items_if" onclick="anchorLink('match_periods_items_if')">if</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items_if_period" onclick="anchorLink('match_periods_items_if_period')">period</a></div><span class="badge badge-dark value-type">Type: const</span><br/>
+<span class="const-value" id="match_periods_items_if_period_const">Specific value: <code>"shootout"</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+    
+        
+        <div class="tab-pane fade card-body"
+             id="tab-pane_match_periods_items_then" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match" onclick="anchorLink('match')">match</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods" onclick="anchorLink('match_periods')">periods</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items" onclick="anchorLink('match_periods_items')">periods items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items_then" onclick="anchorLink('match_periods_items_then')">then</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+        </div>
+        <div class="tab-pane fade card-body"
+             id="tab-pane_match_periods_items_else" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match" onclick="anchorLink('match')">match</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods" onclick="anchorLink('match_periods')">periods</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items" onclick="anchorLink('match_periods_items')">periods items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_periods_items_else" onclick="anchorLink('match_periods_items_else')">else</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        <div class="enum-value">
+    <h4>The following properties are required:</h4>
+    <ul class="list-group"><li class="list-group-item required-property">play_direction</li></ul>
+    </div>
+
+        
+        
+
+        
+        </div></div>
         
 
         
@@ -623,7 +842,7 @@
         <div class="card-header" id="headingmatch_periods_items_play_direction">
             <h2 class="mb-0">
                 <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_play_direction"
-                        aria-expanded="" aria-controls="match_periods_items_play_direction" onclick="setAnchor('#match_periods_items_play_direction')"><span class="property-name">play_direction</span> <span class="badge badge-warning required-property">Required</span></button>
+                        aria-expanded="" aria-controls="match_periods_items_play_direction" onclick="setAnchor('#match_periods_items_play_direction')"><span class="property-name">play_direction</span></button>
             </h2>
         </div>
 
@@ -676,18 +895,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionmatch_periods_items_time_start">
+<div class="accordion" id="accordionmatch_periods_items_start_time">
     <div class="card">
-        <div class="card-header" id="headingmatch_periods_items_time_start">
+        <div class="card-header" id="headingmatch_periods_items_start_time">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_time_start"
-                        aria-expanded="" aria-controls="match_periods_items_time_start" onclick="setAnchor('#match_periods_items_time_start')"><span class="property-name">time_start</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_start_time"
+                        aria-expanded="" aria-controls="match_periods_items_start_time" onclick="setAnchor('#match_periods_items_start_time')"><span class="property-name">start_time</span></button>
             </h2>
         </div>
 
-        <div id="match_periods_items_time_start"
-             class="collapse property-definition-div" aria-labelledby="headingmatch_periods_items_time_start"
-             data-parent="#accordionmatch_periods_items_time_start">
+        <div id="match_periods_items_start_time"
+             class="collapse property-definition-div" aria-labelledby="headingmatch_periods_items_start_time"
+             data-parent="#accordionmatch_periods_items_start_time">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -718,7 +937,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#match_periods_items_time_start" onclick="anchorLink('match_periods_items_time_start')">time_start</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
+    <a href="#match_periods_items_start_time" onclick="anchorLink('match_periods_items_start_time')">start_time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
 <span class="description"><p>Start time of the period in UTC</p>
 </span>
         
@@ -731,18 +950,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionmatch_periods_items_time_end">
+<div class="accordion" id="accordionmatch_periods_items_end_time">
     <div class="card">
-        <div class="card-header" id="headingmatch_periods_items_time_end">
+        <div class="card-header" id="headingmatch_periods_items_end_time">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_time_end"
-                        aria-expanded="" aria-controls="match_periods_items_time_end" onclick="setAnchor('#match_periods_items_time_end')"><span class="property-name">time_end</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_periods_items_end_time"
+                        aria-expanded="" aria-controls="match_periods_items_end_time" onclick="setAnchor('#match_periods_items_end_time')"><span class="property-name">end_time</span></button>
             </h2>
         </div>
 
-        <div id="match_periods_items_time_end"
-             class="collapse property-definition-div" aria-labelledby="headingmatch_periods_items_time_end"
-             data-parent="#accordionmatch_periods_items_time_end">
+        <div id="match_periods_items_end_time"
+             class="collapse property-definition-div" aria-labelledby="headingmatch_periods_items_end_time"
+             data-parent="#accordionmatch_periods_items_end_time">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -773,7 +992,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#match_periods_items_time_end" onclick="anchorLink('match_periods_items_time_end')">time_end</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
+    <a href="#match_periods_items_end_time" onclick="anchorLink('match_periods_items_end_time')">end_time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
 <span class="description"><p>End time of the period in UTC</p>
 </span>
         
@@ -2058,6 +2277,130 @@
         </div>
     </div>
 </div>
+<div class="accordion" id="accordionteams_home_players_items_last_name">
+    <div class="card">
+        <div class="card-header" id="headingteams_home_players_items_last_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_players_items_last_name"
+                        aria-expanded="" aria-controls="teams_home_players_items_last_name" onclick="setAnchor('#teams_home_players_items_last_name')"><span class="property-name">last_name</span></button>
+            </h2>
+        </div>
+
+        <div id="teams_home_players_items_last_name"
+             class="collapse property-definition-div" aria-labelledby="headingteams_home_players_items_last_name"
+             data-parent="#accordionteams_home_players_items_last_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams" onclick="anchorLink('teams')">teams</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players_items" onclick="anchorLink('teams_home_players_items')">players items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players_items_last_name" onclick="anchorLink('teams_home_players_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Last name of the player, null if not available</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionteams_home_players_items_first_name">
+    <div class="card">
+        <div class="card-header" id="headingteams_home_players_items_first_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_players_items_first_name"
+                        aria-expanded="" aria-controls="teams_home_players_items_first_name" onclick="setAnchor('#teams_home_players_items_first_name')"><span class="property-name">first_name</span></button>
+            </h2>
+        </div>
+
+        <div id="teams_home_players_items_first_name"
+             class="collapse property-definition-div" aria-labelledby="headingteams_home_players_items_first_name"
+             data-parent="#accordionteams_home_players_items_first_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams" onclick="anchorLink('teams')">teams</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players_items" onclick="anchorLink('teams_home_players_items')">players items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_players_items_first_name" onclick="anchorLink('teams_home_players_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>First name of the player, null if not available</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
             </div>
@@ -2106,18 +2449,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionstadium">
+<div class="accordion" id="accordionvenue">
     <div class="card">
-        <div class="card-header" id="headingstadium">
+        <div class="card-header" id="headingvenue">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium"
-                        aria-expanded="" aria-controls="stadium" onclick="setAnchor('#stadium')"><span class="property-name">stadium</span> <span class="badge badge-warning required-property">Required</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue"
+                        aria-expanded="" aria-controls="venue" onclick="setAnchor('#venue')"><span class="property-name">venue</span> <span class="badge badge-warning required-property">Required</span></button>
             </h2>
         </div>
 
-        <div id="stadium"
-             class="collapse property-definition-div" aria-labelledby="headingstadium"
-             data-parent="#accordionstadium">
+        <div id="venue"
+             class="collapse property-definition-div" aria-labelledby="headingvenue"
+             data-parent="#accordionvenue">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2127,7 +2470,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
 
         
 
@@ -2135,18 +2478,18 @@
         
 
         
-<div class="accordion" id="accordionstadium_id">
+<div class="accordion" id="accordionvenue_id">
     <div class="card">
-        <div class="card-header" id="headingstadium_id">
+        <div class="card-header" id="headingvenue_id">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium_id"
-                        aria-expanded="" aria-controls="stadium_id" onclick="setAnchor('#stadium_id')"><span class="property-name">id</span> <span class="badge badge-warning required-property">Required</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue_id"
+                        aria-expanded="" aria-controls="venue_id" onclick="setAnchor('#venue_id')"><span class="property-name">id</span> <span class="badge badge-warning required-property">Required</span></button>
             </h2>
         </div>
 
-        <div id="stadium_id"
-             class="collapse property-definition-div" aria-labelledby="headingstadium_id"
-             data-parent="#accordionstadium_id">
+        <div id="venue_id"
+             class="collapse property-definition-div" aria-labelledby="headingvenue_id"
+             data-parent="#accordionvenue_id">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2156,14 +2499,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium_id" onclick="anchorLink('stadium_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+    <a href="#venue_id" onclick="anchorLink('venue_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Unique identifier for the stadium</p>
 </span>
         
@@ -2176,18 +2519,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionstadium_pitch_length">
+<div class="accordion" id="accordionvenue_pitch_length">
     <div class="card">
-        <div class="card-header" id="headingstadium_pitch_length">
+        <div class="card-header" id="headingvenue_pitch_length">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium_pitch_length"
-                        aria-expanded="" aria-controls="stadium_pitch_length" onclick="setAnchor('#stadium_pitch_length')"><span class="property-name">pitch_length</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue_pitch_length"
+                        aria-expanded="" aria-controls="venue_pitch_length" onclick="setAnchor('#venue_pitch_length')"><span class="property-name">pitch_length</span></button>
             </h2>
         </div>
 
-        <div id="stadium_pitch_length"
-             class="collapse property-definition-div" aria-labelledby="headingstadium_pitch_length"
-             data-parent="#accordionstadium_pitch_length">
+        <div id="venue_pitch_length"
+             class="collapse property-definition-div" aria-labelledby="headingvenue_pitch_length"
+             data-parent="#accordionvenue_pitch_length">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2197,14 +2540,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium_pitch_length" onclick="anchorLink('stadium_pitch_length')">pitch_length</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#venue_pitch_length" onclick="anchorLink('venue_pitch_length')">pitch_length</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
 <span class="description"><p>Length of the pitch in metres, null if not available</p>
 </span>
         
@@ -2217,18 +2560,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionstadium_pitch_width">
+<div class="accordion" id="accordionvenue_pitch_width">
     <div class="card">
-        <div class="card-header" id="headingstadium_pitch_width">
+        <div class="card-header" id="headingvenue_pitch_width">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium_pitch_width"
-                        aria-expanded="" aria-controls="stadium_pitch_width" onclick="setAnchor('#stadium_pitch_width')"><span class="property-name">pitch_width</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue_pitch_width"
+                        aria-expanded="" aria-controls="venue_pitch_width" onclick="setAnchor('#venue_pitch_width')"><span class="property-name">pitch_width</span></button>
             </h2>
         </div>
 
-        <div id="stadium_pitch_width"
-             class="collapse property-definition-div" aria-labelledby="headingstadium_pitch_width"
-             data-parent="#accordionstadium_pitch_width">
+        <div id="venue_pitch_width"
+             class="collapse property-definition-div" aria-labelledby="headingvenue_pitch_width"
+             data-parent="#accordionvenue_pitch_width">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2238,14 +2581,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium_pitch_width" onclick="anchorLink('stadium_pitch_width')">pitch_width</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#venue_pitch_width" onclick="anchorLink('venue_pitch_width')">pitch_width</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
 <span class="description"><p>Width of the pitch in metres, null if not available</p>
 </span>
         
@@ -2258,18 +2601,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionstadium_name">
+<div class="accordion" id="accordionvenue_name">
     <div class="card">
-        <div class="card-header" id="headingstadium_name">
+        <div class="card-header" id="headingvenue_name">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium_name"
-                        aria-expanded="" aria-controls="stadium_name" onclick="setAnchor('#stadium_name')"><span class="property-name">name</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue_name"
+                        aria-expanded="" aria-controls="venue_name" onclick="setAnchor('#venue_name')"><span class="property-name">name</span></button>
             </h2>
         </div>
 
-        <div id="stadium_name"
-             class="collapse property-definition-div" aria-labelledby="headingstadium_name"
-             data-parent="#accordionstadium_name">
+        <div id="venue_name"
+             class="collapse property-definition-div" aria-labelledby="headingvenue_name"
+             data-parent="#accordionvenue_name">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2279,14 +2622,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium_name" onclick="anchorLink('stadium_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+    <a href="#venue_name" onclick="anchorLink('venue_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Name of the stadium</p>
 </span>
         
@@ -2299,18 +2642,18 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionstadium_turf">
+<div class="accordion" id="accordionvenue_turf">
     <div class="card">
-        <div class="card-header" id="headingstadium_turf">
+        <div class="card-header" id="headingvenue_turf">
             <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#stadium_turf"
-                        aria-expanded="" aria-controls="stadium_turf" onclick="setAnchor('#stadium_turf')"><span class="property-name">turf</span></button>
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#venue_turf"
+                        aria-expanded="" aria-controls="venue_turf" onclick="setAnchor('#venue_turf')"><span class="property-name">turf</span></button>
             </h2>
         </div>
 
-        <div id="stadium_turf"
-             class="collapse property-definition-div" aria-labelledby="headingstadium_turf"
-             data-parent="#accordionstadium_turf">
+        <div id="venue_turf"
+             class="collapse property-definition-div" aria-labelledby="headingvenue_turf"
+             data-parent="#accordionvenue_turf">
             <div class="card-body pl-5">
 
     <div class="breadcrumbs">root
@@ -2320,14 +2663,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium" onclick="anchorLink('stadium')">stadium</a>
+    <a href="#venue" onclick="anchorLink('venue')">venue</a>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#stadium_turf" onclick="anchorLink('stadium_turf')">turf</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+    <a href="#venue_turf" onclick="anchorLink('venue_turf')">turf</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Information on the turf of the pitch (e.g., 'grass', 'natural_reinforced')</p>
 </span>
         
@@ -2680,6 +3023,102 @@
         </svg>
     <a href="#meta_event_collection_timing" onclick="anchorLink('meta_event_collection_timing')">collection_timing</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Indicates if the event data was collected live or post match</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_event_name">
+    <div class="card">
+        <div class="card-header" id="headingmeta_event_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_event_name"
+                        aria-expanded="" aria-controls="meta_event_name" onclick="setAnchor('#meta_event_name')"><span class="property-name">name</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_event_name"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_event_name"
+             data-parent="#accordionmeta_event_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_event" onclick="anchorLink('meta_event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_event_name" onclick="anchorLink('meta_event_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Vendor name of the event data</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_event_version">
+    <div class="card">
+        <div class="card-header" id="headingmeta_event_version">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_event_version"
+                        aria-expanded="" aria-controls="meta_event_version" onclick="setAnchor('#meta_event_version')"><span class="property-name">version</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_event_version"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_event_version"
+             data-parent="#accordionmeta_event_version">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_event" onclick="anchorLink('meta_event')">event</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_event_version" onclick="anchorLink('meta_event_version')">version</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Version number for the event data collection in use (e.g. '0.1.0')</p>
 </span>
         
 
@@ -3624,8 +4063,312 @@
         </div>
     </div>
 </div>
+<div class="accordion" id="accordionofficials">
+    <div class="card">
+        <div class="card-header" id="headingofficials">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials"
+                        aria-expanded="" aria-controls="officials" onclick="setAnchor('#officials')"><span class="property-name">officials</span></button>
+            </h2>
+        </div>
+
+        <div id="officials"
+             class="collapse property-definition-div" aria-labelledby="headingofficials"
+             data-parent="#accordionofficials">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a></div><span class="badge badge-dark value-type">Type: array of object</span><br/>
+
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="officials_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionofficials_items_id">
+    <div class="card">
+        <div class="card-header" id="headingofficials_items_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials_items_id"
+                        aria-expanded="" aria-controls="officials_items_id" onclick="setAnchor('#officials_items_id')"><span class="property-name">id</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="officials_items_id"
+             class="collapse property-definition-div" aria-labelledby="headingofficials_items_id"
+             data-parent="#accordionofficials_items_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items_id" onclick="anchorLink('officials_items_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Unique identifier for the official</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionofficials_items_first_name">
+    <div class="card">
+        <div class="card-header" id="headingofficials_items_first_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials_items_first_name"
+                        aria-expanded="" aria-controls="officials_items_first_name" onclick="setAnchor('#officials_items_first_name')"><span class="property-name">first_name</span></button>
+            </h2>
+        </div>
+
+        <div id="officials_items_first_name"
+             class="collapse property-definition-div" aria-labelledby="headingofficials_items_first_name"
+             data-parent="#accordionofficials_items_first_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items_first_name" onclick="anchorLink('officials_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>First name of the official, null if not available</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionofficials_items_last_name">
+    <div class="card">
+        <div class="card-header" id="headingofficials_items_last_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials_items_last_name"
+                        aria-expanded="" aria-controls="officials_items_last_name" onclick="setAnchor('#officials_items_last_name')"><span class="property-name">last_name</span></button>
+            </h2>
+        </div>
+
+        <div id="officials_items_last_name"
+             class="collapse property-definition-div" aria-labelledby="headingofficials_items_last_name"
+             data-parent="#accordionofficials_items_last_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items_last_name" onclick="anchorLink('officials_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Last name of the official, null if not available</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionofficials_items_short_name">
+    <div class="card">
+        <div class="card-header" id="headingofficials_items_short_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials_items_short_name"
+                        aria-expanded="" aria-controls="officials_items_short_name" onclick="setAnchor('#officials_items_short_name')"><span class="property-name">short_name</span></button>
+            </h2>
+        </div>
+
+        <div id="officials_items_short_name"
+             class="collapse property-definition-div" aria-labelledby="headingofficials_items_short_name"
+             data-parent="#accordionofficials_items_short_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items_short_name" onclick="anchorLink('officials_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Short name of the official, null if not available</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionofficials_items_type">
+    <div class="card">
+        <div class="card-header" id="headingofficials_items_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#officials_items_type"
+                        aria-expanded="" aria-controls="officials_items_type" onclick="setAnchor('#officials_items_type')"><span class="property-name">type</span></button>
+            </h2>
+        </div>
+
+        <div id="officials_items_type"
+             class="collapse property-definition-div" aria-labelledby="headingofficials_items_type"
+             data-parent="#accordionofficials_items_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials" onclick="anchorLink('officials')">officials</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items" onclick="anchorLink('officials_items')">officials items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#officials_items_type" onclick="anchorLink('officials_items_type')">type</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
+<span class="description"><p>Role of the official (e.g., 'main<em>referee', 'assistant</em>referee', 'fourth_official')</p>
+</span><div class="enum-value" id="officials_items_type_enum">
+            <h4>Must be one of:</h4>
+            <ul class="list-group"><li class="list-group-item enum-item">"main_referee"</li><li class="list-group-item enum-item">"fourth_official"</li><li class="list-group-item enum-item">"assistant_referee"</li><li class="list-group-item enum-item">"video_assistant_referee"</li><li class="list-group-item enum-item">"assistant_video_assistant_referee"</li><li class="list-group-item enum-item">"reserve_assistant_referee"</li><li class="list-group-item enum-item">"support_video_assistant_referee"</li></ul>
+            </div>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <footer>
-        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a> on 2025-11-03 at 13:33:33 +0100</p>
+        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a></p>
     </footer></body>
 </html>

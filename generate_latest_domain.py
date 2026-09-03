@@ -1,9 +1,19 @@
-from datamodel_code_generator import InputFileType, generate, DataModelType
+from datamodel_code_generator import (
+    InputFileType,
+    generate,
+    DataModelType,
+    PythonVersion,
+)
 from pathlib import Path
 
 from cdf import VERSION
 
 import re
+import subprocess
+import sys
+
+SCHEMAS = ["event", "match", "meta", "landmark", "tracking", "video"]
+OUTPUT_DIR = Path("cdf/domain/latest")
 
 
 def _replace_header_with_stable_version(file_path: Path):
@@ -50,26 +60,82 @@ def _convert_docstrings_to_comments(file_path: Path):
     file_path.write_text(content)
 
 
-# Create a path object
-output_path = f"cdf/domain/latest"
-path = Path(output_path).mkdir(exist_ok=True)
+def _format(paths):
+    """Run black over the generated files.
 
-for file_type in ["event", "match", "meta", "skeletal", "tracking", "video"]:
-    output_file = output_path / Path(f"{file_type}.py")
-    generate(
-        input_=Path(f"cdf/files/v{VERSION}/schema/{file_type}.json"),
-        input_file_type=InputFileType.JsonSchema,
-        output=output_file,
-        output_model_type=DataModelType.TypingTypedDict,
-        use_field_description=True,
-        field_constraints=True,
-    )
+    The post-processing above rewrites docstrings into trailing comments after
+    datamodel-code-generator has already formatted, which leaves lines the
+    codebase's black config would not accept. Formatting here keeps the script
+    self-contained, so its output is stable whether it is run by hand, by
+    pre-commit, or by CI.
+    """
+    try:
+        subprocess.run(
+            [sys.executable, "-m", "black", "--quiet", *[str(p) for p in paths]],
+            check=True,
+        )
+    except FileNotFoundError:
+        print("✗ Error: black not found. Install it with: pip install -e '.[dev]'")
+        return False
+    except subprocess.CalledProcessError as error:
+        print(f"✗ Failed to format generated models: {error}")
+        return False
+    return True
 
-    _replace_header_with_stable_version(output_file)
 
-    _convert_docstrings_to_comments(output_file)
+def generate_domain_models():
+    """Generate a TypedDict module per schema, then format the results."""
+    schema_dir = Path("cdf/files") / f"v{VERSION}" / "schema"
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Normalize root class name prefix to Cdf (schema titles use "Common Data Format")
-    content = output_file.read_text()
-    content = content.replace("CommonDataFormat", "Cdf")
-    output_file.write_text(content)
+    print(f"Generating domain models for CDF version {VERSION}")
+    print(f"Schema directory: {schema_dir}")
+    print(f"Output directory: {OUTPUT_DIR}")
+    print("-" * 60)
+
+    written = []
+    for file_type in SCHEMAS:
+        input_path = schema_dir / f"{file_type}.json"
+        if not input_path.exists():
+            print(f"⚠ Warning: Schema file not found: {input_path}")
+            return False
+
+        output_file = OUTPUT_DIR / f"{file_type}.py"
+        generate(
+            input_=input_path,
+            input_file_type=InputFileType.JsonSchema,
+            output=output_file,
+            output_model_type=DataModelType.TypingTypedDict,
+            # Matches setup.py's floor. Without it the generator targets an older
+            # Python and imports NotRequired from typing_extensions, which is not a
+            # declared dependency and only arrives transitively via jsonschema.
+            target_python_version=PythonVersion.PY_311,
+            use_field_description=True,
+            field_constraints=True,
+        )
+
+        _replace_header_with_stable_version(output_file)
+
+        _convert_docstrings_to_comments(output_file)
+
+        # Normalize root class name prefix to Cdf (schema titles use "Common Data Format")
+        content = output_file.read_text()
+        content = content.replace("CommonDataFormat", "Cdf")
+        output_file.write_text(content)
+
+        print(f"✓ Generated: {output_file}")
+        written.append(output_file)
+
+    if not _format(written):
+        return False
+
+    print("-" * 60)
+    print("Domain model generation complete!")
+    print(f"Success: {len(written)}/{len(SCHEMAS)}")
+    print(f"Output files are in: {OUTPUT_DIR}")
+    return True
+
+
+if __name__ == "__main__":
+    if not generate_domain_models():
+        sys.exit(1)

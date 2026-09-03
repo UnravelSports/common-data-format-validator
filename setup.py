@@ -27,9 +27,13 @@ setup(
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.9",
+    python_requires=">=3.11",
     install_requires=[
         "jsonlines==4.0.0",
         "jsonschema==4.23.0",
@@ -38,7 +42,15 @@ setup(
     ],
     extras_require={
         "dev": [
-            "json-schema-for-humans>=1.4.1",
+            # Pinned: the docs CI job byte-compares generated HTML, so a
+            # generator upgrade must be a deliberate commit, not a silent bump
+            "json-schema-for-humans==1.4.1",
+            # Same reasoning: generate_latest_domain.py commits its output, so a
+            # generator upgrade rewrites the domain models.
+            "datamodel-code-generator==0.55.0",
+            # Pinned to match .pre-commit-config.yaml. Black's stable style
+            # changes yearly, so an unpinned bump reformats the codebase.
+            "black==26.5.1",
             "pytest>=8.4.0",
         ]
     },

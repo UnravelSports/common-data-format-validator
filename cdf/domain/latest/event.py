@@ -1,12 +1,10 @@
-# Auto-generated from JSON Schema v0.2.3
+# Auto-generated from JSON Schema v0.3.1
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import Literal, TypedDict
-
-from typing_extensions import NotRequired
+from typing import Literal, NotRequired, TypedDict
 
 
 class Match(TypedDict):
@@ -59,21 +57,46 @@ class Event(TypedDict):
         bool  # Denotes whether the event was successful (true) or not (false)
     )
     outcome_type: str  # Detailed event outcome options
-    player_id: str  # Unique identifier of the player performing the action
-    team_id: str  # Unique team identifier of the player performing the action
+    player_id: NotRequired[
+        str
+    ]  # Unique identifier of the player performing the action, omitted when type is referee
+    team_id: NotRequired[
+        str
+    ]  # Unique team identifier of the player performing the action, omitted when type is referee
+    official_id: NotRequired[
+        str
+    ]  # Unique identifier of the official performing the action, present only when type is referee
     receiver_id: (
         str | None
-    )  # Unique identifier of the player receiving a pass, leave null if event is not a pass
+    )  # Unique identifier of the player who ends up in possession of the ball, leave null if the event does not end with a known player in possession
     receiver_time: (
         str | None
-    )  # Absolute time in UTC of the first moment the ball was received
+    )  # Absolute time in UTC of the first moment the ball was received, leave null if the event does not end with a known player in possession
+    receiver_team_id: (
+        str | None
+    )  # Unique team identifier of the player identified by receiver_id, leave null if the event does not end with a known player in possession
     x: float  # x location where the action of player_id happened (m)
     y: float  # y location where the action of player_id happened (m)
-    x_end: float  # x location where the action of player_id ended (m)
-    y_end: float  # y location where the action of player_id ended (m)
-    body_part: Literal[
-        "left_foot", "right_foot", "head", "other"
-    ]  # Denotes the body part used by player_id
+    x_end: (
+        float | None
+    )  # x location where the action of player_id ended (m), null for single-point events that have no end coordinate
+    y_end: (
+        float | None
+    )  # y location where the action of player_id ended (m), null for single-point events that have no end coordinate
+    body_part: (
+        Literal[
+            "left_foot",
+            "right_foot",
+            "feet",
+            "head",
+            "hands",
+            "upper_body",
+            "lower_body",
+            "body",
+            "other",
+        ]
+        | None
+    )  # Denotes the body part used by player_id, null for events other than pass and shot. Use the most specific value that can be resolved: prefer left_foot or right_foot over feet, and a named part over body
     related_event_ids: (
         list[str] | None
     )  # Unique identifier(s) of the events related to the action

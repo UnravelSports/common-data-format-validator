@@ -1,7 +1,7 @@
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 26.5.1
     hooks:
       - id: black
         language_version: python3.11
@@ -10,7 +10,10 @@ repos:
     hooks:
       - id: pytest-check
         name: Run tests
-        entry: pytest tests
+        # Runs in whatever environment is active, so it works regardless of where
+        # a contributor keeps theirs. tests/conftest.py stops with a clear message
+        # if that interpreter is older than setup.py supports.
+        entry: python -m pytest tests
         language: system
         pass_filenames: false
         always_run: true

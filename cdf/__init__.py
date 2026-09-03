@@ -10,8 +10,9 @@ if not __CDFV_SETUP__:
         EventSchemaValidator,
         TrackingSchemaValidator,
         SkeletalSchemaValidator,
+        LandmarkSchemaValidator,
         VideoSchemaValidator,
         VERSION,
     )
 
-__version__ = "0.0.14"
+__version__ = "0.1.0"

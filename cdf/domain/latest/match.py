@@ -1,12 +1,10 @@
-# Auto-generated from JSON Schema v0.2.3
+# Auto-generated from JSON Schema v0.3.1
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import Literal, TypedDict
-
-from typing_extensions import NotRequired
+from typing import Literal, NotRequired, TypedDict
 
 
 class Status(TypedDict):
@@ -51,7 +49,9 @@ class Shootout(TypedDict):
 
 class Result(TypedDict):
     final: Final
-    final_winning_team_id: str  # Unique identifier of the winning team
+    final_winning_team_id: (
+        str | None
+    )  # Unique identifier of the winning team, null when the match was drawn and no shootout was played
     first_half: FirstHalf
     second_half: SecondHalf
     first_half_extratime: NotRequired[
@@ -69,14 +69,28 @@ class Match(TypedDict):
     result: Result
 
 
-class Referee(TypedDict):
-    id: str  # Unique referee identifier
-    official_type: NotRequired[
-        str
-    ]  # The type of referee (e.g. video_assistant_referee, main_referee, assistant_referee or fourth_official
-    first_name: NotRequired[str]  # First name
-    last_name: NotRequired[str]  # Last name
-    short_name: NotRequired[str]  # Short name
+class Official(TypedDict):
+    id: str  # Unique identifier for the official
+    first_name: NotRequired[
+        str | None
+    ]  # First name of the official, null if not available
+    last_name: NotRequired[
+        str | None
+    ]  # Last name of the official, null if not available
+    short_name: NotRequired[
+        str | None
+    ]  # Short name of the official, null if not available
+    type: NotRequired[
+        Literal[
+            "main_referee",
+            "fourth_official",
+            "assistant_referee",
+            "video_assistant_referee",
+            "assistant_video_assistant_referee",
+            "reserve_assistant_referee",
+            "support_video_assistant_referee",
+        ]
+    ]  # Role of the official (e.g., 'main_referee', 'assistant_referee', 'fourth_official')
 
 
 class Score(TypedDict):
@@ -116,7 +130,11 @@ class Card(TypedDict):
     team_id: str  # Identifier of the team who scored
     time: str  # Time a player received a card
     period: Literal[
-        "first_half", "second_half", "first_half_extratime", "second_half_extratime"
+        "first_half",
+        "second_half",
+        "first_half_extratime",
+        "second_half_extratime",
+        "shootout",
     ]  # Period of the game when the card was shown
     player_id: str  # Identifier of the player who received a card
     type: Literal[
@@ -208,6 +226,6 @@ class Teams(TypedDict):
 class CdfOfficialMatchData(TypedDict):
     match: Match
     teams: Teams
-    referees: list[Referee]
+    officials: list[Official]
     events: Events
     meta: Meta
