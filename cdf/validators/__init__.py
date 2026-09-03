@@ -1,6 +1,6 @@
 from importlib import resources
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 
 from .validators import (
     MetaSchemaValidator,

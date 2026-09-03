@@ -1,12 +1,10 @@
-# Auto-generated from JSON Schema v0.3.0
+# Auto-generated from JSON Schema v0.3.1
 # Do not edit manually - run generate_latest_domain.py
 
 
 from __future__ import annotations
 
-from typing import Literal, TypedDict
-
-from typing_extensions import NotRequired
+from typing import Literal, NotRequired, TypedDict
 
 
 class Status(TypedDict):
@@ -51,7 +49,9 @@ class Shootout(TypedDict):
 
 class Result(TypedDict):
     final: Final
-    final_winning_team_id: str  # Unique identifier of the winning team
+    final_winning_team_id: (
+        str | None
+    )  # Unique identifier of the winning team, null when the match was drawn and no shootout was played
     first_half: FirstHalf
     second_half: SecondHalf
     first_half_extratime: NotRequired[

@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Official Match Data</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.0</strong></p>
+<span class="description"><p><strong>Version 0.3.1</strong></p>
 
 <p>This schema defines the Official Match Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 </span>
@@ -1193,8 +1193,8 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#match_result_final_winning_team_id" onclick="anchorLink('match_result_final_winning_team_id')">final_winning_team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier of the winning team</p>
+    <a href="#match_result_final_winning_team_id" onclick="anchorLink('match_result_final_winning_team_id')">final_winning_team_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Unique identifier of the winning team, null when the match was drawn and no shootout was played</p>
 </span>
         
 

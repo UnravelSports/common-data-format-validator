@@ -27,30 +27,28 @@ class TrackingSchemaValidator(SchemaValidator):
         return "tracking"
 
 
-class SkeletalSchemaValidator(SchemaValidator):
-    def __init__(self, *args, **kwargs):
-        # Only warn for the deprecated class itself, not its LandmarkSchemaValidator subclass.
-        if type(self) is SkeletalSchemaValidator:
-            warnings.warn(
-                "SkeletalSchemaValidator is deprecated: within the CDF, 'skeletal' has "
-                "been replaced with 'landmark'. Use LandmarkSchemaValidator instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        super().__init__(*args, **kwargs)
-
+class LandmarkSchemaValidator(SchemaValidator):
     @classmethod
     def validator_type(cls):
-        return "skeletal"
+        return "landmark"
 
 
-class LandmarkSchemaValidator(SkeletalSchemaValidator):
-    """Pass-through replacement for the deprecated SkeletalSchemaValidator.
+class SkeletalSchemaValidator(LandmarkSchemaValidator):
+    """Deprecated alias for LandmarkSchemaValidator.
 
-    Within the CDF, 'skeletal' has been renamed to 'landmark'. This validator
-    behaves identically to SkeletalSchemaValidator (it validates against the same
-    schema) but does not emit the deprecation warning.
+    Within the CDF, 'skeletal' has been renamed to 'landmark'. This validates
+    against the same schema as LandmarkSchemaValidator and differs only in
+    emitting a deprecation warning.
     """
+
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            "SkeletalSchemaValidator is deprecated: within the CDF, 'skeletal' has "
+            "been replaced with 'landmark'. Use LandmarkSchemaValidator instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class VideoSchemaValidator(SchemaValidator):

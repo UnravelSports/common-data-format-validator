@@ -2,6 +2,7 @@
 """
 Generate JSON Schema documentation for all CDF schemas.
 """
+
 import os
 import re
 import subprocess
@@ -17,7 +18,7 @@ SCHEMAS = [
     "event.json",
     "match.json",
     "tracking.json",
-    "skeletal.json",
+    "landmark.json",
     "video.json",
 ]
 

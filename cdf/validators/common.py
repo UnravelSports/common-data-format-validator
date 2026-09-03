@@ -30,14 +30,14 @@ _UTC_TIMESTAMP_RE = re.compile(
 def _parse_utc_timestamp(value):
     """Parse an RFC 3339 UTC timestamp, returning a datetime or None if invalid.
 
-    Requires UTC ('Z' or '+00:00'); 'Z' is normalised to '+00:00' so
-    datetime.fromisoformat works on Python 3.9. The regex fixes the shape and the
-    parse rejects impossible dates (e.g. month 13).
+    Requires UTC ('Z' or '+00:00'); fromisoformat parses both directly from
+    Python 3.11 on. The regex fixes the shape and the parse rejects impossible
+    dates (e.g. month 13).
     """
     if not isinstance(value, str) or not _UTC_TIMESTAMP_RE.match(value):
         return None
     try:
-        return datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return datetime.datetime.fromisoformat(value)
     except ValueError:
         return None
 
@@ -49,17 +49,26 @@ VALIDATION_MODES = ("soft", "strict", "extreme")
 LOCAL_DATETIME_FIELDS = {"local_kickoff_time"}
 
 
+# Conditional branches list only the properties they constrain, never the whole
+# object, so closing them would report every other key of that object as unknown.
+CONDITIONAL_KEYWORDS = ("if", "then", "else")
+
+
 def _inject_no_additional(node):
     """Recursively set ``additionalProperties: false`` on every object schema.
 
     Produces the "shadow" schema used to detect unknown/undefined keys. Only nodes
     that declare ``properties`` (i.e. object schemas) are closed; ``$ref`` nodes and
-    non-object subschemas are left untouched.
+    non-object subschemas are left untouched, as are ``if``/``then``/``else``
+    branches. The enclosing object is closed either way, which is what actually
+    catches an unknown key.
     """
     if isinstance(node, dict):
         if "properties" in node and "additionalProperties" not in node:
             node["additionalProperties"] = False
-        for value in node.values():
+        for key, value in node.items():
+            if key in CONDITIONAL_KEYWORDS:
+                continue
             _inject_no_additional(value)
     elif isinstance(node, list):
         for value in node:
@@ -89,6 +98,7 @@ SKIP_VALUE_SNAKE_CASE = [
     "out_player_id",
     "receiver_id",
     "receiver_team_id",
+    "official_id",
 ]
 
 # Position groups and their valid positions
@@ -365,6 +375,10 @@ class SchemaValidator:
         if self.validator_type() == "meta":
             self._validate_meta_chronology(instance)
 
+        # A level final score has no winner unless a shootout settled it.
+        if self.validator_type() == "match":
+            self._validate_match_result(instance)
+
         self._report(mode)
 
     def _resolve_ref(self, schema):
@@ -470,6 +484,92 @@ class SchemaValidator:
                     sequence.append((label, parsed))
             self._check_chronological(sequence, "whistle timestamps")
 
+    def _validate_match_result(self, instance):
+        """Check that ``final_winning_team_id`` agrees with the final scoreline.
+
+        A level final score has no winner unless the tie was settled on penalties,
+        so the winner is null exactly when the scores are level and no ``shootout``
+        block is present. JSON Schema cannot compare two sibling values to each
+        other, which is why this lives here rather than in match.json.
+        """
+        if not isinstance(instance, dict):
+            return
+        match = instance.get("match")
+        if not isinstance(match, dict):
+            return
+        result = match.get("result")
+        if not isinstance(result, dict):
+            return
+
+        final = result.get("final")
+        if not isinstance(final, dict):
+            return
+        home, away = final.get("home"), final.get("away")
+        if not isinstance(home, int) or not isinstance(away, int):
+            return
+
+        shootout = result.get("shootout")
+        settled_on_penalties = isinstance(shootout, dict)
+        winner = result.get("final_winning_team_id")
+        drawn = home == away and not settled_on_penalties
+        label = self._format_path(["match", "result", "final_winning_team_id"])
+
+        if drawn:
+            if winner is not None:
+                self.errors.append(
+                    f"{label}: must be null when the final score is level "
+                    f"({home}-{away}) and no shootout was played"
+                )
+            return
+
+        if winner is None:
+            self.errors.append(
+                f"{label}: must name the winning team when the match was not drawn"
+            )
+            return
+
+        # Work out who actually won, then check the named team is that team.
+        if home != away:
+            side, margin = (
+                ("home", f"{home}-{away}")
+                if home > away
+                else (
+                    "away",
+                    f"{away}-{home}",
+                )
+            )
+        else:
+            shootout_home, shootout_away = shootout.get("home"), shootout.get("away")
+            if not isinstance(shootout_home, int) or not isinstance(shootout_away, int):
+                return
+            if shootout_home == shootout_away:
+                self.errors.append(
+                    self._format_path(["match", "result", "shootout"])
+                    + f": cannot end level ({shootout_home}-{shootout_away}); "
+                    "a shootout decides the winner"
+                )
+                return
+            side, margin = (
+                ("home", f"{shootout_home}-{shootout_away}")
+                if shootout_home > shootout_away
+                else ("away", f"{shootout_away}-{shootout_home}")
+            )
+
+        teams = instance.get("teams")
+        if not isinstance(teams, dict):
+            return
+        winning_team = teams.get(side)
+        if not isinstance(winning_team, dict):
+            return
+        expected = winning_team.get("id")
+        if not isinstance(expected, str) or winner == expected:
+            return
+
+        self.errors.append(
+            f"{label}: is '{winner}', but the {side} team '{expected}' won {margin}"
+            + (" on penalties" if home == away else "")
+        )
+
     @staticmethod
     def _resolve_mode(mode, soft):
         """Resolve the effective validation mode, honouring the deprecated `soft` flag."""
@@ -496,12 +596,12 @@ class SchemaValidator:
 
         # frame_id must be a monotonically increasing unique integer starting at 0.
         # This is a whole-file (cross-line) check, so it only runs when the full file is
-        # validated (limit is None) and only for frame-based data (tracking/skeletal).
+        # validated (limit is None) and only for frame-based data (tracking/landmark).
         # frame_id and per-frame timestamp are whole-file (cross-line) checks, so they
         # only run for full-file validation (limit is None) of frame-based data.
         check_frame_sequence = limit is None and self.validator_type() in (
             "tracking",
-            "skeletal",
+            "landmark",
         )
         prev_frame_id = None
         prev_timestamp = None

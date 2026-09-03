@@ -6,6 +6,48 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 
 --
 
+## 🗒️ Changelog v0.3.1 (alpha) - Tuesday 25th August 2026
+
+---
+
+### General
+
+- Changed the minimum supported Python from 3.9 to 3.11. Python 3.9 reached end of life in October 2025 and 3.10 does so in October 2026.
+- Pinned `black` to 26.5.1 in the `dev` extra and in `.pre-commit-config.yaml`, which previously disagreed with each other (24.10.0 against whatever was installed). 26.x requires Python 3.11, which the bump above unblocks.
+- Added a `lint` job to CI running `black --check`. Formatting was previously enforced only by pre-commit, so it never gated a pull request.
+- `generate_latest_domain.py` now formats its own output and exits non-zero on failure, and CI regenerates the domain models alongside the docs and fails when either is stale.
+- The generated domain models now import `NotRequired` from `typing` rather than `typing_extensions`, which was never a declared dependency and only arrived transitively through `jsonschema`.
+- Completed the "skeletal" to "landmark" rename started in v0.3.0. `skeletal.json` and `skeletal.jsonl` are now `landmark.json` and `landmark.jsonl`, the schema is titled "Landmark Tracking Data", and `LandmarkSchemaValidator` is the validator rather than a pass-through of the deprecated `SkeletalSchemaValidator`. `SkeletalSchemaValidator` still resolves the same schema and still warns.
+- Settled how a missing value is expressed: `null` means the field applies to the record but has nothing to record, an absent key means the field does not apply to that kind of record at all.
+- Values of `official_id` are no longer checked for snake_case, matching `team_id` and `player_id`.
+- Fixed unknown-key detection reporting every key of an object as unknown when that object carries an `if`/`then`/`else`, which affects `"extreme"` mode only.
+- The Match Sheet validator now checks `match/result/final_winning_team_id` against the final scoreline, and that it names the `teams/{home|away}/id` that actually won (by score, or by `shootout` when the score is level). JSON Schema cannot compare two sibling values, so this is enforced in the validator rather than in the schema.
+- The Match Sheet validator now rejects a level `match/result/shootout`, which leaves the winner underivable.
+- Corrected `final_winning_team_id` in the packaged Match Sheet sample. It named `T1001` from v0.2.0 onward, while the teams in that sample are `T1000` and `2001`.
+
+---
+
+### Match Sheet Data
+
+#### Table 1. Mandatory Match Sheet Data
+
+- Changed `match/result/final_winning_team_id` to (String, _null_ when the match was drawn and no shootout was played)
+
+---
+
+### Event Data
+
+#### Table 3. Mandatory Event Data
+
+- Changed `body_part` to (String, _null_ for events other than `pass` and `shot`)
+- Constrained `body_part` to a String when `type` is `pass` or `shot`
+- Changed the `body_part` enum to add `feet` and `body` (for producers that cannot resolve which foot or which part of the body made contact)
+- Added `official_id` (String) with description "Unique identifier of the official performing the action"
+- Changed `player_id` and `team_id` from Mandatory to Optional, so each is present only where it applies
+- Constrained `type` `referee` to carry `official_id` and omit `player_id` and `team_id`, and every other type to the reverse (omitted means absent, not _null_)
+
+---
+
 ## 🗒️ Changelog v0.3.0 (alpha) - Friday 21st August 2026
 
 ---

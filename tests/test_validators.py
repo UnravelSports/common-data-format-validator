@@ -26,7 +26,6 @@ from cdf.validators.custom import ValidationWarning
 from jsonschema import Draft7Validator
 from jsonschema.exceptions import ValidationError
 
-
 SAMPLE_PATH = Path("cdf", "files")
 
 
@@ -49,11 +48,6 @@ def event_validator():
 @pytest.fixture
 def match_validator():
     return MatchSchemaValidator()
-
-
-@pytest.fixture
-def skeletal_validator():
-    return SkeletalSchemaValidator()
 
 
 @pytest.fixture
@@ -80,7 +74,7 @@ def sample_files():
         "meta": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"meta.json",
         "event": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"event.jsonl",
         "match": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"match.json",
-        "skeletal": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"skeletal.jsonl",
+        "landmark": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"landmark.jsonl",
         "video": SAMPLE_PATH / f"v{VERSION}" / "sample" / f"video.json",
     }
 
@@ -92,7 +86,7 @@ def schema_files():
         "meta": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"meta.json",
         "event": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"event.json",
         "match": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"match.json",
-        "skeletal": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"skeletal.json",
+        "landmark": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"landmark.json",
         "video": SAMPLE_PATH / f"v{VERSION}" / "schema" / f"video.json",
     }
 
@@ -113,15 +107,9 @@ def test_meta_schema_validation(meta_validator, sample_files):
     assert result is None or result is True
 
 
-def test_skeletal_schema_validation(skeletal_validator, sample_files):
-    """Test that skeletal schema validation runs without errors."""
-    result = skeletal_validator.validate_schema(sample=sample_files["skeletal"])
-    assert result is None or result is True
-
-
 def test_landmark_schema_validation(landmark_validator, sample_files):
-    """LandmarkSchemaValidator is a pass-through of the skeletal validator."""
-    result = landmark_validator.validate_schema(sample=sample_files["skeletal"])
+    """Test that landmark schema validation runs without errors."""
+    result = landmark_validator.validate_schema(sample=sample_files["landmark"])
     assert result is None or result is True
 
 
@@ -129,13 +117,29 @@ def test_landmark_validator_does_not_warn(sample_files):
     """The replacement validator must not emit the skeletal deprecation warning."""
     with warnings.catch_warnings():
         warnings.simplefilter("error", DeprecationWarning)
-        LandmarkSchemaValidator().validate_schema(sample=sample_files["skeletal"])
+        LandmarkSchemaValidator().validate_schema(sample=sample_files["landmark"])
 
 
 def test_skeletal_validator_is_deprecated():
     """SkeletalSchemaValidator warns that 'skeletal' was replaced with 'landmark'."""
     with pytest.warns(DeprecationWarning, match="replaced with 'landmark'"):
         SkeletalSchemaValidator()
+
+
+def test_deprecated_skeletal_validator_still_validates(sample_files):
+    """
+    The alias has to keep working, not just warn. It resolves the same schema as
+    LandmarkSchemaValidator, which is what makes it a safe deprecation rather
+    than a break for anyone still on the old name.
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        validator = SkeletalSchemaValidator()
+
+    assert validator.validator_type() == "landmark"
+    validator.validate_schema(
+        sample=sample_files["landmark"], mode="extreme", limit=None
+    )
 
 
 def test_event_schema_validation(event_validator, sample_files):
@@ -166,17 +170,17 @@ def test_tracking_schema_validation_failure(tracking_validator, tmp_path):
         tracking_validator.validate_schema(sample=str(invalid_file), mode="strict")
 
 
-def test_skeletal_schema_validation_failure(skeletal_validator, tmp_path):
-    """Test that skeletal schema validation fails with invalid data."""
-    invalid_file = tmp_path / "invalid_skeletal.jsonl"
+def test_landmark_schema_validation_failure(landmark_validator, tmp_path):
+    """Test that landmark schema validation fails with invalid data."""
+    invalid_file = tmp_path / "invalid_landmark.jsonl"
     with open(invalid_file, "w") as f:
         f.write('{"invalid_key": "invalid_value"}\n')
 
     with pytest.warns(ValidationWarning):
-        skeletal_validator.validate_schema(sample=str(invalid_file), mode="soft")
+        landmark_validator.validate_schema(sample=str(invalid_file), mode="soft")
 
     with pytest.raises(ValidationError):
-        skeletal_validator.validate_schema(sample=str(invalid_file), mode="strict")
+        landmark_validator.validate_schema(sample=str(invalid_file), mode="strict")
 
 
 def _write_tracking_frames(tmp_path, frame_ids):
@@ -402,7 +406,7 @@ def test_all_samples_pass_extreme(
         "meta": meta_validator,
         "event": event_validator,
         "match": match_validator,
-        "skeletal": landmark_validator,
+        "landmark": landmark_validator,
         "video": video_validator,
     }
     for name, validator in cases.items():
@@ -542,7 +546,7 @@ def test_officials_definition_identical_in_meta_and_match(schema_files):
 
 def test_renamed_keys_absent_from_every_schema():
     """
-    Guard against a partially applied rename. tracking.json and skeletal.json carry
+    Guard against a partially applied rename. tracking.json and landmark.json carry
     `officials` but no sample data exercises it, so a rename missed in those two
     files would pass every other test in this suite unnoticed.
     """
@@ -553,6 +557,12 @@ def test_renamed_keys_absent_from_every_schema():
         '"stadium":',
         '"time_start"',
         '"time_end"',
+    )
+
+    assert not (
+        schema_dir / "skeletal.json"
+    ).exists(), (
+        "skeletal.json was renamed to landmark.json; the CDF calls this data landmark"
     )
 
     for schema_path in sorted(schema_dir.glob("*.json")):
@@ -592,25 +602,187 @@ def test_end_coordinates_must_be_numeric_for_deliveries(schema_files, event_reco
 
 
 def test_body_part_accepts_widened_values(schema_files, event_record):
-    """The widened enum has to cover goalkeeper and non-foot contacts."""
+    """
+    The widened enum has to cover goalkeeper and non-foot contacts, plus the
+    less specific `feet` and `body` for producers that cannot resolve which foot
+    was used or which part of the body made contact.
+    """
     event_record["event"].update(type="save", x_end=None, y_end=None)
 
-    for body_part in ("hands", "upper_body", "lower_body"):
+    for body_part in ("hands", "upper_body", "lower_body", "feet", "body"):
         event_record["event"]["body_part"] = body_part
         assert _event_errors(schema_files, event_record) == [], body_part
 
 
-def test_body_part_rejects_overlapping_values(schema_files, event_record):
+def test_body_part_rejects_chest(schema_files, event_record):
     """
-    `feet`, `body` and `chest` were considered and deliberately left out: each one
-    overlaps a value already in the enum, and two vendors would encode the same
-    touch differently. Their absence is a decision, not an oversight.
+    `chest` is deliberately absent: it is wholly subsumed by `upper_body`, so
+    admitting it would give two spellings for the same contact. `feet` and `body`
+    are in the enum despite overlapping, because they carry information the
+    specific values cannot - that the producer could not resolve any further.
     """
     event_record["event"].update(type="save", x_end=None, y_end=None)
 
-    for body_part in ("feet", "body", "chest"):
-        event_record["event"]["body_part"] = body_part
-        assert _event_errors(schema_files, event_record), body_part
+    event_record["event"]["body_part"] = "chest"
+    assert _event_errors(schema_files, event_record)
+
+
+def test_body_part_may_be_null_for_non_deliveries(schema_files, event_record):
+    """
+    Plenty of events involve no recorded contact with the ball - duels where the
+    body part was not captured, referee events, off-ball actions. Forcing one of
+    the enum values on them means picking a value that did not happen, so null
+    has to be legal for anything that is not a pass or a shot.
+    """
+    for event_type in ("duel", "interception", "clearance"):
+        event_record["event"].update(
+            type=event_type, x_end=None, y_end=None, body_part=None
+        )
+
+        assert _event_errors(schema_files, event_record) == [], event_type
+
+
+def test_body_part_must_be_set_for_deliveries(schema_files, event_record):
+    """
+    A pass or a shot is always struck with some part of the body, so null must
+    stay rejected for them - the same conditional that governs x_end / y_end.
+    """
+    for delivery in ("pass", "shot"):
+        event_record["event"].update(
+            type=delivery, x_end=3.0, y_end=4.0, body_part=None
+        )
+
+        assert _event_errors(
+            schema_files, event_record
+        ), f"null body_part must be rejected for type={delivery!r}"
+
+
+def test_body_part_key_is_still_required(schema_files, event_record):
+    """
+    Nullable is not optional: the key must still be present, so a producer states
+    'not recorded' explicitly rather than leaving the field off entirely.
+    """
+    event_record["event"].update(type="duel", x_end=None, y_end=None)
+    del event_record["event"]["body_part"]
+
+    assert _event_errors(schema_files, event_record)
+
+
+def _referee_event(event_record):
+    """Shape the sample record into a valid referee event."""
+    event = event_record["event"]
+    event.update(
+        type="referee", official_id="referee_1", x_end=None, y_end=None, body_part=None
+    )
+    event.pop("player_id", None)
+    event.pop("team_id", None)
+    return event_record
+
+
+def _player_event(event_record, event_type="duel"):
+    """Shape the sample record into a valid non-referee event."""
+    event = event_record["event"]
+    event.update(
+        type=event_type,
+        player_id="player_7",
+        team_id="team_789",
+        x_end=None,
+        y_end=None,
+        body_part=None,
+    )
+    event.pop("official_id", None)
+    return event_record
+
+
+def test_referee_events_carry_an_official_id(schema_files, event_record):
+    """
+    A referee event is performed by a match official, not by a player, so it
+    identifies the official and omits the player and team fields entirely.
+    """
+    assert _event_errors(schema_files, _referee_event(event_record)) == []
+
+
+def test_referee_events_reject_player_and_team_ids(schema_files, event_record):
+    """
+    `official_id` replaces the player/team pair rather than sitting alongside it.
+    Carrying both would leave consumers guessing which one attributes the event.
+    """
+    for field, value in (("player_id", "player_7"), ("team_id", "team_789")):
+        record = _referee_event(event_record)
+        record["event"][field] = value
+
+        assert _event_errors(schema_files, record), field
+
+
+def test_referee_events_reject_a_null_player_id(schema_files, event_record):
+    """
+    Omitted means absent, not present-and-null. A null placeholder still asserts
+    the field applies to this event, which for a referee event it does not.
+    """
+    record = _referee_event(event_record)
+    record["event"]["player_id"] = None
+
+    assert _event_errors(schema_files, record)
+
+
+def test_referee_events_require_an_official_id(schema_files, event_record):
+    """A referee event with no official identified attributes the event to nobody."""
+    record = _referee_event(event_record)
+    del record["event"]["official_id"]
+
+    assert _event_errors(schema_files, record)
+
+
+def test_non_referee_events_reject_an_official_id(schema_files, event_record):
+    """The exclusivity holds in both directions: a player event carries no official."""
+    record = _player_event(event_record)
+    record["event"]["official_id"] = "referee_1"
+
+    assert _event_errors(schema_files, record)
+
+
+def test_non_referee_events_still_require_player_and_team(schema_files, event_record):
+    """
+    Dropping player_id and team_id is scoped to referee events only; every other
+    event must still attribute itself to a player and a team.
+    """
+    for field in ("player_id", "team_id"):
+        record = _player_event(event_record)
+        del record["event"][field]
+
+        assert _event_errors(schema_files, record), field
+
+
+def test_conditional_branches_are_not_closed_in_the_shadow_schema():
+    """
+    The shadow schema closes objects with `additionalProperties: false` to detect
+    unknown keys. A conditional branch lists only the properties it constrains, so
+    closing one makes every other key of that object look unknown - which is exactly
+    what happened the moment event.json grew an if/then/else and extreme mode began
+    rejecting `id` on a valid record.
+    """
+    from cdf.validators.common import _inject_no_additional
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "type": {"type": "string"},
+            "player_id": {"type": ["string", "null"]},
+        },
+        "allOf": [
+            {
+                "if": {"properties": {"type": {"const": "referee"}}},
+                "then": {"properties": {"player_id": {"type": "null"}}},
+                "else": {"properties": {"player_id": {"type": "string"}}},
+            }
+        ],
+    }
+    shadow = _inject_no_additional(json.loads(json.dumps(schema)))
+
+    assert shadow["additionalProperties"] is False, "the object itself must still close"
+    branch = shadow["allOf"][0]
+    for keyword in ("if", "then", "else"):
+        assert "additionalProperties" not in branch[keyword], keyword
 
 
 def test_receiver_identifiers_accept_vendor_style_ids(
@@ -675,3 +847,146 @@ def test_cards_may_be_shown_during_a_shootout(schema_files):
         "shootout"
         not in events["substitutions"]["items"]["properties"]["period"]["enum"]
     )
+
+
+def _write_match(tmp_path, mutate):
+    """Write a match.json built from the packaged sample, with `mutate` applied."""
+    with open(SAMPLE_PATH / f"v{VERSION}" / "sample" / "match.json") as f:
+        doc = json.load(f)
+    mutate(doc["match"])
+    out = tmp_path / "match.json"
+    with open(out, "w") as f:
+        json.dump(doc, f)
+    return out
+
+
+def _make_drawn(match):
+    """Turn the sample into a genuine draw: level score, no shootout."""
+    match["result"]["final"] = {"home": 1, "away": 1}
+    match["result"].pop("shootout", None)
+    match["status"]["has_shootout"] = False
+
+
+def test_drawn_match_has_no_winning_team(match_validator, tmp_path):
+    """
+    A match that finished level and went no further has no winner, so naming one
+    would be a fabrication. JSON Schema cannot compare `final/home` to
+    `final/away`, which is why this is enforced in the validator instead.
+    """
+    path = _write_match(
+        tmp_path,
+        lambda m: (_make_drawn(m), m["result"].update(final_winning_team_id=None)),
+    )
+
+    match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_drawn_match_rejects_a_named_winner(match_validator, tmp_path):
+    """The other half of the rule: a level score must not carry a winner."""
+    path = _write_match(
+        tmp_path,
+        lambda m: (_make_drawn(m), m["result"].update(final_winning_team_id="T1001")),
+    )
+
+    with pytest.raises(ValidationError, match="must be null"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_shootout_decides_a_level_scoreline(match_validator, tmp_path):
+    """
+    `final` is the score before penalties, so a level `final` with a `shootout`
+    block still has a winner. The packaged sample is exactly this case - a naive
+    'scores equal means draw' rule would reject it.
+    """
+    path = _write_match(tmp_path, lambda m: None)
+
+    match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_shootout_win_still_requires_a_winning_team(match_validator, tmp_path):
+    """A tie settled on penalties has a winner, so null is not acceptable there."""
+    path = _write_match(
+        tmp_path, lambda m: m["result"].update(final_winning_team_id=None)
+    )
+
+    with pytest.raises(ValidationError, match="must name the winning team"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_decisive_match_requires_a_winning_team(match_validator, tmp_path):
+    """An unequal scoreline always has a winner to name."""
+
+    def mutate(match):
+        match["result"]["final"] = {"home": 2, "away": 1}
+        match["result"]["final_winning_team_id"] = None
+        match["result"].pop("shootout", None)
+        match["status"]["has_shootout"] = False
+
+    path = _write_match(tmp_path, mutate)
+
+    with pytest.raises(ValidationError, match="must name the winning team"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_winning_team_must_be_the_team_that_actually_won(match_validator, tmp_path):
+    """
+    Naming a winner is not enough - it has to be the right one. The packaged
+    sample carried `T1001` as the winner from v0.2.0 until this check was added,
+    while the two teams in the match were `T1000` and `2001`.
+    """
+
+    def mutate(match):
+        match["result"]["final"] = {"home": 2, "away": 1}
+        match["result"]["final_winning_team_id"] = "2001"
+        match["result"].pop("shootout", None)
+        match["status"]["has_shootout"] = False
+
+    path = _write_match(tmp_path, mutate)
+
+    with pytest.raises(ValidationError, match="but the home team"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_winning_team_resolves_from_the_shootout_when_scores_are_level(
+    match_validator, tmp_path
+):
+    """
+    When `final` is level the winner comes from the shootout, not the scoreline,
+    so the away team taking the shootout makes the away id the correct winner.
+    """
+
+    def mutate(match):
+        match["result"]["shootout"] = {"home": 3, "away": 5}
+        match["result"]["final_winning_team_id"] = "2001"
+
+    match_validator.validate_schema(
+        sample=str(_write_match(tmp_path, mutate)), mode="strict"
+    )
+
+
+def test_shootout_winner_must_match_the_shootout_score(match_validator, tmp_path):
+    """A home id named on a shootout the away team won is the transposition to catch."""
+
+    def mutate(match):
+        match["result"]["shootout"] = {"home": 3, "away": 5}
+        match["result"]["final_winning_team_id"] = "T1000"
+
+    path = _write_match(tmp_path, mutate)
+
+    with pytest.raises(ValidationError, match="but the away team"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def test_shootout_cannot_end_level(match_validator, tmp_path):
+    """
+    A shootout exists to produce a winner, so a level shootout score is
+    self-contradictory and leaves the winner underivable.
+    """
+
+    def mutate(match):
+        match["result"]["shootout"] = {"home": 4, "away": 4}
+
+    path = _write_match(tmp_path, mutate)
+
+    with pytest.raises(ValidationError, match="cannot end level"):
+        match_validator.validate_schema(sample=str(path), mode="strict")
