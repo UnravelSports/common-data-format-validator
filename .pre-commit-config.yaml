@@ -10,10 +10,10 @@ repos:
     hooks:
       - id: pytest-check
         name: Run tests
-        # Pinned to the project venv. `pytest` alone resolves from PATH, which can
-        # be an older interpreter than setup.py supports; the tests then fail in
-        # ways that look like broken code rather than the wrong Python.
-        entry: venv/bin/python -m pytest tests
+        # Runs in whatever environment is active, so it works regardless of where
+        # a contributor keeps theirs. tests/conftest.py stops with a clear message
+        # if that interpreter is older than setup.py supports.
+        entry: python -m pytest tests
         language: system
         pass_filenames: false
         always_run: true
