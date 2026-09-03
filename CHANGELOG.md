@@ -13,6 +13,8 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 ### General
 
 - Changed the minimum supported Python from 3.9 to 3.11. Python 3.9 reached end of life in October 2025 and 3.10 does so in October 2026.
+- Removed `requests` from the install requirements. It was declared but never imported, so every install carried a dependency the package does not use, along with its advisories.
+- Bumped `datamodel-code-generator` to 0.76.1, past the code injection advisories affecting every version from 0.17.0 to 0.60.1. It is a development dependency and is not installed with the package. The generated models are unchanged.
 - Pinned `black` to 26.5.1 in the `dev` extra and in `.pre-commit-config.yaml`, which previously disagreed with each other (24.10.0 against whatever was installed). 26.x requires Python 3.11, which the bump above unblocks.
 - Added a `lint` job to CI running `black --check`. Formatting was previously enforced only by pre-commit, so it never gated a pull request.
 - `generate_latest_domain.py` now formats its own output and exits non-zero on failure, and CI regenerates the domain models alongside the docs and fails when either is stale.

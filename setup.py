@@ -53,7 +53,6 @@ setup(
         "jsonlines==4.0.0",
         "jsonschema==4.23.0",
         "jsonschema-specifications==2024.10.1",
-        "requests==2.32.3",
     ],
     extras_require={
         "dev": [
@@ -62,7 +61,7 @@ setup(
             "json-schema-for-humans==1.4.1",
             # Same reasoning: generate_latest_domain.py commits its output, so a
             # generator upgrade rewrites the domain models.
-            "datamodel-code-generator==0.55.0",
+            "datamodel-code-generator==0.76.1",
             # Pinned to match .pre-commit-config.yaml. Black's stable style
             # changes yearly, so an unpinned bump reformats the codebase.
             "black==26.5.1",
