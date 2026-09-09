@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Video Footage Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.1</strong></p>
+<span class="description"><p><strong>Version 0.3.2</strong></p>
 
 <p>This schema defines the Video Footage Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 </span>
@@ -86,7 +86,7 @@
             />
         </svg>
     <a href="#match_id" onclick="anchorLink('match_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for the match</p>
+<span class="description"><p>Unique match identifier</p>
 </span>
         
 
@@ -201,7 +201,7 @@
             />
         </svg>
     <a href="#recording_resolution" onclick="anchorLink('recording_resolution')">resolution</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Resolution of the video in pixels (e.g., 3840x2160, 1920x1080, ...)</p>
+<span class="description"><p>Resolution of the video in pixels (e.g., 3840x2160, 1920x1080,...)</p>
 </span>
         
 
@@ -448,7 +448,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#recording_camera_x" onclick="anchorLink('recording_camera_x')">x</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#recording_camera_x" onclick="anchorLink('recording_camera_x')">x</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>x location of the camera in relation to the pitch center (m)</p>
 </span>
         
@@ -496,7 +496,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#recording_camera_y" onclick="anchorLink('recording_camera_y')">y</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#recording_camera_y" onclick="anchorLink('recording_camera_y')">y</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>y location of the camera in relation to the pitch center (m)</p>
 </span>
         
@@ -544,7 +544,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#recording_camera_z" onclick="anchorLink('recording_camera_z')">z</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#recording_camera_z" onclick="anchorLink('recording_camera_z')">z</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>z location of the camera in relation to the pitch center (m)</p>
 </span>
         
@@ -656,7 +656,7 @@
             />
         </svg>
     <a href="#whistles_items_type" onclick="anchorLink('whistles_items_type')">type</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Whistles that start and end major periods of play such as the start and end of halves and interruptions</p>
+<span class="description"><p>Whistles that start and end major periods of play such as the start and end of halves and interruptions (e.g., weather, VAR review, player health events, streakers or abandoned). Examples of types first<em>half, second</em>half, weather<em>delay, health</em>delay, injury<em>treatment fan</em>health_delay etc.</p>
 </span>
         
 
@@ -704,7 +704,7 @@
             />
         </svg>
     <a href="#whistles_items_sub_type" onclick="anchorLink('whistles_items_sub_type')">sub_type</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Sub type related to an interruption, for example start or end</p>
+<span class="description"><p>Sub type related to an interruption, for example start or end.</p>
 </span>
         
 

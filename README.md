@@ -115,8 +115,8 @@ The JSON Schemas in `cdf/files/v{VERSION}/schema/` are the source of truth. The 
 
 | Generated                                                     | Command                              |
 | ------------------------------------------------------------- | ------------------------------------ |
-| `cdf/domain/latest/*.py` (`TypedDict` models)             | `python generate_latest_domain.py` |
-| `docs/` (the [cdf.football](https://www.cdf.football) pages) | `python generate_docs.py`          |
+| `cdf/domain/latest/*.py` (`TypedDict` models)             | `python src/generate_latest_domain.py` |
+| `docs/` (the [cdf.football](https://www.cdf.football) pages) | `python src/generate_docs.py`          |
 
 You do not need to update the domain models yourself. Changes to the format belong in the schema, and anything edited directly in `cdf/domain/latest/` or `docs/` is replaced the next time the generators run. CI regenerates both on every pull request and fails if the result differs from what was committed, so the two stay in step.
 
@@ -124,7 +124,7 @@ A change to the format is:
 
 1. Edit the schema in `cdf/files/v{VERSION}/schema/`
 2. Update the matching sample in `cdf/files/v{VERSION}/sample/` so it still validates
-3. Run `python generate_latest_domain.py` and `python generate_docs.py`
+3. Run `python src/generate_latest_domain.py` and `python src/generate_docs.py`
 4. Add a `CHANGELOG.md` entry under the table the change belongs to
 5. Commit the schema, the sample and the regenerated output together
 
@@ -140,8 +140,8 @@ The format and the package are versioned separately.
 
 |                | Read from           | Currently |
 | -------------- | ------------------- | --------- |
-| CDF format     | `cdf.VERSION`     | 0.3.1     |
-| Python package | `cdf.__version__` | 0.1.0     |
+| CDF format     | `cdf.VERSION`     | 0.3.2     |
+| Python package | `cdf.__version__` | 0.1.1     |
 
 `cdf.VERSION` selects which CDF schemas you validate against, in `cdf/files/v{VERSION}/`, and is the version the Changelog is written against. `cdf.__version__` is the package release published to PyPI.
 

@@ -11,25 +11,25 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         python-version: ['3.11', '3.12', '3.13', '3.14']
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -e ".[dev]"
-    
+
     - name: Run pytest
       run: |
         pytest -v
@@ -51,20 +51,35 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e ".[dev]"
 
+    # The table PDFs render with the paper's own preamble, which pulls in 26
+    # packages. MnSymbol lives in fonts-extra and authblk in latex-extra, so
+    # the recommended set alone is not enough.
     - name: Regenerate schema docs
       run: |
-        python generate_docs.py
+        python src/generate_docs.py
 
     - name: Regenerate domain models
       run: |
-        python generate_latest_domain.py
+        python src/generate_latest_domain.py
 
+    # --no-pdf: pdflatex output varies with the TeX Live version that built
+    # it, so CI's bytes would never match the committed ones. The PDFs are
+    # regenerated on a contributor's machine instead, enforced by the
+    # latex-pdfs pre-commit hook. The .txt and .html are deterministic and are
+    # still byte-compared below.
+    - name: Regenerate LaTeX tables
+      run: |
+        python src/generate_latex.py --no-pdf
+
+    # PDFs are not regenerated here (--no-pdf above), so they cannot differ.
+    # Their freshness is enforced by the latex-pdfs pre-commit hook instead.
     - name: Check generated files are up to date
       run: |
-        if [ -n "$(git status --porcelain docs/ cdf/domain/latest/)" ]; then
-          echo "::error::Generated files are stale. Run 'python generate_docs.py' and 'python generate_latest_domain.py', then commit the result."
-          git status --porcelain docs/ cdf/domain/latest/
-          git diff -- docs/ cdf/domain/latest/
+        TARGETS="docs/ cdf/domain/latest/"
+        if [ -n "$(git status --porcelain -- $TARGETS)" ]; then
+          echo "::error::Generated files are stale. Run 'python src/generate_docs.py', 'python src/generate_latest_domain.py' and 'python src/generate_latex.py', then commit the result."
+          git status --porcelain -- $TARGETS
+          git diff -- $TARGETS
           exit 1
         fi
         echo "docs/ and cdf/domain/latest/ are up to date with cdf/files/v$(python -c 'import cdf; print(cdf.VERSION)')/schema/"
@@ -88,4 +103,4 @@ jobs:
 
     - name: Check formatting
       run: |
-        black --check --diff cdf/ tests/ generate_docs.py generate_latest_domain.py setup.py
+        black --check --diff cdf/ tests/ src/ setup.py

@@ -436,7 +436,7 @@ def test_all_domain_files_have_correct_version():
             f"❌ These files have wrong version headers:\n  "
             + "\n  ".join(failed_files)
             + f"\n\nExpected: {expected_header}\n"
-            f">>> Run: python generate_latest_domain.py"
+            f">>> Run: python src/generate_latest_domain.py"
         )
 
 
@@ -557,6 +557,10 @@ def test_renamed_keys_absent_from_every_schema():
         '"stadium":',
         '"time_start"',
         '"time_end"',
+        '"final_winning_team_id"',
+        '"percipitation"',
+        '"packing_traditional"',
+        '"packing_horizontal"',
     )
 
     assert not (
@@ -812,8 +816,7 @@ def test_extratime_blocks_required_only_when_extratime_was_played(schema_files):
     validator = Draft7Validator(match_object)
 
     result = {
-        "final": {"home": 2, "away": 1},
-        "final_winning_team_id": "team_789",
+        "final": {"home": 2, "away": 1, "winning_team_id": "team_789"},
         "first_half": {"home": 1, "away": 0},
         "second_half": {"home": 1, "away": 1},
     }
@@ -875,7 +878,7 @@ def test_drawn_match_has_no_winning_team(match_validator, tmp_path):
     """
     path = _write_match(
         tmp_path,
-        lambda m: (_make_drawn(m), m["result"].update(final_winning_team_id=None)),
+        lambda m: (_make_drawn(m), m["result"]["final"].update(winning_team_id=None)),
     )
 
     match_validator.validate_schema(sample=str(path), mode="strict")
@@ -885,7 +888,10 @@ def test_drawn_match_rejects_a_named_winner(match_validator, tmp_path):
     """The other half of the rule: a level score must not carry a winner."""
     path = _write_match(
         tmp_path,
-        lambda m: (_make_drawn(m), m["result"].update(final_winning_team_id="T1001")),
+        lambda m: (
+            _make_drawn(m),
+            m["result"]["final"].update(winning_team_id="T1001"),
+        ),
     )
 
     with pytest.raises(ValidationError, match="must be null"):
@@ -906,7 +912,7 @@ def test_shootout_decides_a_level_scoreline(match_validator, tmp_path):
 def test_shootout_win_still_requires_a_winning_team(match_validator, tmp_path):
     """A tie settled on penalties has a winner, so null is not acceptable there."""
     path = _write_match(
-        tmp_path, lambda m: m["result"].update(final_winning_team_id=None)
+        tmp_path, lambda m: m["result"]["final"].update(winning_team_id=None)
     )
 
     with pytest.raises(ValidationError, match="must name the winning team"):
@@ -918,7 +924,7 @@ def test_decisive_match_requires_a_winning_team(match_validator, tmp_path):
 
     def mutate(match):
         match["result"]["final"] = {"home": 2, "away": 1}
-        match["result"]["final_winning_team_id"] = None
+        match["result"]["final"]["winning_team_id"] = None
         match["result"].pop("shootout", None)
         match["status"]["has_shootout"] = False
 
@@ -937,7 +943,7 @@ def test_winning_team_must_be_the_team_that_actually_won(match_validator, tmp_pa
 
     def mutate(match):
         match["result"]["final"] = {"home": 2, "away": 1}
-        match["result"]["final_winning_team_id"] = "2001"
+        match["result"]["final"]["winning_team_id"] = "2001"
         match["result"].pop("shootout", None)
         match["status"]["has_shootout"] = False
 
@@ -957,7 +963,7 @@ def test_winning_team_resolves_from_the_shootout_when_scores_are_level(
 
     def mutate(match):
         match["result"]["shootout"] = {"home": 3, "away": 5}
-        match["result"]["final_winning_team_id"] = "2001"
+        match["result"]["final"]["winning_team_id"] = "2001"
 
     match_validator.validate_schema(
         sample=str(_write_match(tmp_path, mutate)), mode="strict"
@@ -969,7 +975,7 @@ def test_shootout_winner_must_match_the_shootout_score(match_validator, tmp_path
 
     def mutate(match):
         match["result"]["shootout"] = {"home": 3, "away": 5}
-        match["result"]["final_winning_team_id"] = "T1000"
+        match["result"]["final"]["winning_team_id"] = "T1000"
 
     path = _write_match(tmp_path, mutate)
 
@@ -990,3 +996,126 @@ def test_shootout_cannot_end_level(match_validator, tmp_path):
 
     with pytest.raises(ValidationError, match="cannot end level"):
         match_validator.validate_schema(sample=str(path), mode="strict")
+
+
+def _walk_properties(node, root, path=""):
+    """Yield (dotted path, spec) for every documented field in a schema.
+
+    Follows $ref so definitions are walked like inline objects, and descends
+    into array items, which is where most of the CDF's fields actually live.
+    """
+    for name, spec in (node.get("properties") or {}).items():
+        seen = 0
+        while isinstance(spec, dict) and "$ref" in spec and seen < 10:
+            target = root
+            for part in spec["$ref"].lstrip("#/").split("/"):
+                target = target[part]
+            spec, seen = target, seen + 1
+        here = f"{path}/{name}" if path else name
+        items = spec.get("items") if isinstance(spec, dict) else None
+        if isinstance(items, dict):
+            seen = 0
+            while "$ref" in items and seen < 10:
+                target = root
+                for part in items["$ref"].lstrip("#/").split("/"):
+                    target = target[part]
+                items, seen = target, seen + 1
+        if isinstance(spec, dict) and spec.get("properties"):
+            yield from _walk_properties(spec, root, here)
+        elif isinstance(items, dict) and items.get("properties"):
+            yield from _walk_properties(items, root, here + "/{i}")
+        else:
+            yield here, spec
+
+
+def test_version_matches_the_newest_packaged_schema_directory():
+    """
+    A new cdf/files/vX/ directory is inert until VERSION points at it. Nothing
+    else notices: the generators, the docs and every other test read
+    cdf/files/v{VERSION}/, so a release that adds the directory and forgets the
+    constant regenerates the *previous* version's artefacts and passes CI
+    green while shipping none of the new schemas.
+    """
+    versions = sorted(
+        (
+            tuple(int(part) for part in d.name.lstrip("v").split("."))
+            for d in SAMPLE_PATH.iterdir()
+            if d.is_dir() and re.fullmatch(r"v\d+\.\d+\.\d+", d.name)
+        )
+    )
+
+    assert versions, "no cdf/files/vX.Y.Z directories found"
+    newest = ".".join(str(part) for part in versions[-1])
+
+    assert VERSION == newest, (
+        f"VERSION is {VERSION} but the newest packaged schema directory is "
+        f"v{newest}. Either bump VERSION in cdf/validators/__init__.py or "
+        f"remove cdf/files/v{newest}/."
+    )
+
+
+def test_no_schema_description_contains_latex(schema_files):
+    """
+    The paper's descriptions carry LaTeX -- $^\\star$, \\ref{...}, \\textit{}.
+    The schemas are consumed as JSON by people who will never render TeX, so
+    that markup has to be stripped on the way in. It is easy to reintroduce,
+    because the paper's wording is the source for most of these strings.
+    """
+    offenders = []
+
+    for name in schema_files:
+        schema = _load_schema(schema_files, name)
+        for path, spec in _walk_properties(schema, schema):
+            description = (spec or {}).get("description") or ""
+            if re.search(r"\\[a-zA-Z]+|\$\^", description):
+                offenders.append(f"{name}.json {path}: {description[:70]}")
+
+    assert not offenders, "LaTeX markup in schema descriptions:\n  " + "\n  ".join(
+        offenders
+    )
+
+
+def test_every_schema_property_has_a_description(schema_files):
+    """
+    An undescribed field is invisible: it appears in no table, and the docs
+    render it as a bare type. landmark.json shipped 18 of them for several
+    releases because it had no optional table to describe them in.
+    """
+    missing = []
+
+    for name in schema_files:
+        schema = _load_schema(schema_files, name)
+        for path, spec in _walk_properties(schema, schema):
+            if not ((spec or {}).get("description") or "").strip():
+                missing.append(f"{name}.json {path}")
+
+    assert not missing, "fields with no description:\n  " + "\n  ".join(missing)
+
+
+def test_domain_models_declare_every_schema_field(schema_files):
+    """
+    test_all_domain_files_have_correct_version only checks the header comment,
+    so a stale TypedDict passes it while contradicting the schema it claims to
+    describe. Renaming or removing a field and forgetting to regenerate is
+    exactly the failure this catches.
+    """
+    domain_dir = Path("cdf/domain/latest")
+    stale = []
+
+    for name in schema_files:
+        module = domain_dir / f"{name}.py"
+        if not module.exists():
+            continue
+        source = module.read_text(encoding="utf-8")
+        schema = _load_schema(schema_files, name)
+        for path, _spec in _walk_properties(schema, schema):
+            field = path.rsplit("/", 1)[-1]
+            if not field or field.startswith("{"):
+                continue
+            if not re.search(rf"^\s+{re.escape(field)}\s*:", source, re.M):
+                stale.append(f"{name}.py is missing {field} (from {path})")
+
+    assert not stale, (
+        "domain models are out of step with their schemas; run "
+        "'python src/generate_latest_domain.py':\n  " + "\n  ".join(sorted(set(stale)))
+    )

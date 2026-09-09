@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Landmark Data - LaTeX tables</title>
+<style>
+  body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
+  h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+  .lede { color: #57606a; margin-top: 0; }
+  .table-block { border: 1px solid #d0d7de; border-radius: 6px; margin: 1.5rem 0; }
+  .table-head { display: flex; justify-content: space-between; align-items: baseline;
+                 gap: 1rem; padding: .75rem 1rem; border-bottom: 1px solid #d0d7de;
+                 background: #f6f8fa; border-radius: 6px 6px 0 0; }
+  .table-head h2 { font-size: .95rem; margin: 0; font-family: ui-monospace, monospace; }
+  .meta { color: #57606a; font-size: .85rem; white-space: nowrap; }
+  .meta a { color: #0969da; }
+  pre { margin: 0; padding: 1rem; overflow-x: auto; font-size: 12px;
+         background: #fff; border-radius: 0 0 6px 6px; }
+  footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
+            border-top: 1px solid #d0d7de; padding-top: 1rem; }
+  a { color: #0969da; }
+</style>
+<h1>Landmark Data: LaTeX tables</h1>
+<p class="lede">Copy a block straight into the paper. These carry the paper's own
+wording, which differs from the schema's in places, and are regenerated from
+format version 0.3.2 whenever the schemas change.</p>
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-limb-tracking-required</h2>
+    <span class="meta">11 rows &middot;
+      <a href="cdf-limb-tracking-required.txt">.txt</a> &middot; <a href="cdf-limb-tracking-required.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+\centering
+\caption{Description of mandatory Skeletal Tracking CDF fields recorded for each frame. Any description ending with a $^\star$ is repeated once per player per frame. Any description ending with a $^\diamond$ is repeated once per player per frame per landmark (e.g knee\_left, hip\_right, ear\_right etc.). Note that \{i\} and \{j\} are used as indices for items in lists. Landmark names should follow snake-case with any direction indicator as a suffix.  Any type ending with a $^\ddagger$ may be null when the subject is occluded, off-camera or otherwise not captured in that frame.}
+\label{tab:cdf-limb-tracking-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{1.5cm}p{8cm}l}
+\hline
+Root &amp; Field &amp; Description &amp; Type \\ \hline
+ &amp; frame\_id &amp; Unique frame identifier &amp; Integer \\
+ &amp; timestamp &amp; Timestamp of the frame in UTC &amp; String \\
+ &amp; period &amp; Period of the match which can be first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, or shootout &amp; String \\
+match &amp; id &amp; Unique match identifier &amp; String \\
+teams/\{home\text{\textbar}away\} &amp; id &amp; Unique identifier for the home or away team$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; id &amp; Unique identifier for a player$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; name &amp; Name for a landmark$^\diamond$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; x &amp; Relative x coordinate of landmark in relation to the point of origin (m)$^\diamond$ &amp; Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; y &amp; Relative y coordinate of landmark in relation to the point of origin (m)$^\diamond$ &amp; Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; z &amp; Relative z coordinate of landmark in relation to the point of origin (m)$^\diamond$ &amp; Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; is\_visible &amp; If landmark is detected (true) or inferred (false) $^\diamond$ &amp; Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-limb-tracking-optional</h2>
+    <span class="meta">15 rows &middot;
+      <a href="cdf-limb-tracking-optional.txt">.txt</a> &middot; <a href="cdf-limb-tracking-optional.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+\centering
+\caption{Description of optional Skeletal Tracking CDF fields that would be recorded once per frame. Any description ending with a $^\star$ is repeated once per person (e.g., player, referee) per frame. Note that \{i\} is used as an index for the items in a list. Any type ending with a $^\ddagger$ may be null when the subject is occluded, off-camera or otherwise not captured in that frame.}
+\label{tab:cdf-limb-tracking-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{7cm}l}
+\hline
+Root &amp; Field &amp; Description &amp; Type \\ \hline
+ball &amp; x &amp; x location of the ball on the pitch (m). &amp; Float / null$^\ddagger$ \\
+ball &amp; y &amp; y location of the ball on the pitch (m). &amp; Float / null$^\ddagger$ \\
+ball &amp; z &amp; z location of the ball on the pitch (m). &amp; Float / null$^\ddagger$ \\
+ball &amp; status &amp; Indicates if the ball is either in play (true) or out of play (false) &amp; Boolean \\
+ball &amp; poss\_team\_id &amp; Unique identifier of the team that currently possesses the ball &amp; String \\
+ball &amp; poss\_status &amp; Contextual description of the level of control (e.g., controlled, contested,...) &amp; String \\
+officials/\{i\} &amp; id &amp; Unique identifier for an official &amp; String \\
+officials/\{i\} &amp; x &amp; x location of the official on the pitch (m)$^\star$ &amp; Float / null$^\ddagger$ \\
+officials/\{i\} &amp; y &amp; y location of the official on the pitch (m)$^\star$ &amp; Float / null$^\ddagger$ \\
+officials/\{i\} &amp; z &amp; z location of the official on the pitch (m)$^\star$ &amp; Float / null$^\ddagger$ \\
+officials/\{i\} &amp; vel &amp; Speed of the official (m/s)$^\star$ &amp; Float \\
+officials/\{i\} &amp; acc &amp; Acceleration of the official (m/s\textsuperscript{2})$^\star$ &amp; Float \\
+officials/\{i\} &amp; lat &amp; Latitude of the official's position if the data is collected by GNSS or GPS$^\star$ &amp; Float \\
+officials/\{i\} &amp; long &amp; Longitude of the official's position if the data is collected by GNSS or GPS$^\star$ &amp; Float \\
+officials/\{i\} &amp; is\_visible &amp; Denotes if an official was visible (in view of the camera) (true) or not (false)$^\star$ &amp; Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<footer>
+  <a href="../../index.html">All schemas</a> &middot;
+  <a href="../landmark.html">Landmark Data JSON Schema</a>
+</footer>

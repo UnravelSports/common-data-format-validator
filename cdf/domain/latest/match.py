@@ -1,5 +1,5 @@
-# Auto-generated from JSON Schema v0.3.1
-# Do not edit manually - run generate_latest_domain.py
+# Auto-generated from JSON Schema v0.3.2
+# Do not edit manually - run src/generate_latest_domain.py
 
 
 from __future__ import annotations
@@ -18,40 +18,40 @@ class Status(TypedDict):
 
 
 class Final(TypedDict):
-    home: int  # Final result for home team
-    away: int  # Final result for away team
+    home: int  # Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals)
+    away: int  # Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals)
+    winning_team_id: (
+        str | None
+    )  # Unique identifier of the winning team, null when the match was drawn and no shootout was played
 
 
 class FirstHalf(TypedDict):
-    home: int  # First half result for home team
-    away: int  # First half result for away team
+    home: int  # Result after the first half (i.e. home goals, away goals)
+    away: int  # Result after the first half (i.e. home goals, away goals)
 
 
 class SecondHalf(TypedDict):
-    home: int  # Second half result for home team
-    away: int  # Second half result for away team
+    home: int  # Result after the second half (i.e. home goals, away goals)
+    away: int  # Result after the second half (i.e. home goals, away goals)
 
 
 class FirstHalfExtratime(TypedDict):
-    home: int  # First half extratime result for home team
-    away: int  # First half extratime result for away team
+    home: int  # Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.
+    away: int  # Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.
 
 
 class SecondHalfExtratime(TypedDict):
-    home: int  # Second half extratime result for home team
-    away: int  # Second half extratime result for away team
+    home: int  # Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.
+    away: int  # Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.
 
 
 class Shootout(TypedDict):
-    home: int  # Shootout result for home team
-    away: int  # Shootout result for away team
+    home: int  # Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout.
+    away: int  # Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout.
 
 
 class Result(TypedDict):
     final: Final
-    final_winning_team_id: (
-        str | None
-    )  # Unique identifier of the winning team, null when the match was drawn and no shootout was played
     first_half: FirstHalf
     second_half: SecondHalf
     first_half_extratime: NotRequired[
@@ -71,15 +71,9 @@ class Match(TypedDict):
 
 class Official(TypedDict):
     id: str  # Unique identifier for the official
-    first_name: NotRequired[
-        str | None
-    ]  # First name of the official, null if not available
-    last_name: NotRequired[
-        str | None
-    ]  # Last name of the official, null if not available
-    short_name: NotRequired[
-        str | None
-    ]  # Short name of the official, null if not available
+    first_name: NotRequired[str]  # First name of the official, null if not available
+    last_name: NotRequired[str]  # Last name of the official, null if not available
+    short_name: NotRequired[str]  # Short name of the official, null if not available
     type: NotRequired[
         Literal[
             "main_referee",
@@ -94,8 +88,8 @@ class Official(TypedDict):
 
 
 class Score(TypedDict):
-    home: int  # Home team score after this goal
-    away: int  # Away team score after this goal
+    home: int  # Team score after the goal
+    away: int  # Team score after the goal
 
 
 class Goal(TypedDict):
@@ -107,28 +101,30 @@ class Goal(TypedDict):
         "second_half_extratime",
         "shootout",
     ]  # Period of the game when the goal was scored
-    team_id: str  # Identifier of the team who scored
+    team_id: str  # Identifier of the team that scored (for own goals this should be identifier of the team that gained a goal)
     player_id: str  # Identifier of the player who scored
-    assist_id: NotRequired[str | None]  # Identifier of the player who assisted
+    assist_id: (
+        str | None
+    )  # Identifier of the player who assisted, if the goal was assisted else leave as null.
     is_own_goal: bool  # Denotes whether it was an own goal (true) or not (false)
     is_penalty: bool  # Denotes whether it was a penalty (true) or not (false)
     score: Score
 
 
 class Substitution(TypedDict):
-    team_id: str  # Identifier of the team who scored
-    in_time: str  # Time a player is substituted in
+    team_id: str  # Identifier of the team that made the substitution
+    in_time: str  # Time in UTC a player is substituted in
     period: Literal[
         "first_half", "second_half", "first_half_extratime", "second_half_extratime"
     ]  # Period of the game when the substitution occurred
-    in_player_id: str  # Identifier of the player that is substituted in
-    out_time: str  # Time a player is substituted out
+    in_player_id: str  # Unique identifier of the player substituted in
+    out_time: str  # Time the player was substituted out
     out_player_id: str  # Identifier of the player that is substituted out
 
 
 class Card(TypedDict):
-    team_id: str  # Identifier of the team who scored
-    time: str  # Time a player received a card
+    team_id: str  # Identifier of the team that made the received a card
+    time: str  # Time in UTC a player received a card
     period: Literal[
         "first_half",
         "second_half",
@@ -139,7 +135,7 @@ class Card(TypedDict):
     player_id: str  # Identifier of the player who received a card
     type: Literal[
         "yellow_card", "red_card", "second_yellow_card"
-    ]  # Type of card which can be yellow card, red card or second yellow card
+    ]  # Type of card which can be yellow_card, red_card or second_yellow_card
 
 
 class Events(TypedDict):
@@ -149,19 +145,23 @@ class Events(TypedDict):
 
 
 class Meta(TypedDict):
-    vendor: str  # Match sheet data vendor name
+    vendor: str  # Match sheet data vendor name (e.g. "company_a")
 
 
 class Player(TypedDict):
     id: str  # Unique player identifier
     first_name: str  # First name
     last_name: str  # Last name
-    short_name: NotRequired[str]  # Short name
+    short_name: NotRequired[
+        str
+    ]  # Short name. For example "Mohamed Salah Hamed Mahrous Ghaly" as "Mo Salah" (or "Mohamed Salah") or "Givanildo Vieira de Sousa" as "Hulk".
     team_id: str  # Unique team identifier denoting the team the player plays for
     jersey_number: int  # Jersey number for a player
     is_starter: bool  # Denotes whether a player started the game (true) or not (false)
     has_played: bool  # Denotes whether a player played in game (true) or not (false)
-    maiden_name: NotRequired[str]  # Maiden name
+    maiden_name: NotRequired[
+        str
+    ]  # Maiden name. For example, "Smith" for Sophia Wilson.
     position_group: NotRequired[
         Literal["GK", "DF", "MF", "FW", "SUB"]
     ]  # Position group acronym given according to the CDF-compatible groups
@@ -207,12 +207,14 @@ class Coach(TypedDict):
     id: str  # Unique identifier for a coach
     first_name: str  # First name
     last_name: str  # Last name
-    short_name: NotRequired[str]  # Short name
+    short_name: NotRequired[
+        str
+    ]  # Short name, a combination of First name and Last name
 
 
 class Team(TypedDict):
-    id: str  # Unique identifier for the team
-    short_name: NotRequired[str]  # Short name of the team
+    id: str  # Unique identifier for the home or away team
+    short_name: NotRequired[str]  # Short name of the home or away team
     formation: NotRequired[str]  # Formation label of the team (e.g. '4-4-2')
     players: list[Player]
     coaches: NotRequired[list[Coach]]

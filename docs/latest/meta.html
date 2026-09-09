@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Meta Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.1</strong></p>
+<span class="description"><p><strong>Version 0.3.2</strong></p>
 
 <p>This schema defines the Meta Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 </span>
@@ -168,7 +168,7 @@
             />
         </svg>
     <a href="#competition_format" onclick="anchorLink('competition_format')">format</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Format of the competition (e.g., 'league<em>18', 'league</em>20')</p>
+<span class="description"><p>Specifying the competition set-up such as league<em>18 (i.e., league involving 18 teams), league</em>20, knock<em>out</em>neutral, etc.</p>
 </span>
         
 
@@ -208,7 +208,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#competition_age_restriction" onclick="anchorLink('competition_age_restriction')">age_restriction</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#competition_age_restriction" onclick="anchorLink('competition_age_restriction')">age_restriction</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Age restriction for the competition (e.g., 'U18', 'U20')</p>
 </span>
         
@@ -823,7 +823,8 @@
             />
         </svg>
     <a href="#match_periods_items_period" onclick="anchorLink('match_periods_items_period')">period</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
-<div class="enum-value" id="match_periods_items_period_enum">
+<span class="description"><p>Period of the match which can be first<em>half, second</em>half, first<em>half</em>extratime, second<em>half</em>extratime, or shootout</p>
+</span><div class="enum-value" id="match_periods_items_period_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"first_half"</li><li class="list-group-item enum-item">"second_half"</li><li class="list-group-item enum-item">"first_half_extratime"</li><li class="list-group-item enum-item">"second_half_extratime"</li><li class="list-group-item enum-item">"shootout"</li></ul>
             </div>
@@ -880,7 +881,7 @@
             />
         </svg>
     <a href="#match_periods_items_play_direction" onclick="anchorLink('match_periods_items_play_direction')">play_direction</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
-<span class="description"><p>The direction of play for the home team</p>
+<span class="description"><p>The direction of play for the home team. Possible options are left<em>right or right</em>left.</p>
 </span><div class="enum-value" id="match_periods_items_play_direction_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"left_right"</li><li class="list-group-item enum-item">"right_left"</li></ul>
@@ -1048,7 +1049,7 @@
             />
         </svg>
     <a href="#match_periods_items_frame_id_start" onclick="anchorLink('match_periods_items_frame_id_start')">frame_id_start</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Frame ID at the start of the period</p>
+<span class="description"><p>Frame identifier for the tracking data related to the start of the period</p>
 </span>
         
 
@@ -1103,7 +1104,7 @@
             />
         </svg>
     <a href="#match_periods_items_frame_id_end" onclick="anchorLink('match_periods_items_frame_id_end')">frame_id_end</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Frame ID at the start of the period</p>
+<span class="description"><p>Frame identifier for the tracking data related to the end of the period</p>
 </span>
         
 
@@ -1158,7 +1159,7 @@
             />
         </svg>
     <a href="#match_periods_items_left_team_id" onclick="anchorLink('match_periods_items_left_team_id')">left_team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique team identifier of the team playing on the left side of the pitch in this period. The left<em>team</em>id and right<em>team</em>id should be the actual, nonstandardized sides.</p>
+<span class="description"><p>Unique team identifier of the team playing on the left side of the pitch in this period. The CDF requires a standardized playing direction. The left<em>team</em>id and right<em>team</em>id should be the actual, non-standardized sides.</p>
 </span>
         
 
@@ -1213,7 +1214,7 @@
             />
         </svg>
     <a href="#match_periods_items_right_team_id" onclick="anchorLink('match_periods_items_right_team_id')">right_team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique team identifier of the team playing on the left side of the pitch in this period. The left<em>team</em>id and right<em>team</em>id should be the actual, nonstandardized sides.</p>
+<span class="description"><p>Unique team identifier of the team playing on the right side of the pitch in this period.</p>
 </span>
         
 
@@ -1344,7 +1345,7 @@
             />
         </svg>
     <a href="#match_whistles_items_type" onclick="anchorLink('match_whistles_items_type')">type</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Examples of types 'first<em>half', 'second</em>half', 'weather<em>delay', 'health</em>delay', 'injury<em>treatment', 'fan</em>health_delay' etc.</p>
+<span class="description"><p>Whistles that start and end major periods of play such as the start and end of halves and interruptions (e.g., weather, VAR review, player health events, streakers or abandoned). Examples of types first<em>half, second</em>half, weather<em>delay, health</em>delay, injury<em>treatment fan</em>health_delay etc.</p>
 </span>
         
 
@@ -1727,54 +1728,6 @@
         </div>
     </div>
 </div>
-<div class="accordion" id="accordionmatch_misc_percipitation">
-    <div class="card">
-        <div class="card-header" id="headingmatch_misc_percipitation">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_misc_percipitation"
-                        aria-expanded="" aria-controls="match_misc_percipitation" onclick="setAnchor('#match_misc_percipitation')"><span class="property-name">percipitation</span></button>
-            </h2>
-        </div>
-
-        <div id="match_misc_percipitation"
-             class="collapse property-definition-div" aria-labelledby="headingmatch_misc_percipitation"
-             data-parent="#accordionmatch_misc_percipitation">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#match" onclick="anchorLink('match')">match</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#match_misc" onclick="anchorLink('match_misc')">misc</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#match_misc_percipitation" onclick="anchorLink('match_misc_percipitation')">percipitation</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>Percipitation during the match in millimetres</p>
-</span>
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
 <div class="accordion" id="accordionmatch_misc_is_open_roof">
     <div class="card">
         <div class="card-header" id="headingmatch_misc_is_open_roof">
@@ -1812,6 +1765,54 @@
         </svg>
     <a href="#match_misc_is_open_roof" onclick="anchorLink('match_misc_is_open_roof')">is_open_roof</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
 <span class="description"><p>Indicates if the roof is open (true) or closed (false)</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmatch_misc_precipitation">
+    <div class="card">
+        <div class="card-header" id="headingmatch_misc_precipitation">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_misc_precipitation"
+                        aria-expanded="" aria-controls="match_misc_precipitation" onclick="setAnchor('#match_misc_precipitation')"><span class="property-name">precipitation</span></button>
+            </h2>
+        </div>
+
+        <div id="match_misc_precipitation"
+             class="collapse property-definition-div" aria-labelledby="headingmatch_misc_precipitation"
+             data-parent="#accordionmatch_misc_precipitation">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match" onclick="anchorLink('match')">match</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_misc" onclick="anchorLink('match_misc')">misc</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_misc_precipitation" onclick="anchorLink('match_misc_precipitation')">precipitation</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
+<span class="description"><p>Precipitation during the match in millimetres</p>
 </span>
         
 
@@ -1934,7 +1935,7 @@
             />
         </svg>
     <a href="#teams_home_id" onclick="anchorLink('teams_home_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for the home team</p>
+<span class="description"><p>Unique identifier for the home or away team</p>
 </span>
         
 
@@ -1982,7 +1983,8 @@
             />
         </svg>
     <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a></div><span class="badge badge-dark value-type">Type: array of object</span><br/>
-
+<span class="description"><p>Array of player objects. One array under teams/home, one array under teams/away</p>
+</span>
         
 
         
@@ -2326,7 +2328,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#teams_home_players_items_last_name" onclick="anchorLink('teams_home_players_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#teams_home_players_items_last_name" onclick="anchorLink('teams_home_players_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Last name of the player, null if not available</p>
 </span>
         
@@ -2388,7 +2390,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#teams_home_players_items_first_name" onclick="anchorLink('teams_home_players_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#teams_home_players_items_first_name" onclick="anchorLink('teams_home_players_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>First name of the player, null if not available</p>
 </span>
         
@@ -2403,6 +2405,102 @@
 </div>
         </div>
     </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionteams_home_name">
+    <div class="card">
+        <div class="card-header" id="headingteams_home_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_name"
+                        aria-expanded="" aria-controls="teams_home_name" onclick="setAnchor('#teams_home_name')"><span class="property-name">name</span></button>
+            </h2>
+        </div>
+
+        <div id="teams_home_name"
+             class="collapse property-definition-div" aria-labelledby="headingteams_home_name"
+             data-parent="#accordionteams_home_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams" onclick="anchorLink('teams')">teams</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_name" onclick="anchorLink('teams_home_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Name of the team</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionteams_home_jersey_colour">
+    <div class="card">
+        <div class="card-header" id="headingteams_home_jersey_colour">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_jersey_colour"
+                        aria-expanded="" aria-controls="teams_home_jersey_colour" onclick="setAnchor('#teams_home_jersey_colour')"><span class="property-name">jersey_colour</span></button>
+            </h2>
+        </div>
+
+        <div id="teams_home_jersey_colour"
+             class="collapse property-definition-div" aria-labelledby="headingteams_home_jersey_colour"
+             data-parent="#accordionteams_home_jersey_colour">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams" onclick="anchorLink('teams')">teams</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#teams_home_jersey_colour" onclick="anchorLink('teams_home_jersey_colour')">jersey_colour</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Jersey colour of the team as a hexadecimal color code (e.g. #545B62).</p>
+</span>
+        
+
+        
+        
+
+        
             </div>
         </div>
     </div>
@@ -2507,7 +2605,7 @@
             />
         </svg>
     <a href="#venue_id" onclick="anchorLink('venue_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for the stadium</p>
+<span class="description"><p>Unique identifier for the venue or stadium.</p>
 </span>
         
 
@@ -2547,7 +2645,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#venue_pitch_length" onclick="anchorLink('venue_pitch_length')">pitch_length</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#venue_pitch_length" onclick="anchorLink('venue_pitch_length')">pitch_length</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>Length of the pitch in metres, null if not available</p>
 </span>
         
@@ -2588,7 +2686,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#venue_pitch_width" onclick="anchorLink('venue_pitch_width')">pitch_width</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#venue_pitch_width" onclick="anchorLink('venue_pitch_width')">pitch_width</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>Width of the pitch in metres, null if not available</p>
 </span>
         
@@ -2630,7 +2728,7 @@
             />
         </svg>
     <a href="#venue_name" onclick="anchorLink('venue_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Name of the stadium</p>
+<span class="description"><p>Name of the venue or stadium</p>
 </span>
         
 
@@ -2671,7 +2769,7 @@
             />
         </svg>
     <a href="#venue_turf" onclick="anchorLink('venue_turf')">turf</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Information on the turf of the pitch (e.g., 'grass', 'natural_reinforced')</p>
+<span class="description"><p>Information on the turf of the stadium (natural, natural_reinforced, grass, clay,...)</p>
 </span>
         
 
@@ -2789,7 +2887,7 @@
             />
         </svg>
     <a href="#meta_video_perspective" onclick="anchorLink('meta_video_perspective')">perspective</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Camera perspective (e.g. in 'stadium', 'broadcast', 'tactical', 'tactical_wide')</p>
+<span class="description"><p>Camera perspective (e.g. 'in<em>stadium', 'broadcast', 'tactical', 'tactical</em>wide')</p>
 </span>
         
 
@@ -2933,7 +3031,7 @@
             />
         </svg>
     <a href="#meta_video_fps" onclick="anchorLink('meta_video_fps')">fps</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Frames per second (i.e., frame rate) of video</p>
+<span class="description"><p>Frames per second (i.e., frame rate) of tracking, landmark tracking or video</p>
 </span>
         
 
@@ -3022,7 +3120,7 @@
             />
         </svg>
     <a href="#meta_event_collection_timing" onclick="anchorLink('meta_event_collection_timing')">collection_timing</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Indicates if the event data was collected live or post match</p>
+<span class="description"><p>Indicates if the event data was collected 'live' or 'post_match'.</p>
 </span>
         
 
@@ -3303,7 +3401,7 @@
             />
         </svg>
     <a href="#meta_tracking_fps" onclick="anchorLink('meta_tracking_fps')">fps</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Frames per second (i.e., frame rate) of tracking</p>
+<span class="description"><p>Frames per second (i.e., frame rate) of tracking, landmark tracking or video</p>
 </span>
         
 
@@ -3351,7 +3449,7 @@
             />
         </svg>
     <a href="#meta_tracking_collection_timing" onclick="anchorLink('meta_tracking_collection_timing')">collection_timing</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Indicates if the tracking data was collected live or post match</p>
+<span class="description"><p>Indicates if the tracking data was collected 'live' or 'post_match'.</p>
 </span>
         
 
@@ -3536,7 +3634,7 @@
             />
         </svg>
     <a href="#meta_landmarks_fps" onclick="anchorLink('meta_landmarks_fps')">fps</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Frames per second (i.e., frame rate) of landmark tracking</p>
+<span class="description"><p>Frames per second (i.e., frame rate) of tracking, landmark tracking or video</p>
 </span>
         
 
@@ -3584,7 +3682,7 @@
             />
         </svg>
     <a href="#meta_landmarks_collection_timing" onclick="anchorLink('meta_landmarks_collection_timing')">collection_timing</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Indicates if the limb data was collected live or post match</p>
+<span class="description"><p>Indicates if the landmark data was collected 'live' or 'post_match'.</p>
 </span>
         
 
@@ -3592,6 +3690,455 @@
         
 
         
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_landmarks_skeleton">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton" onclick="setAnchor('#meta_landmarks_skeleton')"><span class="property-name">skeleton</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton"
+             data-parent="#accordionmeta_landmarks_skeleton">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Skeletal hierarchy used: which landmarks are tracked and how they are connected. Required when landmark data is provided. Every name here is a landmark name from the landmark data.</p>
+</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionmeta_landmarks_skeleton_root">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton_root">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton_root"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton_root" onclick="setAnchor('#meta_landmarks_skeleton_root')"><span class="property-name">root</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton_root"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton_root"
+             data-parent="#accordionmeta_landmarks_skeleton_root">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_root" onclick="anchorLink('meta_landmarks_skeleton_root')">root</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Name of the landmark the hierarchy is rooted at</p>
+</span><span class="pattern-value" id="meta_landmarks_skeleton_root_pattern">Must match regular expression: <code>^[a-z][a-z0-9_]*$</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_landmarks_skeleton_joints">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton_joints">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton_joints"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton_joints" onclick="setAnchor('#meta_landmarks_skeleton_joints')"><span class="property-name">joints</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton_joints"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton_joints"
+             data-parent="#accordionmeta_landmarks_skeleton_joints">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_joints" onclick="anchorLink('meta_landmarks_skeleton_joints')">joints</a></div><span class="badge badge-dark value-type">Type: array of string</span><br/>
+<span class="description"><p>Names of every landmark in the hierarchy</p>
+</span>
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="meta_landmarks_skeleton_joints_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_joints" onclick="anchorLink('meta_landmarks_skeleton_joints')">joints</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_joints_items" onclick="anchorLink('meta_landmarks_skeleton_joints_items')">joints items</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="pattern-value" id="meta_landmarks_skeleton_joints_items_pattern">Must match regular expression: <code>^[a-z][a-z0-9_]*$</code></span>
+        
+
+        
+        
+
+        
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_landmarks_skeleton_connections">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton_connections">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton_connections"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton_connections" onclick="setAnchor('#meta_landmarks_skeleton_connections')"><span class="property-name">connections</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton_connections"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton_connections"
+             data-parent="#accordionmeta_landmarks_skeleton_connections">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections" onclick="anchorLink('meta_landmarks_skeleton_connections')">connections</a></div><span class="badge badge-dark value-type">Type: array of object</span><br/>
+<span class="description"><p>Parent-child pairs describing how the landmarks connect</p>
+</span>
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="meta_landmarks_skeleton_connections_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections" onclick="anchorLink('meta_landmarks_skeleton_connections')">connections</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections_items" onclick="anchorLink('meta_landmarks_skeleton_connections_items')">connections items</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionmeta_landmarks_skeleton_connections_items_source">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton_connections_items_source">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton_connections_items_source"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton_connections_items_source" onclick="setAnchor('#meta_landmarks_skeleton_connections_items_source')"><span class="property-name">source</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton_connections_items_source"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton_connections_items_source"
+             data-parent="#accordionmeta_landmarks_skeleton_connections_items_source">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections" onclick="anchorLink('meta_landmarks_skeleton_connections')">connections</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections_items" onclick="anchorLink('meta_landmarks_skeleton_connections_items')">connections items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections_items_source" onclick="anchorLink('meta_landmarks_skeleton_connections_items_source')">source</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Name of the parent landmark</p>
+</span><span class="pattern-value" id="meta_landmarks_skeleton_connections_items_source_pattern">Must match regular expression: <code>^[a-z][a-z0-9_]*$</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmeta_landmarks_skeleton_connections_items_target">
+    <div class="card">
+        <div class="card-header" id="headingmeta_landmarks_skeleton_connections_items_target">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#meta_landmarks_skeleton_connections_items_target"
+                        aria-expanded="" aria-controls="meta_landmarks_skeleton_connections_items_target" onclick="setAnchor('#meta_landmarks_skeleton_connections_items_target')"><span class="property-name">target</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="meta_landmarks_skeleton_connections_items_target"
+             class="collapse property-definition-div" aria-labelledby="headingmeta_landmarks_skeleton_connections_items_target"
+             data-parent="#accordionmeta_landmarks_skeleton_connections_items_target">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta" onclick="anchorLink('meta')">meta</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks" onclick="anchorLink('meta_landmarks')">landmarks</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton" onclick="anchorLink('meta_landmarks_skeleton')">skeleton</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections" onclick="anchorLink('meta_landmarks_skeleton_connections')">connections</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections_items" onclick="anchorLink('meta_landmarks_skeleton_connections_items')">connections items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#meta_landmarks_skeleton_connections_items_target" onclick="anchorLink('meta_landmarks_skeleton_connections_items_target')">target</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Name of the child landmark</p>
+</span><span class="pattern-value" id="meta_landmarks_skeleton_connections_items_target_pattern">Must match regular expression: <code>^[a-z][a-z0-9_]*$</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -3673,7 +4220,7 @@
             />
         </svg>
     <a href="#meta_ball_version" onclick="anchorLink('meta_ball_version')">version</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Version number for the ball data collection in use</p>
+<span class="description"><p>Version number for the ball data collection in use (e.g. '0.1.0')</p>
 </span>
         
 
@@ -3817,7 +4364,7 @@
             />
         </svg>
     <a href="#meta_ball_collection_timing" onclick="anchorLink('meta_ball_collection_timing')">collection_timing</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Indicates if the ball data was collected live or post match</p>
+<span class="description"><p>Indicates if the ball data was collected 'live' or 'post_match'.</p>
 </span>
         
 
@@ -3906,7 +4453,7 @@
             />
         </svg>
     <a href="#meta_meta_version" onclick="anchorLink('meta_meta_version')">version</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Version number for the meta data collection in use</p>
+<span class="description"><p>Version number for the data collection in use (e.g. '0.1.0')</p>
 </span>
         
 
@@ -4043,7 +4590,7 @@
             />
         </svg>
     <a href="#meta_cdf_version" onclick="anchorLink('meta_cdf_version')">version</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Version number for the CDF in use</p>
+<span class="description"><p>Version number for the data collection in use (e.g. '0.1.0')</p>
 </span>
         
 
@@ -4201,7 +4748,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_first_name" onclick="anchorLink('officials_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_first_name" onclick="anchorLink('officials_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>First name of the official, null if not available</p>
 </span>
         
@@ -4249,7 +4796,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_last_name" onclick="anchorLink('officials_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_last_name" onclick="anchorLink('officials_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Last name of the official, null if not available</p>
 </span>
         
@@ -4297,7 +4844,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_short_name" onclick="anchorLink('officials_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_short_name" onclick="anchorLink('officials_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Short name of the official, null if not available</p>
 </span>
         

@@ -1,0 +1,26 @@
+\begin{table}[H] % Use [H] to force the table placement
+\centering
+\caption{Description of optional Match Meta CDF continuation from Table~\ref{tab:cdf-meta-optional}. Note that \{i\} is used as an index for the items in a list. }
+\label{tab:cdf-meta-optional-1}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{3.4cm}p{7cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+match/periods/\{i\} & frame\_id\_start & Frame identifier for the tracking data related to the start of the period & Integer \\
+match/periods/\{i\} & frame\_id\_end & Frame identifier for the tracking data related to the end of the period & Integer \\
+match/periods/\{i\} & left\_team\_id & Unique team identifier of the team playing on the left side of the pitch in this period. The CDF requires a standardized playing direction (see Section~\ref{sec:playing-direction}). The left\_team\_id and right\_team\_id should be the actual, non-standardized sides. & String \\
+match/periods/\{i\} & right\_team\_id & Unique team identifier of the team playing on the right side of the pitch in this period. & String \\
+match/periods/\{i\} & start\_time & Start time of the period in UTC & String \\
+match/periods/\{i\} & end\_time & End time of the period in UTC & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & last\_name & Last name of the player, null if not available & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & first\_name & First name of the player, null if not available & String \\
+venue & pitch\_length & Length of the pitch in metres, null if not available & Float \\
+venue & pitch\_width & Width of the pitch in metres, null if not available & Float \\
+officials/\{i\} & id & Unique identifier for the official & String \\
+officials/\{i\} & first\_name & First name of the official, null if not available & String \\
+officials/\{i\} & last\_name & Last name of the official, null if not available & String \\
+officials/\{i\} & short\_name & Short name of the official, null if not available & String \\
+officials/\{i\} & type & Role of the official (e.g., `main\_referee', `assistant\_referee', `fourth\_official') & String \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

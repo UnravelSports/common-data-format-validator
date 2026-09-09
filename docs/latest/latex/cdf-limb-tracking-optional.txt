@@ -1,0 +1,26 @@
+\begin{table}[H]
+\centering
+\caption{Description of optional Skeletal Tracking CDF fields that would be recorded once per frame. Any description ending with a $^\star$ is repeated once per person (e.g., player, referee) per frame. Note that \{i\} is used as an index for the items in a list. Any type ending with a $^\ddagger$ may be null when the subject is occluded, off-camera or otherwise not captured in that frame.}
+\label{tab:cdf-limb-tracking-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{7cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+ball & x & x location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+ball & y & y location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+ball & z & z location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+ball & status & Indicates if the ball is either in play (true) or out of play (false) & Boolean \\
+ball & poss\_team\_id & Unique identifier of the team that currently possesses the ball & String \\
+ball & poss\_status & Contextual description of the level of control (e.g., controlled, contested,...) & String \\
+officials/\{i\} & id & Unique identifier for an official & String \\
+officials/\{i\} & x & x location of the official on the pitch (m)$^\star$ & Float / null$^\ddagger$ \\
+officials/\{i\} & y & y location of the official on the pitch (m)$^\star$ & Float / null$^\ddagger$ \\
+officials/\{i\} & z & z location of the official on the pitch (m)$^\star$ & Float / null$^\ddagger$ \\
+officials/\{i\} & vel & Speed of the official (m/s)$^\star$ & Float \\
+officials/\{i\} & acc & Acceleration of the official (m/s\textsuperscript{2})$^\star$ & Float \\
+officials/\{i\} & lat & Latitude of the official's position if the data is collected by GNSS or GPS$^\star$ & Float \\
+officials/\{i\} & long & Longitude of the official's position if the data is collected by GNSS or GPS$^\star$ & Float \\
+officials/\{i\} & is\_visible & Denotes if an official was visible (in view of the camera) (true) or not (false)$^\star$ & Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

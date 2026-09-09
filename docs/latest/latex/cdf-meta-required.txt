@@ -1,0 +1,38 @@
+\begin{table}[H] % Use [H] to force the table placement
+\caption{Description of mandatory Match Meta CDF. Any description ending with a $^\star$ is repeated once per player. Note that \{i\} is used as an index for the items in a list. Separate ball version, name, fps and collection timing is only required when providing an independent ball file (i.e. when the ball sampling rate is different).}
+\label{tab:cdf-meta-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{8cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+competition & id & Unique identifier for the competition & String \\
+season & id & Unique identifier for the season & String \\
+match & id & Unique identifier for the match & String \\
+match & kickoff\_time & Scheduled kickoff time in UTC & String \\
+match/periods/\{i\} & play\_direction & The direction of play for the home team. Possible options are left\_right or right\_left. & String \\
+match/whistles/\{i\} & type & Whistles that start and end major periods of play such as the start and end of halves and interruptions (e.g., weather, VAR review, player health events, streakers or abandoned). Examples of types first\_half, second\_half, weather\_delay, health\_delay, injury\_treatment fan\_health\_delay etc. & String \\
+match/whistles/\{i\} & sub\_type & Sub type related to an interruption, for example `start' or `end' & String \\
+match/whistles/\{i\} & time & The time in UTC of the whistle & String \\
+teams/\{home\text{\textbar}away\} & id & Unique identifier for the home or away team & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &  & Array of player objects. One array under teams/home, one array under teams/away & Array \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & id & Unique player identifier$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & team\_id & Unique team identifier denoting the team the player plays for$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & jersey\_number & Jersey number for a player$^\star$ & Integer \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & is\_starter & Denotes whether a player started the game (true) or not (false)$^\star$ & Boolean \\
+venue & id & Unique identifier for the venue or stadium. & String \\
+meta/video & perspective & Camera perspective (e.g. `in\_stadium', `broadcast', `tactical', `tactical\_wide') & String \\
+meta/\{event\text{\textbar}tracking\text{\textbar}video\text{\textbar}landmarks\text{\textbar}ball\text{\textbar}meta\text{\textbar}cdf\} & version & Version number for the data collection in use (e.g. ``0.1.0'') & String \\
+meta/event & name & Vendor name of the event data & String \\
+meta/tracking & name & Vendor name of the tracking data & String \\
+meta/video & name & Vendor name of the video data & String \\
+meta/landmarks & name & Vendor name of the landmark tracking data & String \\
+meta/ball & name & Vendor name of the ball data & String \\
+meta/meta & name & Vendor name of the meta data & String \\
+meta/\{tracking\text{\textbar}video\text{\textbar}landmarks\} & fps & Frames per second (i.e., frame rate) of tracking, landmark tracking or video & Integer \\
+meta/ball & fps & Frames per second (i.e., frame rate) of ball tracking & Integer \\
+meta/\{event\text{\textbar}tracking\text{\textbar}landmarks\text{\textbar}ball\} & collection\_timing & Indicates if the data was collected live or post\_match. & String \\
+match/periods/\{i\} & period & Period of the match which can be first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, or shootout & String \\
+\end{tabular}
+\end{adjustbox}
+%\end{longtable}
+\end{table}

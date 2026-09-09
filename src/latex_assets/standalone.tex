@@ -1,0 +1,29 @@
+% Renders a single table or JSON example on its own, using the same preamble as
+% nature_data.tex so the result matches the paper's layout.
+%
+%   ./build.sh tables/cdf-video
+%   ./build.sh json/meta-data
+%
+% or directly:
+%
+%   pdflatex -jobname=cdf-video "\def\fragment{tables/cdf-video}\input{standalone}"
+
+\input{preamble}
+
+% A fragment has no surrounding document for its float to settle into, so a
+% table taller than the text block gets pushed to page 2 and leaves page 1
+% blank apart from the page number. Lengthen the page -- but not the text
+% width, because `adjustbox{max width=\textwidth}` scales the table to it and
+% a different width would misrepresent how the table looks in the paper.
+\addtolength{\textheight}{60cm}
+\setlength{\pdfpageheight}{\dimexpr\textheight+2in\relax}
+\pagestyle{empty}
+
+% Cross-references point at labels that live in the parent document. Without
+% these the fragment still renders, but every \ref becomes ?? and the surrounding
+% text reflows, so the numbers are pinned to the ones the paper assigns.
+\IfFileExists{\fragment.refs}{\input{\fragment.refs}}{}
+
+\begin{document}
+\input{\fragment}
+\end{document}

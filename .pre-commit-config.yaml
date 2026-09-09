@@ -18,3 +18,22 @@ repos:
         pass_filenames: false
         always_run: true
         stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: latex-pdfs
+        name: LaTeX table PDFs are current
+        # The PDFs under docs/latest/latex/ are committed because CI cannot
+        # rebuild them: pdflatex output varies with the TeX Live version, so
+        # CI's bytes would never match a contributor's. They are regenerated
+        # here instead. If that changes anything, pre-commit reports the files
+        # as modified and fails -- stage the result and commit again.
+        #
+        # --require-pdf so a missing TeX installation is an error rather than a
+        # silent fall back to text-only, which would leave the PDFs stale.
+        entry: python src/generate_latex.py --require-pdf
+        language: system
+        pass_filenames: false
+        files: ^(cdf/files/v[^/]+/latex/tables\.json|src/generate_latex\.py|src/latex_assets/.+)$
+        stages: [pre-commit]
+

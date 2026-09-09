@@ -1,0 +1,22 @@
+\begin{table}[H]
+\centering
+\caption{Description of the optional Event CDF fields. If included, these fields are recorded once per event.}
+\label{tab:cdf-event-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{3cm}p{7cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+tracking & frame\_id & Frame identifier from the tracking data related to the event at (x, y) as described in ~\ref{tab:cdf-event-required} & Integer \\
+tracking & frame\_id\_end & Frame identifier from the tracking data related to the event at (x\_end, y\_end) as described in ~\ref{tab:cdf-event-required} & Integer \\
+tracking/player & x & x location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m) & Float \\
+tracking/player & y & y location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m) & Float \\
+event & match\_clock & The match clock as a string in format ``MM:SS.mm'' (i.e. minutes, seconds, milliseconds) (e.g. ``92:01.04''). The clock resets to ``45:00.00'', ``90:00.00'' or ``105:00.00'' at the start of ``second\_half'', ``first\_half\_extratime'', ``second\_half\_extratime'', respectively. & String \\
+event/metrics & xg & Calculated xG value between [0,1] & Float \\
+event/metrics & post\_shot\_xg & Calculated post-shot xG value between [0,1] & Float \\
+event/metrics & xpass & Calculated expected pass value between [0,1] & Float \\
+event/metrics & epv & Expected possession value between [0,1] & Float \\
+event/var & reviewed & Was this event reviewed by the video assistant referee (true) or not (false) & Boolean \\
+event/var & upheld & Was the on-field ruling confirmed (true) or overturned (false) & Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

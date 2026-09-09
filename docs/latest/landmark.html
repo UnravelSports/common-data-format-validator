@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Landmark Tracking Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.1</strong></p>
+<span class="description"><p><strong>Version 0.3.2</strong></p>
 
 <p>This schema defines the Landmark Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 
@@ -120,7 +120,7 @@
             />
         </svg>
     <a href="#period" onclick="anchorLink('period')">period</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
-<span class="description"><p>Period of the match</p>
+<span class="description"><p>Period of the match which can be first<em>half, second</em>half, first<em>half</em>extratime, second<em>half</em>extratime, or shootout</p>
 </span><div class="enum-value" id="period_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"first_half"</li><li class="list-group-item enum-item">"second_half"</li><li class="list-group-item enum-item">"first_half_extratime"</li><li class="list-group-item enum-item">"second_half_extratime"</li><li class="list-group-item enum-item">"shootout"</li></ul>
@@ -312,7 +312,7 @@
             />
         </svg>
     <a href="#teams_home_id" onclick="anchorLink('teams_home_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for the team</p>
+<span class="description"><p>Unique identifier for the home or away team</p>
 </span>
         
 
@@ -584,82 +584,6 @@
         
 
         
-<div class="accordion" id="accordionteams_home_players_items_landmarks_items_index">
-    <div class="card">
-        <div class="card-header" id="headingteams_home_players_items_landmarks_items_index">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_players_items_landmarks_items_index"
-                        aria-expanded="" aria-controls="teams_home_players_items_landmarks_items_index" onclick="setAnchor('#teams_home_players_items_landmarks_items_index')"><span class="property-name">index</span> <span class="badge badge-warning required-property">Required</span></button>
-            </h2>
-        </div>
-
-        <div id="teams_home_players_items_landmarks_items_index"
-             class="collapse property-definition-div" aria-labelledby="headingteams_home_players_items_landmarks_items_index"
-             data-parent="#accordionteams_home_players_items_landmarks_items_index">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items" onclick="anchorLink('teams_home_players_items')">players items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks" onclick="anchorLink('teams_home_players_items_landmarks')">landmarks</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items" onclick="anchorLink('teams_home_players_items_landmarks_items')">landmarks items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items_index" onclick="anchorLink('teams_home_players_items_landmarks_items_index')">index</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for a landmark</p>
-</span>
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
 <div class="accordion" id="accordionteams_home_players_items_landmarks_items_name">
     <div class="card">
         <div class="card-header" id="headingteams_home_players_items_landmarks_items_name">
@@ -725,7 +649,7 @@
         </svg>
     <a href="#teams_home_players_items_landmarks_items_name" onclick="anchorLink('teams_home_players_items_landmarks_items_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Name for a landmark</p>
-</span>
+</span><span class="pattern-value" id="teams_home_players_items_landmarks_items_name_pattern">Must match regular expression: <code>^[a-z][a-z0-9_]*$</code></span>
         
 
         
@@ -799,7 +723,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#teams_home_players_items_landmarks_items_x" onclick="anchorLink('teams_home_players_items_landmarks_items_x')">x</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+    <a href="#teams_home_players_items_landmarks_items_x" onclick="anchorLink('teams_home_players_items_landmarks_items_x')">x</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
 <span class="description"><p>Relative x coordinate of landmark in relation to the point of origin (m)</p>
 </span>
         
@@ -875,7 +799,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#teams_home_players_items_landmarks_items_y" onclick="anchorLink('teams_home_players_items_landmarks_items_y')">y</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+    <a href="#teams_home_players_items_landmarks_items_y" onclick="anchorLink('teams_home_players_items_landmarks_items_y')">y</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
 <span class="description"><p>Relative y coordinate of landmark in relation to the point of origin (m)</p>
 </span>
         
@@ -951,7 +875,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#teams_home_players_items_landmarks_items_z" onclick="anchorLink('teams_home_players_items_landmarks_items_z')">z</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+    <a href="#teams_home_players_items_landmarks_items_z" onclick="anchorLink('teams_home_players_items_landmarks_items_z')">z</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
 <span class="description"><p>Relative z coordinate of landmark in relation to the point of origin (m)</p>
 </span>
         
@@ -960,152 +884,6 @@
         
 
         
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionteams_home_players_items_landmarks_items_children">
-    <div class="card">
-        <div class="card-header" id="headingteams_home_players_items_landmarks_items_children">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_players_items_landmarks_items_children"
-                        aria-expanded="" aria-controls="teams_home_players_items_landmarks_items_children" onclick="setAnchor('#teams_home_players_items_landmarks_items_children')"><span class="property-name">children</span> <span class="badge badge-warning required-property">Required</span></button>
-            </h2>
-        </div>
-
-        <div id="teams_home_players_items_landmarks_items_children"
-             class="collapse property-definition-div" aria-labelledby="headingteams_home_players_items_landmarks_items_children"
-             data-parent="#accordionteams_home_players_items_landmarks_items_children">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items" onclick="anchorLink('teams_home_players_items')">players items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks" onclick="anchorLink('teams_home_players_items_landmarks')">landmarks</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items" onclick="anchorLink('teams_home_players_items_landmarks_items')">landmarks items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items_children" onclick="anchorLink('teams_home_players_items_landmarks_items_children')">children</a></div><span class="badge badge-dark value-type">Type: array of integer</span><br/>
-<span class="description"><p>List of children indexes associated with keypoint</p>
-</span>
-        
-
-        
-        
-
-         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
-    <div class="card">
-        <div class="card-body items-definition" id="teams_home_players_items_landmarks_items_children_items">
-            
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players" onclick="anchorLink('teams_home_players')">players</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items" onclick="anchorLink('teams_home_players_items')">players items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks" onclick="anchorLink('teams_home_players_items_landmarks')">landmarks</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items" onclick="anchorLink('teams_home_players_items_landmarks_items')">landmarks items</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items_children" onclick="anchorLink('teams_home_players_items_landmarks_items_children')">children</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_players_items_landmarks_items_children_items" onclick="anchorLink('teams_home_players_items_landmarks_items_children_items')">children items</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-
-        
-
-        
-        
-
-        
-        </div>
-    </div>
             </div>
         </div>
     </div>
@@ -1194,147 +972,6 @@
 </div>
         </div>
     </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionteams_home_name">
-    <div class="card">
-        <div class="card-header" id="headingteams_home_name">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_name"
-                        aria-expanded="" aria-controls="teams_home_name" onclick="setAnchor('#teams_home_name')"><span class="property-name">name</span></button>
-            </h2>
-        </div>
-
-        <div id="teams_home_name"
-             class="collapse property-definition-div" aria-labelledby="headingteams_home_name"
-             data-parent="#accordionteams_home_name">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_name" onclick="anchorLink('teams_home_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionteams_home_jersey_colour">
-    <div class="card">
-        <div class="card-header" id="headingteams_home_jersey_colour">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_jersey_colour"
-                        aria-expanded="" aria-controls="teams_home_jersey_colour" onclick="setAnchor('#teams_home_jersey_colour')"><span class="property-name">jersey_colour</span></button>
-            </h2>
-        </div>
-
-        <div id="teams_home_jersey_colour"
-             class="collapse property-definition-div" aria-labelledby="headingteams_home_jersey_colour"
-             data-parent="#accordionteams_home_jersey_colour">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_jersey_colour" onclick="anchorLink('teams_home_jersey_colour')">jersey_colour</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionteams_home_formation">
-    <div class="card">
-        <div class="card-header" id="headingteams_home_formation">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#teams_home_formation"
-                        aria-expanded="" aria-controls="teams_home_formation" onclick="setAnchor('#teams_home_formation')"><span class="property-name">formation</span></button>
-            </h2>
-        </div>
-
-        <div id="teams_home_formation"
-             class="collapse property-definition-div" aria-labelledby="headingteams_home_formation"
-             data-parent="#accordionteams_home_formation">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams" onclick="anchorLink('teams')">teams</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home" onclick="anchorLink('teams_home')">home</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#teams_home_formation" onclick="anchorLink('teams_home_formation')">formation</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
-        
-
-        
-        
-
-        
             </div>
         </div>
     </div>
@@ -1439,7 +1076,8 @@
             />
         </svg>
     <a href="#ball_x" onclick="anchorLink('ball_x')">x</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>x location of the ball on the pitch (m).</p>
+</span>
         
 
         
@@ -1479,7 +1117,8 @@
             />
         </svg>
     <a href="#ball_y" onclick="anchorLink('ball_y')">y</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>y location of the ball on the pitch (m).</p>
+</span>
         
 
         
@@ -1519,7 +1158,8 @@
             />
         </svg>
     <a href="#ball_z" onclick="anchorLink('ball_z')">z</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>z location of the ball on the pitch (m).</p>
+</span>
         
 
         
@@ -1559,7 +1199,8 @@
             />
         </svg>
     <a href="#ball_status" onclick="anchorLink('ball_status')">status</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
-
+<span class="description"><p>Indicates if the ball is either in play (true) or out of play (false)</p>
+</span>
         
 
         
@@ -1599,7 +1240,8 @@
             />
         </svg>
     <a href="#ball_poss_team_id" onclick="anchorLink('ball_poss_team_id')">poss_team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
+<span class="description"><p>Unique identifier of the team that currently possesses the ball</p>
+</span>
         
 
         
@@ -1639,7 +1281,8 @@
             />
         </svg>
     <a href="#ball_poss_status" onclick="anchorLink('ball_poss_status')">poss_status</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
+<span class="description"><p>Contextual description of the level of control (e.g., controlled, contested,...)</p>
+</span>
         
 
         
@@ -1745,7 +1388,8 @@
             />
         </svg>
     <a href="#officials_items_id" onclick="anchorLink('officials_items_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
+<span class="description"><p>Unique identifier for an official</p>
+</span>
         
 
         
@@ -1792,7 +1436,8 @@
             />
         </svg>
     <a href="#officials_items_x" onclick="anchorLink('officials_items_x')">x</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>x location of the official on the pitch (m)</p>
+</span>
         
 
         
@@ -1839,7 +1484,8 @@
             />
         </svg>
     <a href="#officials_items_y" onclick="anchorLink('officials_items_y')">y</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>y location of the official on the pitch (m)</p>
+</span>
         
 
         
@@ -1886,7 +1532,8 @@
             />
         </svg>
     <a href="#officials_items_z" onclick="anchorLink('officials_items_z')">z</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-
+<span class="description"><p>z location of the official on the pitch (m)</p>
+</span>
         
 
         
@@ -1933,7 +1580,8 @@
             />
         </svg>
     <a href="#officials_items_vel" onclick="anchorLink('officials_items_vel')">vel</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-
+<span class="description"><p>Speed of the official (m/s)</p>
+</span>
         
 
         
@@ -1980,7 +1628,8 @@
             />
         </svg>
     <a href="#officials_items_acc" onclick="anchorLink('officials_items_acc')">acc</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-
+<span class="description"><p>Acceleration of the official (m/s^2)</p>
+</span>
         
 
         
@@ -2027,7 +1676,8 @@
             />
         </svg>
     <a href="#officials_items_lat" onclick="anchorLink('officials_items_lat')">lat</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-
+<span class="description"><p>Latitude of the official's position if the data is collected by GNSS or GPS</p>
+</span>
         
 
         
@@ -2074,7 +1724,8 @@
             />
         </svg>
     <a href="#officials_items_long" onclick="anchorLink('officials_items_long')">long</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-
+<span class="description"><p>Longitude of the official's position if the data is collected by GNSS or GPS</p>
+</span>
         
 
         
@@ -2121,7 +1772,8 @@
             />
         </svg>
     <a href="#officials_items_is_visible" onclick="anchorLink('officials_items_is_visible')">is_visible</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
-
+<span class="description"><p>Denotes if an official was visible (in view of the camera) (true) or not (false)</p>
+</span>
         
 
         
@@ -2134,213 +1786,6 @@
 </div>
         </div>
     </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionvendor">
-    <div class="card">
-        <div class="card-header" id="headingvendor">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#vendor"
-                        aria-expanded="" aria-controls="vendor" onclick="setAnchor('#vendor')"><span class="property-name">vendor</span></button>
-            </h2>
-        </div>
-
-        <div id="vendor"
-             class="collapse property-definition-div" aria-labelledby="headingvendor"
-             data-parent="#accordionvendor">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor" onclick="anchorLink('vendor')">vendor</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
-
-        
-
-        
-        
-
-        
-<div class="accordion" id="accordionvendor_event">
-    <div class="card">
-        <div class="card-header" id="headingvendor_event">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#vendor_event"
-                        aria-expanded="" aria-controls="vendor_event" onclick="setAnchor('#vendor_event')"><span class="property-name">event</span></button>
-            </h2>
-        </div>
-
-        <div id="vendor_event"
-             class="collapse property-definition-div" aria-labelledby="headingvendor_event"
-             data-parent="#accordionvendor_event">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor" onclick="anchorLink('vendor')">vendor</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_event" onclick="anchorLink('vendor_event')">event</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
-
-        
-
-        
-        
-
-        
-<div class="accordion" id="accordionvendor_event_name">
-    <div class="card">
-        <div class="card-header" id="headingvendor_event_name">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#vendor_event_name"
-                        aria-expanded="" aria-controls="vendor_event_name" onclick="setAnchor('#vendor_event_name')"><span class="property-name">name</span></button>
-            </h2>
-        </div>
-
-        <div id="vendor_event_name"
-             class="collapse property-definition-div" aria-labelledby="headingvendor_event_name"
-             data-parent="#accordionvendor_event_name">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor" onclick="anchorLink('vendor')">vendor</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_event" onclick="anchorLink('vendor_event')">event</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_event_name" onclick="anchorLink('vendor_event_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionvendor_tracking">
-    <div class="card">
-        <div class="card-header" id="headingvendor_tracking">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#vendor_tracking"
-                        aria-expanded="" aria-controls="vendor_tracking" onclick="setAnchor('#vendor_tracking')"><span class="property-name">tracking</span></button>
-            </h2>
-        </div>
-
-        <div id="vendor_tracking"
-             class="collapse property-definition-div" aria-labelledby="headingvendor_tracking"
-             data-parent="#accordionvendor_tracking">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor" onclick="anchorLink('vendor')">vendor</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_tracking" onclick="anchorLink('vendor_tracking')">tracking</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
-
-        
-
-        
-        
-
-        
-<div class="accordion" id="accordionvendor_tracking_name">
-    <div class="card">
-        <div class="card-header" id="headingvendor_tracking_name">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#vendor_tracking_name"
-                        aria-expanded="" aria-controls="vendor_tracking_name" onclick="setAnchor('#vendor_tracking_name')"><span class="property-name">name</span></button>
-            </h2>
-        </div>
-
-        <div id="vendor_tracking_name"
-             class="collapse property-definition-div" aria-labelledby="headingvendor_tracking_name"
-             data-parent="#accordionvendor_tracking_name">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor" onclick="anchorLink('vendor')">vendor</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_tracking" onclick="anchorLink('vendor_tracking')">tracking</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#vendor_tracking_name" onclick="anchorLink('vendor_tracking_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
-</div>
             </div>
         </div>
     </div>

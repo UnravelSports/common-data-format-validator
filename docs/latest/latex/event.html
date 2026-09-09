@@ -1,0 +1,101 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Event Data - LaTeX tables</title>
+<style>
+  body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
+  h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+  .lede { color: #57606a; margin-top: 0; }
+  .table-block { border: 1px solid #d0d7de; border-radius: 6px; margin: 1.5rem 0; }
+  .table-head { display: flex; justify-content: space-between; align-items: baseline;
+                 gap: 1rem; padding: .75rem 1rem; border-bottom: 1px solid #d0d7de;
+                 background: #f6f8fa; border-radius: 6px 6px 0 0; }
+  .table-head h2 { font-size: .95rem; margin: 0; font-family: ui-monospace, monospace; }
+  .meta { color: #57606a; font-size: .85rem; white-space: nowrap; }
+  .meta a { color: #0969da; }
+  pre { margin: 0; padding: 1rem; overflow-x: auto; font-size: 12px;
+         background: #fff; border-radius: 0 0 6px 6px; }
+  footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
+            border-top: 1px solid #d0d7de; padding-top: 1rem; }
+  a { color: #0969da; }
+</style>
+<h1>Event Data: LaTeX tables</h1>
+<p class="lede">Copy a block straight into the paper. These carry the paper's own
+wording, which differs from the schema's in places, and are regenerated from
+format version 0.3.2 whenever the schemas change.</p>
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-event-required</h2>
+    <span class="meta">21 rows &middot;
+      <a href="cdf-event-required.txt">.txt</a> &middot; <a href="cdf-event-required.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+\centering
+\caption{Description of the mandatory Event CDF fields. Every recorded event must include all these fields. The coordinate system is defined in Paragraph~\ref{p:coords} where the x axis is the sidelines and the y axis the goal lines. Note that \{i\} is used as an index for the items in a list.}
+\label{tab:cdf-event-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{8cm}l}
+\hline
+Root &amp; Field &amp; Description &amp; Type \\ \hline
+match &amp; id &amp; Unique match identifier &amp; String \\
+meta &amp; is\_synced &amp; Indicates if synced tracking data is available (true) or not (false) for this event &amp; Boolean \\
+event &amp; id &amp; Unique identifier of the event &amp; String \\
+event &amp; time &amp; Absolute time in UTC of when the event started (e.g., moment the pass is given, the moment the ball leaves the hands on a thrown in) &amp; String \\
+event &amp; period &amp; Period of the match which can be first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, or shootout &amp; String \\
+event &amp; type &amp; Name of the event type (e.g. shot, pass, referee, defending, goalkeeping, misc etc.) &amp; String \\
+event &amp; sub\_type &amp; Name of the event sub type, which can be for shot - (penalty\_kick, free\_kick, corner\_kick etc.); pass - (throw\_in, free\_kick, corner\_kick, goal\_kick, kick\_off etc.); referee - (final\_whistle, foul, caution, offside, substitution, player\_on, player\_off. Player on and player off events occur for example when a player has to abandon the game due to a lack of available substitutions, or as a temporary measure after a medical check); defending - (clearance, interception, pressing, block etc.); goalkeeping - (save, save\_attempt, claim, etc.); misc - (other\_ball\_action, chance\_without\_shot, tackle, etc.) &amp; String / null \\
+event &amp; is\_successful &amp; Denotes whether the event was successful (true) or not (false) &amp; Boolean \\
+event &amp; outcome\_type &amp; Event outcome options: shot - (successful, saved, blocked, wide, woodwork, own\_goal); pass - (e.g. successful, out\_of\_play, intercepted); referee - (start, end, injury, offside, yellow\_card, red\_card or second\_yellow\_card); defending - (e.g. clearance, block, interception, pressure); goalkeeping (e.g. save, save\_attempt, claim); misc - (e.g. successful, unsuccessful) &amp; String \\
+event &amp; player\_id &amp; Unique identifier of the player performing the action. For example, player committing a pass, or making a tackle. Required for all non-referee events. Referee events require event/official\_id. &amp; String \\
+event &amp; team\_id &amp; Unique team identifier of the player performing the action. Required for all non-referee events. Referee events require event/official\_id. &amp; String \\
+event &amp; receiver\_id &amp; Unique identifier of the player receiving a pass. Leave \textit{null} when the event is not a pass or when the pass has no receiver. &amp; String / null \\
+event &amp; receiver\_time &amp; Absolute time in UTC of the first moment the ball was received. Leave \textit{null} when the event is not a pass or when the pass has no receiver. &amp; String / null \\
+event &amp; x &amp; x location where the action of player\_id happened (m). &amp; Float \\
+event &amp; y &amp; y location where the action of player\_id happened (m). &amp; Float \\
+event &amp; x\_end &amp; x location where the action of player\_id ended (m), null for single-point events that have no end coordinate. &amp; Float / null \\
+event &amp; y\_end &amp; y location where the action of player\_id ended (m), null for single-point events that have no end coordinate. &amp; Float / null \\
+event &amp; body\_part &amp; Denotes the body part used by player\_id, null allowed for events other than pass and shot. &amp; String / null \\
+event &amp; related\_event\_ids &amp; Unique identifier(s) of the events related to the action, or pass and associated receival event. For example, a related aerial duel event or the player\_off event associated with a player\_on event. Leave null if no related events exist. &amp; Array[String] / null \\
+event &amp; official\_id &amp; Unique identifier of the official performing the action. Mandatory only when type is referee, else use event/player\_id and event/team\_id &amp; String \\
+event &amp; receiver\_team\_id &amp; Unique team identifier of the player identified by receiver\_id, leave null if the event does not end with a known player in possession &amp; String / null \\
+\end{tabular}
+\end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-event-optional</h2>
+    <span class="meta">11 rows &middot;
+      <a href="cdf-event-optional.txt">.txt</a> &middot; <a href="cdf-event-optional.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+\centering
+\caption{Description of the optional Event CDF fields. If included, these fields are recorded once per event.}
+\label{tab:cdf-event-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{3cm}p{7cm}l}
+\hline
+Root &amp; Field &amp; Description &amp; Type \\ \hline
+tracking &amp; frame\_id &amp; Frame identifier from the tracking data related to the event at (x, y) as described in ~\ref{tab:cdf-event-required} &amp; Integer \\
+tracking &amp; frame\_id\_end &amp; Frame identifier from the tracking data related to the event at (x\_end, y\_end) as described in ~\ref{tab:cdf-event-required} &amp; Integer \\
+tracking/player &amp; x &amp; x location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m) &amp; Float \\
+tracking/player &amp; y &amp; y location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m) &amp; Float \\
+event &amp; match\_clock &amp; The match clock as a string in format ``MM:SS.mm'' (i.e. minutes, seconds, milliseconds) (e.g. ``92:01.04''). The clock resets to ``45:00.00'', ``90:00.00'' or ``105:00.00'' at the start of ``second\_half'', ``first\_half\_extratime'', ``second\_half\_extratime'', respectively. &amp; String \\
+event/metrics &amp; xg &amp; Calculated xG value between [0,1] &amp; Float \\
+event/metrics &amp; post\_shot\_xg &amp; Calculated post-shot xG value between [0,1] &amp; Float \\
+event/metrics &amp; xpass &amp; Calculated expected pass value between [0,1] &amp; Float \\
+event/metrics &amp; epv &amp; Expected possession value between [0,1] &amp; Float \\
+event/var &amp; reviewed &amp; Was this event reviewed by the video assistant referee (true) or not (false) &amp; Boolean \\
+event/var &amp; upheld &amp; Was the on-field ruling confirmed (true) or overturned (false) &amp; Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<footer>
+  <a href="../../index.html">All schemas</a> &middot;
+  <a href="../event.html">Event Data JSON Schema</a>
+</footer>

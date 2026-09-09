@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Official Match Data</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.1</strong></p>
+<span class="description"><p><strong>Version 0.3.2</strong></p>
 
 <p>This schema defines the Official Match Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 </span>
@@ -1087,7 +1087,7 @@
             />
         </svg>
     <a href="#match_result_final_home" onclick="anchorLink('match_result_final_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Final result for home team</p>
+<span class="description"><p>Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1142,7 +1142,7 @@
             />
         </svg>
     <a href="#match_result_final_away" onclick="anchorLink('match_result_final_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Final result for away team</p>
+<span class="description"><p>Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1154,16 +1154,12 @@
         </div>
     </div>
 </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="accordion" id="accordionmatch_result_final_winning_team_id">
     <div class="card">
         <div class="card-header" id="headingmatch_result_final_winning_team_id">
             <h2 class="mb-0">
                 <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#match_result_final_winning_team_id"
-                        aria-expanded="" aria-controls="match_result_final_winning_team_id" onclick="setAnchor('#match_result_final_winning_team_id')"><span class="property-name">final_winning_team_id</span> <span class="badge badge-warning required-property">Required</span></button>
+                        aria-expanded="" aria-controls="match_result_final_winning_team_id" onclick="setAnchor('#match_result_final_winning_team_id')"><span class="property-name">winning_team_id</span> <span class="badge badge-warning required-property">Required</span></button>
             </h2>
         </div>
 
@@ -1193,7 +1189,14 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#match_result_final_winning_team_id" onclick="anchorLink('match_result_final_winning_team_id')">final_winning_team_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#match_result_final" onclick="anchorLink('match_result_final')">final</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#match_result_final_winning_team_id" onclick="anchorLink('match_result_final_winning_team_id')">winning_team_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
 <span class="description"><p>Unique identifier of the winning team, null when the match was drawn and no shootout was played</p>
 </span>
         
@@ -1202,6 +1205,10 @@
         
 
         
+            </div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -1292,7 +1299,7 @@
             />
         </svg>
     <a href="#match_result_first_half_home" onclick="anchorLink('match_result_first_half_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>First half result for home team</p>
+<span class="description"><p>Result after the first half (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1347,7 +1354,7 @@
             />
         </svg>
     <a href="#match_result_first_half_away" onclick="anchorLink('match_result_first_half_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>First half result for away team</p>
+<span class="description"><p>Result after the first half (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1449,7 +1456,7 @@
             />
         </svg>
     <a href="#match_result_second_half_home" onclick="anchorLink('match_result_second_half_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Second half result for home team</p>
+<span class="description"><p>Result after the second half (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1504,7 +1511,7 @@
             />
         </svg>
     <a href="#match_result_second_half_away" onclick="anchorLink('match_result_second_half_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Second half result for away team</p>
+<span class="description"><p>Result after the second half (i.e. home goals, away goals)</p>
 </span>
         
 
@@ -1607,7 +1614,7 @@
             />
         </svg>
     <a href="#match_result_first_half_extratime_home" onclick="anchorLink('match_result_first_half_extratime_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>First half extratime result for home team</p>
+<span class="description"><p>Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.</p>
 </span>
         
 
@@ -1662,7 +1669,7 @@
             />
         </svg>
     <a href="#match_result_first_half_extratime_away" onclick="anchorLink('match_result_first_half_extratime_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>First half extratime result for away team</p>
+<span class="description"><p>Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.</p>
 </span>
         
 
@@ -1765,7 +1772,7 @@
             />
         </svg>
     <a href="#match_result_second_half_extratime_home" onclick="anchorLink('match_result_second_half_extratime_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Second half extratime result for home team</p>
+<span class="description"><p>Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.</p>
 </span>
         
 
@@ -1820,7 +1827,7 @@
             />
         </svg>
     <a href="#match_result_second_half_extratime_away" onclick="anchorLink('match_result_second_half_extratime_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Second half extratime result for away team</p>
+<span class="description"><p>Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time.</p>
 </span>
         
 
@@ -1923,7 +1930,7 @@
             />
         </svg>
     <a href="#match_result_shootout_home" onclick="anchorLink('match_result_shootout_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Shootout result for home team</p>
+<span class="description"><p>Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout.</p>
 </span>
         
 
@@ -1978,7 +1985,7 @@
             />
         </svg>
     <a href="#match_result_shootout_away" onclick="anchorLink('match_result_shootout_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Shootout result for away team</p>
+<span class="description"><p>Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout.</p>
 </span>
         
 
@@ -2105,7 +2112,7 @@
             />
         </svg>
     <a href="#teams_home_id" onclick="anchorLink('teams_home_id')">id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier for the team</p>
+<span class="description"><p>Unique identifier for the home or away team</p>
 </span>
         
 
@@ -2153,7 +2160,7 @@
             />
         </svg>
     <a href="#teams_home_short_name" onclick="anchorLink('teams_home_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Short name of the team</p>
+<span class="description"><p>Short name of the home or away team</p>
 </span>
         
 
@@ -2532,7 +2539,7 @@
             />
         </svg>
     <a href="#teams_home_players_items_short_name" onclick="anchorLink('teams_home_players_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Short name</p>
+<span class="description"><p>Short name. For example "Mohamed Salah Hamed Mahrous Ghaly" as "Mo Salah" (or "Mohamed Salah") or "Givanildo Vieira de Sousa" as "Hulk".</p>
 </span>
         
 
@@ -2842,7 +2849,7 @@
             />
         </svg>
     <a href="#teams_home_players_items_maiden_name" onclick="anchorLink('teams_home_players_items_maiden_name')">maiden_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Maiden name</p>
+<span class="description"><p>Maiden name. For example, "Smith" for Sophia Wilson.</p>
 </span>
         
 
@@ -3622,7 +3629,7 @@
             />
         </svg>
     <a href="#teams_home_coaches_items_short_name" onclick="anchorLink('teams_home_coaches_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Short name</p>
+<span class="description"><p>Short name, a combination of First name and Last name</p>
 </span>
         
 
@@ -3820,7 +3827,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_first_name" onclick="anchorLink('officials_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_first_name" onclick="anchorLink('officials_items_first_name')">first_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>First name of the official, null if not available</p>
 </span>
         
@@ -3868,7 +3875,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_last_name" onclick="anchorLink('officials_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_last_name" onclick="anchorLink('officials_items_last_name')">last_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Last name of the official, null if not available</p>
 </span>
         
@@ -3916,7 +3923,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#officials_items_short_name" onclick="anchorLink('officials_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+    <a href="#officials_items_short_name" onclick="anchorLink('officials_items_short_name')">short_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
 <span class="description"><p>Short name of the official, null if not available</p>
 </span>
         
@@ -4240,7 +4247,7 @@
             />
         </svg>
     <a href="#events_goals_items_team_id" onclick="anchorLink('events_goals_items_team_id')">team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Identifier of the team who scored</p>
+<span class="description"><p>Identifier of the team that scored (for own goals this should be identifier of the team that gained a goal)</p>
 </span>
         
 
@@ -4312,7 +4319,7 @@
         <div class="card-header" id="headingevents_goals_items_assist_id">
             <h2 class="mb-0">
                 <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#events_goals_items_assist_id"
-                        aria-expanded="" aria-controls="events_goals_items_assist_id" onclick="setAnchor('#events_goals_items_assist_id')"><span class="property-name">assist_id</span></button>
+                        aria-expanded="" aria-controls="events_goals_items_assist_id" onclick="setAnchor('#events_goals_items_assist_id')"><span class="property-name">assist_id</span> <span class="badge badge-warning required-property">Required</span></button>
             </h2>
         </div>
 
@@ -4350,7 +4357,7 @@
             />
         </svg>
     <a href="#events_goals_items_assist_id" onclick="anchorLink('events_goals_items_assist_id')">assist_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
-<span class="description"><p>Identifier of the player who assisted</p>
+<span class="description"><p>Identifier of the player who assisted, if the goal was assisted else leave as null.</p>
 </span>
         
 
@@ -4572,7 +4579,7 @@
             />
         </svg>
     <a href="#events_goals_items_score_home" onclick="anchorLink('events_goals_items_score_home')">home</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Home team score after this goal</p>
+<span class="description"><p>Team score after the goal</p>
 </span>
         
 
@@ -4634,7 +4641,7 @@
             />
         </svg>
     <a href="#events_goals_items_score_away" onclick="anchorLink('events_goals_items_score_away')">away</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
-<span class="description"><p>Away team score after this goal</p>
+<span class="description"><p>Team score after the goal</p>
 </span>
         
 
@@ -4768,7 +4775,7 @@
             />
         </svg>
     <a href="#events_substitutions_items_team_id" onclick="anchorLink('events_substitutions_items_team_id')">team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Identifier of the team who scored</p>
+<span class="description"><p>Identifier of the team that made the substitution</p>
 </span>
         
 
@@ -4823,7 +4830,7 @@
             />
         </svg>
     <a href="#events_substitutions_items_in_time" onclick="anchorLink('events_substitutions_items_in_time')">in_time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Time a player is substituted in</p>
+<span class="description"><p>Time in UTC a player is substituted in</p>
 </span>
         
 
@@ -4936,7 +4943,7 @@
             />
         </svg>
     <a href="#events_substitutions_items_in_player_id" onclick="anchorLink('events_substitutions_items_in_player_id')">in_player_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Identifier of the player that is substituted in</p>
+<span class="description"><p>Unique identifier of the player substituted in</p>
 </span>
         
 
@@ -4991,7 +4998,7 @@
             />
         </svg>
     <a href="#events_substitutions_items_out_time" onclick="anchorLink('events_substitutions_items_out_time')">out_time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Time a player is substituted out</p>
+<span class="description"><p>Time the player was substituted out</p>
 </span>
         
 
@@ -5176,7 +5183,7 @@
             />
         </svg>
     <a href="#events_cards_items_team_id" onclick="anchorLink('events_cards_items_team_id')">team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Identifier of the team who scored</p>
+<span class="description"><p>Identifier of the team that made the received a card</p>
 </span>
         
 
@@ -5231,7 +5238,7 @@
             />
         </svg>
     <a href="#events_cards_items_time" onclick="anchorLink('events_cards_items_time')">time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Time a player received a card</p>
+<span class="description"><p>Time in UTC a player received a card</p>
 </span>
         
 
@@ -5399,7 +5406,7 @@
             />
         </svg>
     <a href="#events_cards_items_type" onclick="anchorLink('events_cards_items_type')">type</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
-<span class="description"><p>Type of card which can be yellow card, red card or second yellow card</p>
+<span class="description"><p>Type of card which can be yellow<em>card, red</em>card or second<em>yellow</em>card</p>
 </span><div class="enum-value" id="events_cards_items_type_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"yellow_card"</li><li class="list-group-item enum-item">"red_card"</li><li class="list-group-item enum-item">"second_yellow_card"</li></ul>
@@ -5482,7 +5489,7 @@
             />
         </svg>
     <a href="#meta_vendor" onclick="anchorLink('meta_vendor')">vendor</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Match sheet data vendor name</p>
+<span class="description"><p>Match sheet data vendor name (e.g. "company_a")</p>
 </span>
         
 

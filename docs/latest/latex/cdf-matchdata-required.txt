@@ -1,0 +1,50 @@
+\begin{table}[H]
+    \caption{Description of the mandatory Match Sheet Data CDF fields. Any description ending with a $^\star$ is repeated once per player. Only players named to the match day squad are listed. Any description ending with a $^\dagger$ is repeated once per event. Note that \{i\} is used as an index for the items in a list. Figure~\ref{fig:match-data-json} describes the specific format for providing results.}
+    \label{tab:cdf-matchdata-required}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{lp{2.75cm}p{7cm}l}
+    \hline
+    Root & Field & Description & Type \\ \hline
+match & id & Unique match identifier & String \\
+match/status & is\_neutral & Denotes whether the game was hosted in a neutral venue (true) or not (false) & Boolean \\
+match/status & has\_extratime & Denotes whether the game went to extra time (true) or not (false) & Boolean \\
+match/status & has\_shootout & Denotes whether the game had a penalty shootout (true) or not (false) & Boolean \\
+match/result/final & \{home\text{\textbar}away\} & Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals) & Integer \\
+match/result/final & winning\_team\_id & Unique identifier of the winning team, null when the match was drawn and no shootout was played & String / null \\
+match/result/first\_half & \{home\text{\textbar}away\} & Result after the first half (i.e. home goals, away goals) & Integer \\
+match/result/second\_half & \{home\text{\textbar}away\} & Result after the second half (i.e. home goals, away goals) & Integer \\
+match/result/first\_half\_extratime & \{home\text{\textbar}away\} & Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time. & Integer \\
+match/result/second\_half\_extratime & \{home\text{\textbar}away\} & Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time. & Integer \\
+match/result/shootout & \{home\text{\textbar}away\} & Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout. & Integer \\
+teams/\{home\text{\textbar}away\} & id & Unique identifier for the home or away team & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & id & Unique player identifier$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & first\_name & First name$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & last\_name & Last name$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & team\_id & Unique team identifier denoting the team the player plays for$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & jersey\_number & Jersey number for a player$^\star$ & Integer \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & is\_starter & Denotes whether a player started the game (true) or not (false)$^\star$ & Boolean \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & has\_played & Denotes whether a player played in game (true) or not (false)$^\star$ & Boolean \\
+officials/\{i\} & id & Unique identifier for the official & String \\
+events/goals/\{i\} & time & Time a player scored$^\dagger$ & String \\
+events/goals/\{i\} & player\_id & Identifier of the player who scored$^\dagger$ & String \\
+events/goals/\{i\} & assist\_id & Identifier of the player who assisted, if the goal was assisted else leave as null $^\dagger$. & String / null \\
+events/goals/\{i\} & team\_id & Identifier of the team that scored (for own goals this should be identifier of the team that gained a goal). $^\dagger$ & String \\
+events/goals/\{i\} & is\_own\_goal & Denotes whether it was an own goal (true) or not (false)$^\dagger$ & Boolean \\
+events/goals/\{i\} & is\_penalty & Denotes whether it was a penalty (true) or not (false)$^\dagger$ & Boolean \\
+events/goals/\{i\}/score & \{home\text{\textbar}away\} & Team score after the goal$^\dagger$ & Integer \\
+events/substitutions/\{i\} & in\_time & Time in UTC a player is substituted in$^\dagger$ & String \\
+events/substitutions/\{i\} & in\_player\_id & Unique identifier of the player substituted in$^\dagger$ & String \\
+events/substitutions/\{i\} & out\_time & Time the player was substituted out$^\dagger$ & String \\
+events/substitutions/\{i\} & out\_player\_id & Identifier of the player that is substituted out$^\dagger$ & String \\
+events/substitutions/\{i\} & team\_id & Identifier of the team that made the substitution$^\dagger$ & String \\
+events/cards/\{i\} & time & Time in UTC a player received a card$^\dagger$ & String \\
+events/cards/\{i\} & player\_id & Identifier of the player who received a card$^\dagger$ & String \\
+events/cards/\{i\} & type & Type of card which can be yellow\_card, red\_card or second\_yellow\_card$^\dagger$ & String \\
+events/cards/\{i\} & team\_id & Identifier of the team that made the received a card$^\dagger$ & String \\
+meta & vendor & Match sheet data vendor name (e.g. ``company\_a'') & String \\
+events/goals/\{i\} & period & Period of the game when the goal was scored & String \\
+events/substitutions/\{i\} & period & Period of the game when the substitution occurred & String \\
+events/cards/\{i\} & period & Period of the game when the card was shown & String \\
+\end{tabular}
+    \end{adjustbox}
+\end{table}

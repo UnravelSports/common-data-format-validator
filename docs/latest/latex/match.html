@@ -1,0 +1,127 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Match Data - LaTeX tables</title>
+<style>
+  body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
+  h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+  .lede { color: #57606a; margin-top: 0; }
+  .table-block { border: 1px solid #d0d7de; border-radius: 6px; margin: 1.5rem 0; }
+  .table-head { display: flex; justify-content: space-between; align-items: baseline;
+                 gap: 1rem; padding: .75rem 1rem; border-bottom: 1px solid #d0d7de;
+                 background: #f6f8fa; border-radius: 6px 6px 0 0; }
+  .table-head h2 { font-size: .95rem; margin: 0; font-family: ui-monospace, monospace; }
+  .meta { color: #57606a; font-size: .85rem; white-space: nowrap; }
+  .meta a { color: #0969da; }
+  pre { margin: 0; padding: 1rem; overflow-x: auto; font-size: 12px;
+         background: #fff; border-radius: 0 0 6px 6px; }
+  footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
+            border-top: 1px solid #d0d7de; padding-top: 1rem; }
+  a { color: #0969da; }
+</style>
+<h1>Match Data: LaTeX tables</h1>
+<p class="lede">Copy a block straight into the paper. These carry the paper's own
+wording, which differs from the schema's in places, and are regenerated from
+format version 0.3.2 whenever the schemas change.</p>
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-matchdata-required</h2>
+    <span class="meta">40 rows &middot;
+      <a href="cdf-matchdata-required.txt">.txt</a> &middot; <a href="cdf-matchdata-required.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+    \caption{Description of the mandatory Match Sheet Data CDF fields. Any description ending with a $^\star$ is repeated once per player. Only players named to the match day squad are listed. Any description ending with a $^\dagger$ is repeated once per event. Note that \{i\} is used as an index for the items in a list. Figure~\ref{fig:match-data-json} describes the specific format for providing results.}
+    \label{tab:cdf-matchdata-required}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{lp{2.75cm}p{7cm}l}
+    \hline
+    Root &amp; Field &amp; Description &amp; Type \\ \hline
+match &amp; id &amp; Unique match identifier &amp; String \\
+match/status &amp; is\_neutral &amp; Denotes whether the game was hosted in a neutral venue (true) or not (false) &amp; Boolean \\
+match/status &amp; has\_extratime &amp; Denotes whether the game went to extra time (true) or not (false) &amp; Boolean \\
+match/status &amp; has\_shootout &amp; Denotes whether the game had a penalty shootout (true) or not (false) &amp; Boolean \\
+match/result/final &amp; \{home\text{\textbar}away\} &amp; Result after the final whistle excluding penalty shootout goals (i.e. home goals, away goals) &amp; Integer \\
+match/result/final &amp; winning\_team\_id &amp; Unique identifier of the winning team, null when the match was drawn and no shootout was played &amp; String / null \\
+match/result/first\_half &amp; \{home\text{\textbar}away\} &amp; Result after the first half (i.e. home goals, away goals) &amp; Integer \\
+match/result/second\_half &amp; \{home\text{\textbar}away\} &amp; Result after the second half (i.e. home goals, away goals) &amp; Integer \\
+match/result/first\_half\_extratime &amp; \{home\text{\textbar}away\} &amp; Result after the first half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time. &amp; Integer \\
+match/result/second\_half\_extratime &amp; \{home\text{\textbar}away\} &amp; Result after the second half of extra time (i.e. home goals, away goals). Only required if a game goes to extra time. &amp; Integer \\
+match/result/shootout &amp; \{home\text{\textbar}away\} &amp; Score for the penalty shootout (i.e. home goals, away goals, shootout goals only). Only required if a game goes to shootout. &amp; Integer \\
+teams/\{home\text{\textbar}away\} &amp; id &amp; Unique identifier for the home or away team &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; id &amp; Unique player identifier$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; first\_name &amp; First name$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; last\_name &amp; Last name$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; team\_id &amp; Unique team identifier denoting the team the player plays for$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; jersey\_number &amp; Jersey number for a player$^\star$ &amp; Integer \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; is\_starter &amp; Denotes whether a player started the game (true) or not (false)$^\star$ &amp; Boolean \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; has\_played &amp; Denotes whether a player played in game (true) or not (false)$^\star$ &amp; Boolean \\
+officials/\{i\} &amp; id &amp; Unique identifier for the official &amp; String \\
+events/goals/\{i\} &amp; time &amp; Time a player scored$^\dagger$ &amp; String \\
+events/goals/\{i\} &amp; player\_id &amp; Identifier of the player who scored$^\dagger$ &amp; String \\
+events/goals/\{i\} &amp; assist\_id &amp; Identifier of the player who assisted, if the goal was assisted else leave as null $^\dagger$. &amp; String / null \\
+events/goals/\{i\} &amp; team\_id &amp; Identifier of the team that scored (for own goals this should be identifier of the team that gained a goal). $^\dagger$ &amp; String \\
+events/goals/\{i\} &amp; is\_own\_goal &amp; Denotes whether it was an own goal (true) or not (false)$^\dagger$ &amp; Boolean \\
+events/goals/\{i\} &amp; is\_penalty &amp; Denotes whether it was a penalty (true) or not (false)$^\dagger$ &amp; Boolean \\
+events/goals/\{i\}/score &amp; \{home\text{\textbar}away\} &amp; Team score after the goal$^\dagger$ &amp; Integer \\
+events/substitutions/\{i\} &amp; in\_time &amp; Time in UTC a player is substituted in$^\dagger$ &amp; String \\
+events/substitutions/\{i\} &amp; in\_player\_id &amp; Unique identifier of the player substituted in$^\dagger$ &amp; String \\
+events/substitutions/\{i\} &amp; out\_time &amp; Time the player was substituted out$^\dagger$ &amp; String \\
+events/substitutions/\{i\} &amp; out\_player\_id &amp; Identifier of the player that is substituted out$^\dagger$ &amp; String \\
+events/substitutions/\{i\} &amp; team\_id &amp; Identifier of the team that made the substitution$^\dagger$ &amp; String \\
+events/cards/\{i\} &amp; time &amp; Time in UTC a player received a card$^\dagger$ &amp; String \\
+events/cards/\{i\} &amp; player\_id &amp; Identifier of the player who received a card$^\dagger$ &amp; String \\
+events/cards/\{i\} &amp; type &amp; Type of card which can be yellow\_card, red\_card or second\_yellow\_card$^\dagger$ &amp; String \\
+events/cards/\{i\} &amp; team\_id &amp; Identifier of the team that made the received a card$^\dagger$ &amp; String \\
+meta &amp; vendor &amp; Match sheet data vendor name (e.g. ``company\_a'') &amp; String \\
+events/goals/\{i\} &amp; period &amp; Period of the game when the goal was scored &amp; String \\
+events/substitutions/\{i\} &amp; period &amp; Period of the game when the substitution occurred &amp; String \\
+events/cards/\{i\} &amp; period &amp; Period of the game when the card was shown &amp; String \\
+\end{tabular}
+    \end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<div class="table-block">
+  <div class="table-head">
+    <h2>cdf-matchdata-optional</h2>
+    <span class="meta">19 rows &middot;
+      <a href="cdf-matchdata-optional.txt">.txt</a> &middot; <a href="cdf-matchdata-optional.pdf">.pdf</a></span>
+  </div>
+  <pre>\begin{table}[H]
+\centering
+\caption{Description of the optional Match Sheet Data CDF Fields. Any description ending with a $^\star$ is repeated once per person (e.g., player, referee, coach). For players, only those named to the match day squad are considered. Note that \{i\} is used as an index for the items in a list.}
+\label{tab:cdf-matchdata-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2cm}p{7cm}l}
+\hline
+Root &amp; Field &amp; Description &amp; Type \\ \hline
+teams/\{home\text{\textbar}away\} &amp; short\_name &amp; Short name of the home or away team &amp; String \\
+teams/\{home\text{\textbar}away\} &amp; formation &amp; Formation label of the home or away team (e.g. ``4-4-2''). See~\ref{app:positions} for more information. &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; alternative\_id &amp; Additional identifier(s) of the player$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; maiden\_name &amp; Maiden name$^\star$. For example, ``Smith'' for Sophia Wilson. &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; short\_name &amp; Short name$^\star$. For example ``Mohamed Salah Hamed Mahrous Ghaly'' as ``Mo Salah'' (or ``Mohamed Salah'') or ``Givanildo Vieira de Sousa'' as ``Hulk''. &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; position\_group &amp; Position group acronym given according to the CDF-compatible groups given in Appendix \ref{app:positions}$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; position &amp; Position label acronym per player given according to the CDF-compatible labels given in Appendix \ref{app:positions}$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; is\_captain &amp; Whether the player is a captain (true) or not (false)$^\star$ &amp; Boolean \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; date\_of\_birth &amp; A player's date of birth in YYYY-MM-DD format$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; height &amp; Height of a player in cm$^\star$ &amp; Integer \\
+teams/\{home\text{\textbar}away\}/players/\{i\} &amp; foot &amp; A player's dominant foot, which can take the values left, right or both$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} &amp; id &amp; Unique identifier for a coach$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} &amp; first\_name &amp; First name$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} &amp; last\_name &amp; Last name$^\star$ &amp; String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} &amp; short\_name &amp; Short name, a combination of First name and Last name (e.g. Jane Doe, not J. Doe)$^\star$ &amp; String \\
+officials/\{i\} &amp; first\_name &amp; First name of the official, null if not available &amp; String \\
+officials/\{i\} &amp; last\_name &amp; Last name of the official, null if not available &amp; String \\
+officials/\{i\} &amp; short\_name &amp; Short name of the official, null if not available &amp; String \\
+officials/\{i\} &amp; type &amp; Role of the official (e.g., `main\_referee', `assistant\_referee', `fourth\_official') &amp; String \\
+\end{tabular}
+\end{adjustbox}
+\end{table}
+</pre>
+</div>
+
+<footer>
+  <a href="../../index.html">All schemas</a> &middot;
+  <a href="../match.html">Match Data JSON Schema</a>
+</footer>
