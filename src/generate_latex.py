@@ -16,8 +16,9 @@ The wording here is the *paper's*, not the validator's. Those deliberately
 differ for 73 fields, which is the whole reason this exists rather than being
 derived from the schemas.
 
-    python src/generate_latex.py            text and PDFs
-    python src/generate_latex.py --no-pdf   text only (no TeX installation needed)
+    python src/generate_latex.py                 text and PDFs
+    python src/generate_latex.py --no-pdf        text only, no TeX needed
+    python src/generate_latex.py --require-pdf   fail if TeX is missing
 """
 
 import json
@@ -251,7 +252,17 @@ def write_pages(data, have_pdf):
 
 def main():
     want_pdf = "--no-pdf" not in sys.argv
+    require_pdf = "--require-pdf" in sys.argv
     if want_pdf and not shutil.which("pdflatex"):
+        if require_pdf:
+            # Falling back to text-only here would leave the committed PDFs
+            # stale while reporting success, which is the one outcome the
+            # pre-commit guard exists to prevent.
+            print("  pdflatex not found, and --require-pdf was given.")
+            print("  The PDFs are committed because CI cannot rebuild them")
+            print("  reproducibly, so they have to be regenerated here.")
+            print("  Install TeX Live, or pass --no-pdf to skip deliberately.")
+            return 1
         print("  pdflatex not found; writing text only")
         want_pdf = False
 
