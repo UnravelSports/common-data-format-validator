@@ -18,7 +18,7 @@
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>Common Data Format - Event Data Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
-<span class="description"><p><strong>Version 0.3.1</strong></p>
+<span class="description"><p><strong>Version 0.3.2</strong></p>
 
 <p>This schema defines the Event Data as described in the <a href="https://arxiv.org/pdf/2505.15820">Common Data Format paper</a>.</p>
 
@@ -162,7 +162,7 @@
             />
         </svg>
     <a href="#meta_is_synced" onclick="anchorLink('meta_is_synced')">is_synced</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
-<span class="description"><p>Indicates if synced tracking data is available (true) or not (false)</p>
+<span class="description"><p>Indicates if synced tracking data is available (true) or not (false) for this event</p>
 </span>
         
 
@@ -1117,7 +1117,7 @@
             />
         </svg>
     <a href="#event_time" onclick="anchorLink('event_time')">time</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Absolute time in UTC of when the event started</p>
+<span class="description"><p>Absolute time in UTC of when the event started (e.g., moment the pass is given, the moment the ball leaves the hands on a thrown in)</p>
 </span>
         
 
@@ -1158,7 +1158,8 @@
             />
         </svg>
     <a href="#event_period" onclick="anchorLink('event_period')">period</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
-<div class="enum-value" id="event_period_enum">
+<span class="description"><p>Period of the match which can be first<em>half, second</em>half, first<em>half</em>extratime, second<em>half</em>extratime, or shootout</p>
+</span><div class="enum-value" id="event_period_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"first_half"</li><li class="list-group-item enum-item">"second_half"</li><li class="list-group-item enum-item">"first_half_extratime"</li><li class="list-group-item enum-item">"second_half_extratime"</li><li class="list-group-item enum-item">"shootout"</li></ul>
             </div>
@@ -1201,7 +1202,7 @@
             />
         </svg>
     <a href="#event_type" onclick="anchorLink('event_type')">type</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Name of the event type</p>
+<span class="description"><p>Name of the event type (e.g. shot, pass, referee, defending, goalkeeping, misc etc.)</p>
 </span>
         
 
@@ -1242,7 +1243,7 @@
             />
         </svg>
     <a href="#event_sub_type" onclick="anchorLink('event_sub_type')">sub_type</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
-<span class="description"><p>Name of the event subtype</p>
+<span class="description"><p>Name of the event sub type, which can be for shot - (penalty<em>kick, free</em>kick, corner<em>kick etc.); pass - (throw</em>in, free<em>kick, corner</em>kick, goal<em>kick, kick</em>off etc.); referee - (final<em>whistle, foul, caution, offside, substitution, player</em>on, player<em>off. Player on and player off events occur for example when a player has to abandon the game due to a lack of available substitutions, or as a temporary measure after a medical check); defending - (clearance, interception, pressing, block etc.); goalkeeping - (save, save</em>attempt, claim, etc.); misc - (other<em>ball</em>action, chance<em>without</em>shot, tackle, etc.)</p>
 </span>
         
 
@@ -1324,7 +1325,7 @@
             />
         </svg>
     <a href="#event_outcome_type" onclick="anchorLink('event_outcome_type')">outcome_type</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Detailed event outcome options</p>
+<span class="description"><p>Event outcome options: shot - (successful, saved, blocked, wide, woodwork, own<em>goal); pass - (e.g. successful, out</em>of<em>play, intercepted); referee - (start, end, injury, offside, yellow</em>card, red<em>card or second</em>yellow<em>card); defending - (e.g. clearance, block, interception, pressure); goalkeeping (e.g. save, save</em>attempt, claim); misc - (e.g. successful, unsuccessful)</p>
 </span>
         
 
@@ -1365,7 +1366,7 @@
             />
         </svg>
     <a href="#event_player_id" onclick="anchorLink('event_player_id')">player_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier of the player performing the action, omitted when type is referee</p>
+<span class="description"><p>Unique identifier of the player performing the action. For example, player committing a pass, or making a tackle. Required for all non-referee events. Referee events require event/official_id.</p>
 </span>
         
 
@@ -1406,7 +1407,7 @@
             />
         </svg>
     <a href="#event_team_id" onclick="anchorLink('event_team_id')">team_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique team identifier of the player performing the action, omitted when type is referee</p>
+<span class="description"><p>Unique team identifier of the player performing the action. Required for all non-referee events. Referee events require event/official_id.</p>
 </span>
         
 
@@ -1447,7 +1448,7 @@
             />
         </svg>
     <a href="#event_official_id" onclick="anchorLink('event_official_id')">official_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>Unique identifier of the official performing the action, present only when type is referee</p>
+<span class="description"><p>Unique identifier of the official performing the action. Mandatory only when type is referee, else use event/player<em>id and event/team</em>id</p>
 </span>
         
 
@@ -1488,7 +1489,7 @@
             />
         </svg>
     <a href="#event_receiver_id" onclick="anchorLink('event_receiver_id')">receiver_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
-<span class="description"><p>Unique identifier of the player who ends up in possession of the ball, leave null if the event does not end with a known player in possession</p>
+<span class="description"><p>Unique identifier of the player receiving a pass. Leave null when the event is not a pass or when the pass has no receiver.</p>
 </span>
         
 
@@ -1529,7 +1530,7 @@
             />
         </svg>
     <a href="#event_receiver_time" onclick="anchorLink('event_receiver_time')">receiver_time</a></div><span class="badge badge-dark value-type">Type: string or null</span><span class="badge badge-info value-type">Format: date-time</span><br/>
-<span class="description"><p>Absolute time in UTC of the first moment the ball was received, leave null if the event does not end with a known player in possession</p>
+<span class="description"><p>Absolute time in UTC of the first moment the ball was received. Leave null when the event is not a pass or when the pass has no receiver.</p>
 </span>
         
 
@@ -1611,7 +1612,7 @@
             />
         </svg>
     <a href="#event_x" onclick="anchorLink('event_x')">x</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>x location where the action of player_id happened (m)</p>
+<span class="description"><p>x location where the action of player_id happened (m).</p>
 </span>
         
 
@@ -1652,7 +1653,7 @@
             />
         </svg>
     <a href="#event_y" onclick="anchorLink('event_y')">y</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>y location where the action of player_id happened (m)</p>
+<span class="description"><p>y location where the action of player_id happened (m).</p>
 </span>
         
 
@@ -1693,7 +1694,7 @@
             />
         </svg>
     <a href="#event_x_end" onclick="anchorLink('event_x_end')">x_end</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-<span class="description"><p>x location where the action of player_id ended (m), null for single-point events that have no end coordinate</p>
+<span class="description"><p>x location where the action of player_id ended (m), null for single-point events that have no end coordinate.</p>
 </span>
         
 
@@ -1734,7 +1735,7 @@
             />
         </svg>
     <a href="#event_y_end" onclick="anchorLink('event_y_end')">y_end</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-<span class="description"><p>y location where the action of player_id ended (m), null for single-point events that have no end coordinate</p>
+<span class="description"><p>y location where the action of player_id ended (m), null for single-point events that have no end coordinate.</p>
 </span>
         
 
@@ -1775,7 +1776,7 @@
             />
         </svg>
     <a href="#event_body_part" onclick="anchorLink('event_body_part')">body_part</a></div><span class="badge badge-dark value-type">Type: enum (of null or string)</span><br/>
-<span class="description"><p>Denotes the body part used by player<em>id, null for events other than pass and shot. Use the most specific value that can be resolved: prefer left</em>foot or right_foot over feet, and a named part over body</p>
+<span class="description"><p>Denotes the body part used by player_id, null allowed for events other than pass and shot.</p>
 </span><div class="enum-value" id="event_body_part_enum">
             <h4>Must be one of:</h4>
             <ul class="list-group"><li class="list-group-item enum-item">"left_foot"</li><li class="list-group-item enum-item">"right_foot"</li><li class="list-group-item enum-item">"feet"</li><li class="list-group-item enum-item">"head"</li><li class="list-group-item enum-item">"hands"</li><li class="list-group-item enum-item">"upper_body"</li><li class="list-group-item enum-item">"lower_body"</li><li class="list-group-item enum-item">"body"</li><li class="list-group-item enum-item">"other"</li><li class="list-group-item enum-item">null</li></ul>
@@ -1819,7 +1820,7 @@
             />
         </svg>
     <a href="#event_related_event_ids" onclick="anchorLink('event_related_event_ids')">related_event_ids</a></div><span class="badge badge-dark value-type">Type: array of string or null</span><br/>
-<span class="description"><p>Unique identifier(s) of the events related to the action</p>
+<span class="description"><p>Unique identifier(s) of the events related to the action, or pass and associated receival event. For example, a related aerial duel event or the player<em>off event associated with a player</em>on event. Leave null if no related events exist.</p>
 </span>
         
 
@@ -1895,7 +1896,7 @@
             />
         </svg>
     <a href="#event_match_clock" onclick="anchorLink('event_match_clock')">match_clock</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
-<span class="description"><p>The match clock as a string in format MM:SS.mm</p>
+<span class="description"><p>The match clock as a string in format "MM:SS.mm" (i.e. minutes, seconds, milliseconds) (e.g. "92:01.04"). The clock resets to "45:00.00", "90:00.00" or "105:00.00" at the start of "second<em>half", "first</em>half<em>extratime", "second</em>half_extratime", respectively.</p>
 </span>
         
 
@@ -1935,7 +1936,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_metrics" onclick="anchorLink('event_metrics')">metrics</a></div><span class="badge badge-dark value-type">Type: object or null</span><br/>
+    <a href="#event_metrics" onclick="anchorLink('event_metrics')">metrics</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
 
         
 
@@ -1978,7 +1979,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_metrics_xg" onclick="anchorLink('event_metrics_xg')">xg</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#event_metrics_xg" onclick="anchorLink('event_metrics_xg')">xg</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>Calculated xG value between [0,1]</p>
 </span>
         
@@ -2026,7 +2027,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_metrics_post_shot_xg" onclick="anchorLink('event_metrics_post_shot_xg')">post_shot_xg</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+    <a href="#event_metrics_post_shot_xg" onclick="anchorLink('event_metrics_post_shot_xg')">post_shot_xg</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
 <span class="description"><p>Calculated post-shot xG value between [0,1]</p>
 </span>
         
@@ -2074,8 +2075,8 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_metrics_xpass" onclick="anchorLink('event_metrics_xpass')">xpass</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-<span class="description"><p>Calculated xPass value between [0,1]</p>
+    <a href="#event_metrics_xpass" onclick="anchorLink('event_metrics_xpass')">xpass</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+<span class="description"><p>Calculated expected pass value between [0,1]</p>
 </span>
         
 
@@ -2122,104 +2123,8 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_metrics_epv" onclick="anchorLink('event_metrics_epv')">epv</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
-<span class="description"><p>Expected possession value between [-1,1]</p>
-</span>
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionevent_metrics_packing_traditional">
-    <div class="card">
-        <div class="card-header" id="headingevent_metrics_packing_traditional">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_metrics_packing_traditional"
-                        aria-expanded="" aria-controls="event_metrics_packing_traditional" onclick="setAnchor('#event_metrics_packing_traditional')"><span class="property-name">packing_traditional</span></button>
-            </h2>
-        </div>
-
-        <div id="event_metrics_packing_traditional"
-             class="collapse property-definition-div" aria-labelledby="headingevent_metrics_packing_traditional"
-             data-parent="#accordionevent_metrics_packing_traditional">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event" onclick="anchorLink('event')">event</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event_metrics" onclick="anchorLink('event_metrics')">metrics</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event_metrics_packing_traditional" onclick="anchorLink('event_metrics_packing_traditional')">packing_traditional</a></div><span class="badge badge-dark value-type">Type: integer or null</span><br/>
-<span class="description"><p>Number of opposing players that have been outplayed by a pass according to the traditional packing approach</p>
-</span>
-        
-
-        
-        
-
-        
-            </div>
-        </div>
-    </div>
-</div>
-<div class="accordion" id="accordionevent_metrics_packing_horizontal">
-    <div class="card">
-        <div class="card-header" id="headingevent_metrics_packing_horizontal">
-            <h2 class="mb-0">
-                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#event_metrics_packing_horizontal"
-                        aria-expanded="" aria-controls="event_metrics_packing_horizontal" onclick="setAnchor('#event_metrics_packing_horizontal')"><span class="property-name">packing_horizontal</span></button>
-            </h2>
-        </div>
-
-        <div id="event_metrics_packing_horizontal"
-             class="collapse property-definition-div" aria-labelledby="headingevent_metrics_packing_horizontal"
-             data-parent="#accordionevent_metrics_packing_horizontal">
-            <div class="card-body pl-5">
-
-    <div class="breadcrumbs">root
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event" onclick="anchorLink('event')">event</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event_metrics" onclick="anchorLink('event_metrics')">metrics</a>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-            />
-        </svg>
-    <a href="#event_metrics_packing_horizontal" onclick="anchorLink('event_metrics_packing_horizontal')">packing_horizontal</a></div><span class="badge badge-dark value-type">Type: integer or null</span><br/>
-<span class="description"><p>Number of opposing players that have been outplayed by a pass according to the horizontal packing approach</p>
+    <a href="#event_metrics_epv" onclick="anchorLink('event_metrics_epv')">epv</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
+<span class="description"><p>Expected possession value between [0,1]</p>
 </span>
         
 
@@ -2263,7 +2168,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#event_var" onclick="anchorLink('event_var')">var</a></div><span class="badge badge-dark value-type">Type: object or null</span><br/>
+    <a href="#event_var" onclick="anchorLink('event_var')">var</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
 
         
 
@@ -2307,7 +2212,7 @@
             />
         </svg>
     <a href="#event_var_reviewed" onclick="anchorLink('event_var_reviewed')">reviewed</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
-<span class="description"><p>Was this event reviewed by the video assistant referee (true) or not (false</p>
+<span class="description"><p>Was this event reviewed by the video assistant referee (true) or not (false)</p>
 </span>
         
 
@@ -2355,7 +2260,7 @@
             />
         </svg>
     <a href="#event_var_upheld" onclick="anchorLink('event_var_upheld')">upheld</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
-<span class="description"><p>Was the ruling on the field confirmed (true) or not (false)</p>
+<span class="description"><p>Was the on-field ruling confirmed (true) or overturned (false)</p>
 </span>
         
 
@@ -2432,7 +2337,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#tracking_frame_id" onclick="anchorLink('tracking_frame_id')">frame_id</a></div><span class="badge badge-dark value-type">Type: integer or null</span><br/>
+    <a href="#tracking_frame_id" onclick="anchorLink('tracking_frame_id')">frame_id</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
 <span class="description"><p>Frame identifier from the tracking data related to the event at (x, y)</p>
 </span>
         
@@ -2473,7 +2378,7 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#tracking_frame_id_end" onclick="anchorLink('tracking_frame_id_end')">frame_id_end</a></div><span class="badge badge-dark value-type">Type: integer or null</span><br/>
+    <a href="#tracking_frame_id_end" onclick="anchorLink('tracking_frame_id_end')">frame_id_end</a></div><span class="badge badge-dark value-type">Type: integer</span><br/>
 <span class="description"><p>Frame identifier from the tracking data related to the event at (x<em>end, y</em>end)</p>
 </span>
         
@@ -2558,7 +2463,7 @@
             />
         </svg>
     <a href="#tracking_player_x" onclick="anchorLink('tracking_player_x')">x</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>x location of the player committing the action according to the tracking data</p>
+<span class="description"><p>x location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m)</p>
 </span>
         
 
@@ -2606,7 +2511,7 @@
             />
         </svg>
     <a href="#tracking_player_y" onclick="anchorLink('tracking_player_y')">y</a></div><span class="badge badge-dark value-type">Type: number</span><br/>
-<span class="description"><p>y location of the player committing the action according to the tracking data</p>
+<span class="description"><p>y location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m)</p>
 </span>
         
 

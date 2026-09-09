@@ -1,0 +1,307 @@
+{
+  "title": "Common Data Format - Event Data Schema",
+  "description": "**Version 0.3.2**\n\nThis schema defines the Event Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).\n\nThis schema describes a single JSON Object with a JSON Lines file.",
+  "type": "object",
+  "required": [
+    "match",
+    "meta",
+    "event"
+  ],
+  "properties": {
+    "match": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique match identifier"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "is_synced"
+      ],
+      "properties": {
+        "is_synced": {
+          "type": "boolean",
+          "description": "Indicates if synced tracking data is available (true) or not (false) for this event"
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "time",
+        "period",
+        "type",
+        "sub_type",
+        "is_successful",
+        "outcome_type",
+        "receiver_id",
+        "receiver_time",
+        "receiver_team_id",
+        "x",
+        "y",
+        "x_end",
+        "y_end",
+        "body_part",
+        "related_event_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the event"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Absolute time in UTC of when the event started (e.g., moment the pass is given, the moment the ball leaves the hands on a thrown in)"
+        },
+        "period": {
+          "type": "string",
+          "enum": [
+            "first_half",
+            "second_half",
+            "first_half_extratime",
+            "second_half_extratime",
+            "shootout"
+          ],
+          "description": "Period of the match which can be first_half, second_half, first_half_extratime, second_half_extratime, or shootout"
+        },
+        "type": {
+          "type": "string",
+          "description": "Name of the event type (e.g. shot, pass, referee, defending, goalkeeping, misc etc.)"
+        },
+        "sub_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the event sub type, which can be for shot - (penalty_kick, free_kick, corner_kick etc.); pass - (throw_in, free_kick, corner_kick, goal_kick, kick_off etc.); referee - (final_whistle, foul, caution, offside, substitution, player_on, player_off. Player on and player off events occur for example when a player has to abandon the game due to a lack of available substitutions, or as a temporary measure after a medical check); defending - (clearance, interception, pressing, block etc.); goalkeeping - (save, save_attempt, claim, etc.); misc - (other_ball_action, chance_without_shot, tackle, etc.)"
+        },
+        "is_successful": {
+          "type": "boolean",
+          "description": "Denotes whether the event was successful (true) or not (false)"
+        },
+        "outcome_type": {
+          "type": "string",
+          "description": "Event outcome options: shot - (successful, saved, blocked, wide, woodwork, own_goal); pass - (e.g. successful, out_of_play, intercepted); referee - (start, end, injury, offside, yellow_card, red_card or second_yellow_card); defending - (e.g. clearance, block, interception, pressure); goalkeeping (e.g. save, save_attempt, claim); misc - (e.g. successful, unsuccessful)"
+        },
+        "player_id": {
+          "type": "string",
+          "description": "Unique identifier of the player performing the action. For example, player committing a pass, or making a tackle. Required for all non-referee events. Referee events require event/official_id."
+        },
+        "team_id": {
+          "type": "string",
+          "description": "Unique team identifier of the player performing the action. Required for all non-referee events. Referee events require event/official_id."
+        },
+        "official_id": {
+          "type": "string",
+          "description": "Unique identifier of the official performing the action. Mandatory only when type is referee, else use event/player_id and event/team_id"
+        },
+        "receiver_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the player receiving a pass. Leave null when the event is not a pass or when the pass has no receiver."
+        },
+        "receiver_time": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "Absolute time in UTC of the first moment the ball was received. Leave null when the event is not a pass or when the pass has no receiver."
+        },
+        "receiver_team_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique team identifier of the player identified by receiver_id, leave null if the event does not end with a known player in possession"
+        },
+        "x": {
+          "type": "number",
+          "description": "x location where the action of player_id happened (m)."
+        },
+        "y": {
+          "type": "number",
+          "description": "y location where the action of player_id happened (m)."
+        },
+        "x_end": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "x location where the action of player_id ended (m), null for single-point events that have no end coordinate."
+        },
+        "y_end": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "y location where the action of player_id ended (m), null for single-point events that have no end coordinate."
+        },
+        "body_part": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Denotes the body part used by player_id, null allowed for events other than pass and shot.",
+          "enum": [
+            "left_foot",
+            "right_foot",
+            "feet",
+            "head",
+            "hands",
+            "upper_body",
+            "lower_body",
+            "body",
+            "other",
+            null
+          ]
+        },
+        "related_event_ids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Unique identifier(s) of the events related to the action, or pass and associated receival event. For example, a related aerial duel event or the player_off event associated with a player_on event. Leave null if no related events exist."
+        },
+        "match_clock": {
+          "type": "string",
+          "description": "The match clock as a string in format \"MM:SS.mm\" (i.e. minutes, seconds, milliseconds) (e.g. \"92:01.04\"). The clock resets to \"45:00.00\", \"90:00.00\" or \"105:00.00\" at the start of \"second_half\", \"first_half_extratime\", \"second_half_extratime\", respectively."
+        },
+        "metrics": {
+          "type": "object",
+          "properties": {
+            "xg": {
+              "type": "number",
+              "description": "Calculated xG value between [0,1]"
+            },
+            "post_shot_xg": {
+              "type": "number",
+              "description": "Calculated post-shot xG value between [0,1]"
+            },
+            "xpass": {
+              "type": "number",
+              "description": "Calculated expected pass value between [0,1]"
+            },
+            "epv": {
+              "type": "number",
+              "description": "Expected possession value between [0,1]"
+            }
+          }
+        },
+        "var": {
+          "type": "object",
+          "properties": {
+            "reviewed": {
+              "type": "boolean",
+              "description": "Was this event reviewed by the video assistant referee (true) or not (false)"
+            },
+            "upheld": {
+              "type": "boolean",
+              "description": "Was the on-field ruling confirmed (true) or overturned (false)"
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "pass",
+                  "shot"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "x_end": {
+                "type": "number"
+              },
+              "y_end": {
+                "type": "number"
+              },
+              "body_part": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "referee"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "official_id"
+            ],
+            "properties": {
+              "player_id": false,
+              "team_id": false
+            }
+          },
+          "else": {
+            "required": [
+              "player_id",
+              "team_id"
+            ],
+            "properties": {
+              "official_id": false
+            }
+          }
+        }
+      ]
+    },
+    "tracking": {
+      "type": "object",
+      "properties": {
+        "frame_id": {
+          "type": "integer",
+          "description": "Frame identifier from the tracking data related to the event at (x, y)"
+        },
+        "frame_id_end": {
+          "type": "integer",
+          "description": "Frame identifier from the tracking data related to the event at (x_end, y_end)"
+        },
+        "player": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "description": "x location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m)"
+            },
+            "y": {
+              "type": "number",
+              "description": "y location of the player committing an event according to the tracking data. For example, player committing a pass, or making a tackle (m)"
+            }
+          }
+        }
+      }
+    }
+  }
+}

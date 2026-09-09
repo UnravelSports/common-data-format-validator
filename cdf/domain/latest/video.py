@@ -1,5 +1,5 @@
-# Auto-generated from JSON Schema v0.3.1
-# Do not edit manually - run generate_latest_domain.py
+# Auto-generated from JSON Schema v0.3.2
+# Do not edit manually - run src/generate_latest_domain.py
 
 
 from __future__ import annotations
@@ -8,25 +8,25 @@ from typing import NotRequired, TypedDict
 
 
 class Match(TypedDict):
-    id: str  # Unique identifier for the match
+    id: str  # Unique match identifier
 
 
 class Camera(TypedDict):
     x: NotRequired[
-        float | None
+        float
     ]  # x location of the camera in relation to the pitch center (m)
     y: NotRequired[
-        float | None
+        float
     ]  # y location of the camera in relation to the pitch center (m)
     z: NotRequired[
-        float | None
+        float
     ]  # z location of the camera in relation to the pitch center (m)
 
 
 class Recording(TypedDict):
     fps: int  # Frames per second (i.e. frame rate) from vendor
     resolution: (
-        str  # Resolution of the video in pixels (e.g., 3840x2160, 1920x1080, ...)
+        str  # Resolution of the video in pixels (e.g., 3840x2160, 1920x1080,...)
     )
     start_time: str  # The start time in UTC of the recording
     type: (
@@ -40,8 +40,8 @@ class Recording(TypedDict):
 
 
 class Whistle(TypedDict):
-    type: str  # Whistles that start and end major periods of play such as the start and end of halves and interruptions
-    sub_type: str  # Sub type related to an interruption, for example start or end
+    type: str  # Whistles that start and end major periods of play such as the start and end of halves and interruptions (e.g., weather, VAR review, player health events, streakers or abandoned). Examples of types first_half, second_half, weather_delay, health_delay, injury_treatment fan_health_delay etc.
+    sub_type: str  # Sub type related to an interruption, for example start or end.
     time: str  # The time in UTC of the whistle
     video_time: int  # The time tag of the whistle in milliseconds
 

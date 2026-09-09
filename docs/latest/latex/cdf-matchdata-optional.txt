@@ -1,0 +1,30 @@
+\begin{table}[H]
+\centering
+\caption{Description of the optional Match Sheet Data CDF Fields. Any description ending with a $^\star$ is repeated once per person (e.g., player, referee, coach). For players, only those named to the match day squad are considered. Note that \{i\} is used as an index for the items in a list.}
+\label{tab:cdf-matchdata-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2cm}p{7cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+teams/\{home\text{\textbar}away\} & short\_name & Short name of the home or away team & String \\
+teams/\{home\text{\textbar}away\} & formation & Formation label of the home or away team (e.g. ``4-4-2''). See~\ref{app:positions} for more information. & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & alternative\_id & Additional identifier(s) of the player$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & maiden\_name & Maiden name$^\star$. For example, ``Smith'' for Sophia Wilson. & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & short\_name & Short name$^\star$. For example ``Mohamed Salah Hamed Mahrous Ghaly'' as ``Mo Salah'' (or ``Mohamed Salah'') or ``Givanildo Vieira de Sousa'' as ``Hulk''. & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & position\_group & Position group acronym given according to the CDF-compatible groups given in Appendix \ref{app:positions}$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & position & Position label acronym per player given according to the CDF-compatible labels given in Appendix \ref{app:positions}$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & is\_captain & Whether the player is a captain (true) or not (false)$^\star$ & Boolean \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & date\_of\_birth & A player's date of birth in YYYY-MM-DD format$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & height & Height of a player in cm$^\star$ & Integer \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & foot & A player's dominant foot, which can take the values left, right or both$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} & id & Unique identifier for a coach$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} & first\_name & First name$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} & last\_name & Last name$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/coaches/\{i\} & short\_name & Short name, a combination of First name and Last name (e.g. Jane Doe, not J. Doe)$^\star$ & String \\
+officials/\{i\} & first\_name & First name of the official, null if not available & String \\
+officials/\{i\} & last\_name & Last name of the official, null if not available & String \\
+officials/\{i\} & short\_name & Short name of the official, null if not available & String \\
+officials/\{i\} & type & Role of the official (e.g., `main\_referee', `assistant\_referee', `fourth\_official') & String \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

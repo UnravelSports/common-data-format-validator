@@ -1,0 +1,14 @@
+\begin{table}[H]
+\centering
+\caption{Description of the Optional Video Footage CDF fields.}
+\label{tab:cdf-video-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{1.5cm}p{10cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+recording/camera & x & x location of the camera in relation to the pitch center (m) & Float \\
+recording/camera & y & y location of the camera in relation to the pitch center (m) & Float \\
+recording/camera & z & z location of the camera in relation to the pitch center (m) & Float \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -1,0 +1,28 @@
+\begin{table}[H] % Use [H] to force the table placement
+\centering
+\caption{Description of optional Match Meta CDF. Note that \{i\} is used as an index for the items in a list.}
+\label{tab:cdf-meta-optional}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{3.4cm}p{7cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+competition & name & Name of the competition & String \\
+competition & format & Specifying the competition set-up such as league\_18 (i.e., league involving 18 teams), league\_20, knock\_out\_neutral, etc. & String \\
+competition & age\_restriction & Age restriction for the competition (e.g., `U18', `U20') & String \\
+competition & type & Type of competition (e.g., `youth', `mens', `womens') & String \\
+season & name & Season name (e.g., `2022/23') & String \\
+match & round & Round of the match (e.g. 1, 2, 3, final, semi\_final) & String \\
+match & scheduled\_kickoff\_time & Scheduled kickoff time in UTC & String \\
+match & local\_kickoff\_time & Local kickoff time & String \\
+match/misc & country & Country where the match is played & String \\
+match/misc & city & City where the match is played & String \\
+match/misc & precipitation & Precipitation during the match in millimetres & Integer \\
+match/misc & is\_open\_roof & Indicates if the roof is open (true) or closed (false) & Boolean \\
+venue & name & Name of the venue or stadium & String \\
+venue & turf & Information on the turf of the stadium (natural, natural\_reinforced, grass, clay,...) & String \\
+meta/landmarks & skeleton & Skeletal hierarchy used (i.e., what landmarks are tracked, and how they are connected). Required when the meta data is associated with skeletal data. An explicit example of how to provide this data can be found in Figure~\ref{fig:skeletal-hierarchy} & JSON Object \\
+teams/\{home\text{\textbar}away\} & name & Name of the team & String \\
+teams/\{home\text{\textbar}away\} & jersey\_colour & Jersey colour of the team as a hexadecimal color code (e.g. \#545B62). & String \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

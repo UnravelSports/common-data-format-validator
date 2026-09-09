@@ -59,7 +59,7 @@ setup(
             # Pinned: the docs CI job byte-compares generated HTML, so a
             # generator upgrade must be a deliberate commit, not a silent bump
             "json-schema-for-humans==1.4.1",
-            # Same reasoning: generate_latest_domain.py commits its output, so a
+            # Same reasoning: src/generate_latest_domain.py commits its output, so a
             # generator upgrade rewrites the domain models.
             "datamodel-code-generator==0.76.1",
             # Pinned to match .pre-commit-config.yaml. Black's stable style

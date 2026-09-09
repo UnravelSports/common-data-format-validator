@@ -23,15 +23,18 @@ SCHEMAS = [
 ]
 
 # Landing page carries the version badge, kept in sync with VERSION
-INDEX_PATH = Path("docs/index.html")
+# Paths are repo-relative, so anchor them to the repo root rather than
+# the working directory: this script now lives in src/.
+ROOT = Path(__file__).resolve().parent.parent
+INDEX_PATH = ROOT / "docs/index.html"
 BADGE_PATTERN = re.compile(r'(<span class="version-badge">Version )[^<]*(</span>)')
 
 
 def generate_schema_docs():
     """Generate HTML documentation for all schema files."""
     # Define paths
-    schema_dir = Path(f"cdf/files/v{VERSION}/schema")
-    output_dir = Path("docs/latest")
+    schema_dir = ROOT / f"cdf/files/v{VERSION}/schema"
+    output_dir = ROOT / "docs/latest"
 
     # Create output directory if it doesn't exist
     output_dir.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,22 @@
+\begin{table}[H]
+\centering
+\caption{Description of the Video Footage CDF fields.}
+\label{tab:cdf-video}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{8cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+match & id & Unique match identifier & String \\
+recording & fps & Frames per second (i.e. frame rate) from vendor & Integer \\
+recording & resolution & Resolution of the video in pixels (e.g., 3840x2160, 1920x1080,...) & String \\
+recording & start\_time & The start time in UTC of the recording & String \\
+recording & operation\_type & Information whether the camera operation was manual or automated & String \\
+recording & type & Information how the video was recorded (e.g. fixed camera, camcorder,...) & String \\
+recording & perspective & Camera angle (tactical\_wide, camera\_1, high\_behind\_right, high\_behind\_left, cable\_camera, 16m\_right, 16m\_left, broadcast) & String \\
+whistles/\{i\} & type & Whistles that start and end major periods of play such as the start and end of halves and interruptions (e.g., weather, VAR review, player health events, streakers or abandoned). Examples of types first\_half, second\_half, weather\_delay, health\_delay, injury\_treatment fan\_health\_delay etc. & String \\
+whistles/\{i\} & sub\_type & Sub type related to an interruption, for example start or end. & String \\
+whistles/\{i\} & time & The time in UTC of the whistle & String \\
+whistles/\{i\} & video\_time & The time tag of the whistle in milliseconds & Integer \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

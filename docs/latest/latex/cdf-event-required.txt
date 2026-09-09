@@ -1,0 +1,32 @@
+\begin{table}[H]
+\centering
+\caption{Description of the mandatory Event CDF fields. Every recorded event must include all these fields. The coordinate system is defined in Paragraph~\ref{p:coords} where the x axis is the sidelines and the y axis the goal lines. Note that \{i\} is used as an index for the items in a list.}
+\label{tab:cdf-event-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{2.5cm}p{8cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+match & id & Unique match identifier & String \\
+meta & is\_synced & Indicates if synced tracking data is available (true) or not (false) for this event & Boolean \\
+event & id & Unique identifier of the event & String \\
+event & time & Absolute time in UTC of when the event started (e.g., moment the pass is given, the moment the ball leaves the hands on a thrown in) & String \\
+event & period & Period of the match which can be first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, or shootout & String \\
+event & type & Name of the event type (e.g. shot, pass, referee, defending, goalkeeping, misc etc.) & String \\
+event & sub\_type & Name of the event sub type, which can be for shot - (penalty\_kick, free\_kick, corner\_kick etc.); pass - (throw\_in, free\_kick, corner\_kick, goal\_kick, kick\_off etc.); referee - (final\_whistle, foul, caution, offside, substitution, player\_on, player\_off. Player on and player off events occur for example when a player has to abandon the game due to a lack of available substitutions, or as a temporary measure after a medical check); defending - (clearance, interception, pressing, block etc.); goalkeeping - (save, save\_attempt, claim, etc.); misc - (other\_ball\_action, chance\_without\_shot, tackle, etc.) & String / null \\
+event & is\_successful & Denotes whether the event was successful (true) or not (false) & Boolean \\
+event & outcome\_type & Event outcome options: shot - (successful, saved, blocked, wide, woodwork, own\_goal); pass - (e.g. successful, out\_of\_play, intercepted); referee - (start, end, injury, offside, yellow\_card, red\_card or second\_yellow\_card); defending - (e.g. clearance, block, interception, pressure); goalkeeping (e.g. save, save\_attempt, claim); misc - (e.g. successful, unsuccessful) & String \\
+event & player\_id & Unique identifier of the player performing the action. For example, player committing a pass, or making a tackle. Required for all non-referee events. Referee events require event/official\_id. & String \\
+event & team\_id & Unique team identifier of the player performing the action. Required for all non-referee events. Referee events require event/official\_id. & String \\
+event & receiver\_id & Unique identifier of the player receiving a pass. Leave \textit{null} when the event is not a pass or when the pass has no receiver. & String / null \\
+event & receiver\_time & Absolute time in UTC of the first moment the ball was received. Leave \textit{null} when the event is not a pass or when the pass has no receiver. & String / null \\
+event & x & x location where the action of player\_id happened (m). & Float \\
+event & y & y location where the action of player\_id happened (m). & Float \\
+event & x\_end & x location where the action of player\_id ended (m), null for single-point events that have no end coordinate. & Float / null \\
+event & y\_end & y location where the action of player\_id ended (m), null for single-point events that have no end coordinate. & Float / null \\
+event & body\_part & Denotes the body part used by player\_id, null allowed for events other than pass and shot. & String / null \\
+event & related\_event\_ids & Unique identifier(s) of the events related to the action, or pass and associated receival event. For example, a related aerial duel event or the player\_off event associated with a player\_on event. Leave null if no related events exist. & Array[String] / null \\
+event & official\_id & Unique identifier of the official performing the action. Mandatory only when type is referee, else use event/player\_id and event/team\_id & String \\
+event & receiver\_team\_id & Unique team identifier of the player identified by receiver\_id, leave null if the event does not end with a known player in possession & String / null \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

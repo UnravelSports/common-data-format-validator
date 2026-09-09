@@ -1,0 +1,22 @@
+\begin{table}[H]
+\centering
+\caption{Description of mandatory Skeletal Tracking CDF fields recorded for each frame. Any description ending with a $^\star$ is repeated once per player per frame. Any description ending with a $^\diamond$ is repeated once per player per frame per landmark (e.g knee\_left, hip\_right, ear\_right etc.). Note that \{i\} and \{j\} are used as indices for items in lists. Landmark names should follow snake-case with any direction indicator as a suffix.  Any type ending with a $^\ddagger$ may be null when the subject is occluded, off-camera or otherwise not captured in that frame.}
+\label{tab:cdf-limb-tracking-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{1.5cm}p{8cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+ & frame\_id & Unique frame identifier & Integer \\
+ & timestamp & Timestamp of the frame in UTC & String \\
+ & period & Period of the match which can be first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, or shootout & String \\
+match & id & Unique match identifier & String \\
+teams/\{home\text{\textbar}away\} & id & Unique identifier for the home or away team$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & id & Unique identifier for a player$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} & name & Name for a landmark$^\diamond$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} & x & Relative x coordinate of landmark in relation to the point of origin (m)$^\diamond$ & Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} & y & Relative y coordinate of landmark in relation to the point of origin (m)$^\diamond$ & Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} & z & Relative z coordinate of landmark in relation to the point of origin (m)$^\diamond$ & Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} & is\_visible & If landmark is detected (true) or inferred (false) $^\diamond$ & Boolean \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

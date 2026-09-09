@@ -1,0 +1,244 @@
+{
+  "title": "Common Data Format - Landmark Tracking Data Schema",
+  "description": "**Version 0.3.2**\n\nThis schema defines the Landmark Data as described in the [Common Data Format paper](https://arxiv.org/pdf/2505.15820).\n\nThis schema describes a single JSON Object with a JSON Lines file.",
+  "type": "object",
+  "required": [
+    "frame_id",
+    "timestamp",
+    "period",
+    "match",
+    "teams"
+  ],
+  "properties": {
+    "frame_id": {
+      "type": "integer",
+      "description": "Unique frame identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the frame in UTC"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "first_half",
+        "second_half",
+        "first_half_extratime",
+        "second_half_extratime",
+        "shootout"
+      ],
+      "description": "Period of the match which can be first_half, second_half, first_half_extratime, second_half_extratime, or shootout"
+    },
+    "match": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique match identifier"
+        }
+      }
+    },
+    "teams": {
+      "type": "object",
+      "required": [
+        "home",
+        "away"
+      ],
+      "properties": {
+        "home": {
+          "$ref": "#/definitions/team"
+        },
+        "away": {
+          "$ref": "#/definitions/team"
+        }
+      }
+    },
+    "ball": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "x location of the ball on the pitch (m)."
+        },
+        "y": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "y location of the ball on the pitch (m)."
+        },
+        "z": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "z location of the ball on the pitch (m)."
+        },
+        "status": {
+          "type": "boolean",
+          "description": "Indicates if the ball is either in play (true) or out of play (false)"
+        },
+        "poss_team_id": {
+          "type": "string",
+          "description": "Unique identifier of the team that currently possesses the ball"
+        },
+        "poss_status": {
+          "type": "string",
+          "description": "Contextual description of the level of control (e.g., controlled, contested,...)"
+        }
+      }
+    },
+    "officials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for an official"
+          },
+          "x": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "x location of the official on the pitch (m)"
+          },
+          "y": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "y location of the official on the pitch (m)"
+          },
+          "z": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "z location of the official on the pitch (m)"
+          },
+          "vel": {
+            "type": "number",
+            "description": "Speed of the official (m/s)"
+          },
+          "acc": {
+            "type": "number",
+            "description": "Acceleration of the official (m/s^2)"
+          },
+          "lat": {
+            "type": "number",
+            "description": "Latitude of the official's position if the data is collected by GNSS or GPS"
+          },
+          "long": {
+            "type": "number",
+            "description": "Longitude of the official's position if the data is collected by GNSS or GPS"
+          },
+          "is_visible": {
+            "type": "boolean",
+            "description": "Denotes if an official was visible (in view of the camera) (true) or not (false)"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "team": {
+      "type": "object",
+      "required": [
+        "id",
+        "players"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the home or away team"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/player"
+          }
+        }
+      }
+    },
+    "player": {
+      "type": "object",
+      "required": [
+        "id",
+        "landmarks"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for a player"
+        },
+        "landmarks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/landmark"
+          }
+        }
+      }
+    },
+    "landmark": {
+      "type": "object",
+      "required": [
+        "name",
+        "x",
+        "y",
+        "z",
+        "is_visible"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for a landmark",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "x": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Relative x coordinate of landmark in relation to the point of origin (m)"
+        },
+        "y": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Relative y coordinate of landmark in relation to the point of origin (m)"
+        },
+        "z": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Relative z coordinate of landmark in relation to the point of origin (m)"
+        },
+        "is_visible": {
+          "type": "boolean",
+          "description": "If landmark is detected (true) or inferred (false)"
+        }
+      }
+    }
+  }
+}

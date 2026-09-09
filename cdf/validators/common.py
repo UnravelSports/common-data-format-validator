@@ -92,7 +92,7 @@ SKIP_VALUE_SNAKE_CASE = [
     "maiden_name",
     "position_group",
     "position",
-    "final_winning_team_id",
+    "winning_team_id",
     "assist_id",
     "in_player_id",
     "out_player_id",
@@ -485,7 +485,7 @@ class SchemaValidator:
             self._check_chronological(sequence, "whistle timestamps")
 
     def _validate_match_result(self, instance):
-        """Check that ``final_winning_team_id`` agrees with the final scoreline.
+        """Check that ``final/winning_team_id`` agrees with the final scoreline.
 
         A level final score has no winner unless the tie was settled on penalties,
         so the winner is null exactly when the scores are level and no ``shootout``
@@ -510,9 +510,9 @@ class SchemaValidator:
 
         shootout = result.get("shootout")
         settled_on_penalties = isinstance(shootout, dict)
-        winner = result.get("final_winning_team_id")
+        winner = final.get("winning_team_id")
         drawn = home == away and not settled_on_penalties
-        label = self._format_path(["match", "result", "final_winning_team_id"])
+        label = self._format_path(["match", "result", "final", "winning_team_id"])
 
         if drawn:
             if winner is not None:

@@ -1,0 +1,22 @@
+\begin{table}[H]
+\centering
+\caption{Description of mandatory center-of-body tracking CDF fields recorded per frame. Any description ending with a $^\star$ is repeated once per player per frame. The coordinate system is defined in Paragraph~\ref{p:coords} where the x axis is the sidelines and the y axis the goal lines. Note that \{i\} is used as an index for the items in a list. Any type ending with a $^\ddagger$ may be null when the subject is occluded, off-camera or otherwise not captured in that frame.}
+\label{tab:cdf-com-tracking-required}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{1.5cm}p{8cm}l}
+\hline
+Root & Field & Description & Type \\ \hline
+ & frame\_id & Unique frame identifier & Integer \\
+ & timestamp & Timestamp of the frame in UTC & String \\
+ & period & Period of the match (first\_half, second\_half, first\_half\_extratime, second\_half\_extratime, shootout) & String \\
+match & id & Unique match identifier & String \\
+teams/\{home\text{\textbar}away\} & id & Unique identifier for the home or away team$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & id & Unique identifier for a player$^\star$ & String \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & x & x location of the player on the pitch (m)$^\star$. & Float / null$^\ddagger$ \\
+teams/\{home\text{\textbar}away\}/players/\{i\} & y & y location of the player on the pitch (m)$^\star$. & Float / null$^\ddagger$ \\
+ball & x & x location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+ball & y & y location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+ball & z & z location of the ball on the pitch (m). & Float / null$^\ddagger$ \\
+\end{tabular}
+\end{adjustbox}
+\end{table}

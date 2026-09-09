@@ -6,6 +6,120 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 
 --
 
+## 🗒️ Changelog v0.3.2 (alpha) - Wednesday 9th September 2026
+
+---
+
+### General
+
+- Aligned the schemas with the paper's tables. Every field in every table was compared against its schema, and the differences were reviewed one by one. Most of what follows comes out of that.
+- Applied the missing-value rule stated in v0.3.1 but never enforced. `null` means the field applies to the record but has nothing to record; an absent key means the field does not apply.
+- Made an exception of coordinates. Every `x`, `y` and `z` in Tracking and Skeletal data is nullable whether or not it is required, because a subject can be in the record but off camera, occluded or otherwise unmeasurable for that frame.
+- Stopped repeating match-level facts on every frame. A team's name, shirt colour and formation, and the data vendor's name, describe the match rather than the frame, and carrying them per record allowed a file to contradict itself between frames.
+
+---
+
+### Match Sheet Data
+
+#### Table 1. Mandatory Match Sheet Data
+
+- Moved `match/result/final_winning_team_id` to `match/result/final/winning_team_id` (String, _null_ when the match was drawn and no shootout was played). The paper has always nested it under `final`; the schema has had it flat since v0.2.0. **Breaking.**
+- Changed `events/goals/{i}/assist_id` from Optional to Mandatory. It stays (String, _null_ when the goal was not assisted), so a producer must now emit the key and set it to `null` rather than omit it. **Breaking.**
+- Corrected the descriptions of `events/substitutions/{i}/in_player_id` and `events/substitutions/{i}/out_time`, which described each other's field.
+- Corrected the description of `match/result/second_half_extratime/{home|away}`, which described the **first** half of extra time.
+
+#### Table 7. Optional Match Sheet Data
+
+- Changed `officials/{i}/first_name`, `officials/{i}/last_name` and `officials/{i}/short_name` from (String, _null_) to (String). They are optional, so an absent key already says the name is unavailable.
+- Removed the duplicate `match/result/{first_half_extratime,second_half_extratime,shootout}` rows. They appear in Table 1, where their descriptions now state that they apply only when the match went to extra time or penalties.
+
+---
+
+### Video Footage
+
+#### Table 8. Optional Video Footage
+
+- Changed `recording/camera/x`, `recording/camera/y` and `recording/camera/z` from (Float, _null_) to (Float). A camera's mounting position is a fixed installation fact, not a per-frame measurement, so absence already covers "not supplied".
+
+---
+
+### Event Data
+
+#### Table 3. Mandatory Event Data
+
+- Corrected the `period` description, which listed `first_half_extra` and `second_half_extra` against an enum of `first_half_extratime` and `second_half_extratime`.
+
+#### Table 9. Optional Event Data
+
+- Removed `event/metrics/packing_traditional` and `event/metrics/packing_horizontal`. 
+- Changed `event/metrics/xg`, `post_shot_xg`, `xpass` and `epv` from (Float, _null_) to (Float).
+- Changed `tracking/frame_id` and `tracking/frame_id_end` from (Integer, _null_) to (Integer).
+
+---
+
+### Tracking Data
+
+#### Table 4. Mandatory Tracking Data
+
+- No structural change. `ball/{x,y,z}` and `teams/{home|away}/players/{i}/{x,y}` remain (Float, _null_); the paper's Type column now shows the nullability, marked `$^\ddagger$` and explained in the caption.
+
+#### Table 10. Optional Tracking Data
+
+- Added `teams/{home|away}/players/{i}/dist` (Float), the distance covered by the player in the current frame, in metres.
+- Removed `teams/{home|away}/name`, `teams/{home|away}/jersey_colour` and `teams/{home|away}/formation`. A team's name and colours now live in the Meta data; `formation` was already in the Match Sheet. **Breaking.**
+- Removed `vendor/event/name` and `vendor/tracking/name`. `meta/{event,tracking,landmarks,ball}/name` already records the data vendor, described and populated, and this object duplicated it on every frame. **Breaking.**
+- Changed `officials/{i}/{id,x,y,z,vel,acc,lat,long,is_visible}` from undescribed to described, mirroring the equivalent player rows.
+
+---
+
+### Skeletal Data
+
+#### Table 5. Mandatory Skeletal Data
+
+- Removed `children` from each landmark. The skeletal hierarchy is now given once in the Meta data under `meta/landmarks/skeleton` rather than repeated on every landmark of every frame.
+- Removed `index` from each landmark. It existed only as the join target for `children`; the hierarchy now joins on landmark `name`.
+- Changed `x`, `y` and `z` from (Float) to (Float, _null_), so an occluded joint can be reported as unmeasurable rather than given a fabricated position.
+- Constrained landmark `name` to snake_case. 
+
+#### Optional Skeletal Data (new table)
+
+- Added a table for the optional Skeletal fields.
+- Removed `teams/{home|away}/{name,jersey_colour,formation}` and `vendor/{event,tracking}/name`, as in Tracking.
+
+---
+
+### Meta Data
+
+#### Table 6. Mandatory Meta Data
+
+- Added `meta/landmarks/skeleton` (JSON Object), holding `root`, `joints` and `connections`. Required when the Meta data accompanies skeletal data.
+- Renamed `match/periods/{i}/type` to `match/periods/{i}/period`, completing a rename the schema made earlier.
+
+#### Tables 11 and 12. Optional Meta Data
+
+- Renamed `match/misc/percipitation` to `match/misc/precipitation` and changed it from (Float) to (Integer), implementing the change announced in the v0.2.0 changelog and never applied. **Breaking.**
+- Added `teams/{home|away}/name` (String) and `teams/{home|away}/jersey_colour` (String), moved here from Tracking and Skeletal data.
+- Changed `competition/age_restriction`, `officials/{i}/{first_name,last_name,short_name}`, `teams/{home|away}/players/{i}/{first_name,last_name}`, `venue/pitch_length` and `venue/pitch_width` from (X, _null_) to (X).
+- Corrected the description of `match/periods/{i}/right_team_id`, which was a copy of `left_team_id` and said "left side".
+- Corrected the `collection_timing` descriptions for `meta/tracking`, `meta/landmarks` and `meta/ball`, which all described the **event** data.
+- Removed the duplicate `venue/name` and `venue/turf` rows from Table 12. They appear in Table 11.
+
+---
+
+### Migrating from v0.3.1
+
+- `match/result/final_winning_team_id` becomes `match/result/final/winning_team_id`.
+- `events/goals/{i}/assist_id` must be present. Emit `null` where there was no assist.
+- `teams/{home|away}/{name,jersey_colour,formation}` and `vendor` are no longer accepted in Tracking or Skeletal records. Team name and colours move to the Meta data; `formation` is in the Match Sheet; the vendor is `meta/{event,tracking,landmarks,ball}/name`.
+- `children` and `index` are no longer accepted on a landmark. Supply the hierarchy once, in `meta/landmarks/skeleton`.
+- `event/metrics/{packing_traditional,packing_horizontal}` are no longer accepted.
+- `match/misc/percipitation` becomes `match/misc/precipitation` and takes an integer.
+- The 20 fields listed above no longer accept `null`. Omit the key instead.
+
+These are rejected in `"strict"` and `"extreme"` modes. The default `"soft"` mode warns.
+
+---
+
 ## 🗒️ Changelog v0.3.1 (alpha) - Tuesday 25th August 2026
 
 ---
@@ -73,7 +187,7 @@ Each table in the paper discusses mandatory and optional Match Sheet, Video Foot
 - Added `meta/event/name` with description "Vendor name of the event data"
 - Added `meta/event/version` with description "Version number for the event data collection in use (e.g. '0.1.0')"
 - Changed `match/periods/{i}/play_direction` from Mandatory to Optional for the `shootout` period only (it remains Mandatory for all other period types)
-- Renamed `stadium` to `venue` 
+- Renamed `stadium` to `venue`
 - Renamed `match/periods/{i}/time_start` to `match/periods/{i}/start_time`
 - Renamed `match/periods/{i}/time_end` to `match/periods/{i}/end_time`
 

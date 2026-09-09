@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for inserting images
+% \usepackage{xcolor}
+\usepackage{url}
+\usepackage{authblk}
+\usepackage{bookmark}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{float}
+\PassOptionsToPackage{table}{xcolor}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+% \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[title]{appendix}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{changepage}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{MnSymbol}
+\usepackage{placeins}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{anysize}
+\usepackage{hyperref}
+\marginsize{15mm}{15mm}{15mm}{15mm}
+
+% \usepackage[authoryear]{natbib}
+
+% Define JSON as a language
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\footnotesize,
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    backgroundcolor=\color{lightgray!20},
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    morestring=[b]",
+    morecomment=[l]{//},
+    moredelim=[s][keywordstyle]{:}{\ },
+    keywordstyle=\color{blue}
+}
+
+\lstset{language=json}
+
+\lstset{
+    language=json,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    backgroundcolor=\color{lightgray!20},
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single
+}
+
+\newcommand{\pba}[1]{{\color{purple} PB #1}} % revision 1
+\newcommand{\jws}[1]{{\color{orange} JWS #1}} % revision 1
+\newcommand{\jesse}[1]{{\color{blue} JD: #1}} % revision 1
+\newcommand{\jan}[1]{{\color{olive} Jan: #1}} % revision 1
+\newcommand{\changed}[1]{{\color{red} #1}} % revision 1
+\newcommand{\joris}[1]{{\color{purple} Joris: #1}} % revision 1
+\newcommand{\ulf}[1]{{\color{purple} Ulf: #1}} % revision 1
+
+%\newcommand{\jesse}[1]{\ifshowcomments\textcolor{cyan}{[jd: #1]}\fi}
