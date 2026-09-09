@@ -88,17 +88,26 @@ jobs:
       run: |
         python src/generate_latex.py
 
+    # PDFs are excluded from the comparison. pdflatex output depends on the TeX
+    # Live build that produced it -- CI runs 2023, a contributor may be on 2025 --
+    # so the bytes differ even though the content is identical.
+    # SOURCE_DATE_EPOCH pins the timestamp but cannot pin the toolchain.
+    #
+    # What is still guaranteed: the .txt and .html are byte-compared, and those
+    # are what the PDFs are rendered from, so stale *content* is still caught.
+    # And generate_latex.py exits non-zero if any PDF fails to render, so a
+    # broken pipeline fails this job rather than passing quietly.
     - name: Check generated files are up to date
       run: |
         TARGETS="docs/ cdf/domain/latest/"
-        if [ -n "$(git status --porcelain $TARGETS)" ]; then
+        if [ -n "$(git status --porcelain -- $TARGETS ':(exclude)*.pdf')" ]; then
           echo "::error::Generated files are stale. Run 'python src/generate_docs.py', 'python src/generate_latest_domain.py' and 'python src/generate_latex.py', then commit the result."
-          git status --porcelain $TARGETS
-          git diff --stat -- $TARGETS
+          git status --porcelain -- $TARGETS ':(exclude)*.pdf'
           git diff -- $TARGETS ':(exclude)*.pdf'
           exit 1
         fi
         echo "docs/ and cdf/domain/latest/ are up to date with cdf/files/v$(python -c 'import cdf; print(cdf.VERSION)')/schema/"
+        echo "(PDF bytes not compared: they vary with the local TeX Live build)"
 
   lint:
     runs-on: ubuntu-latest
