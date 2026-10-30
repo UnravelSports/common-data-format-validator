@@ -140,5 +140,10 @@ def generate_domain_models():
 
 
 if __name__ == "__main__":
+    version_dir = ROOT / "cdf/files" / f"v{VERSION}"
+    if not version_dir.is_dir():
+        print(f"✗ Error: VERSION is {VERSION}, but {version_dir} does not exist.")
+        print("  Create it, e.g. by copying the previous version's folder.")
+        sys.exit(1)
     if not generate_domain_models():
         sys.exit(1)

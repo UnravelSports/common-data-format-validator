@@ -1,20 +1,26 @@
-"""Generate the paper's tables as copy-pasteable LaTeX, one file per table.
+"""Generate the paper's tables and JSON figures as copy-pasteable LaTeX.
 
-Co-authors keep the paper's tables in step with the validator by copying from
-here. Each of the 12 tables produces:
+Co-authors keep the paper's tables and JSON examples in step with the validator
+by copying from here. Each table and each JSON figure produces:
 
-    docs/latest/latex/<table>.txt   the LaTeX source, served as text so a
+    docs/latest/latex/<name>.txt    the LaTeX source, served as text so a
                                     browser shows it instead of downloading it
-    docs/latest/latex/<table>.pdf   the same table rendered, to eyeball before
-                                    pasting
+    docs/latest/latex/<name>.pdf    the same fragment rendered, to eyeball
+                                    before pasting
 
 Split tables stay split -- cdf-meta-optional and cdf-meta-optional-1 are two
 files, because they are two tables in the paper and pasting them as one would
 not fit the page.
 
-The wording here is the *paper's*, not the validator's. Those deliberately
+The table wording here is the *paper's*, not the validator's. Those deliberately
 differ for 73 fields, which is the whole reason this exists rather than being
 derived from the schemas.
+
+The JSON figures are the other way round: their content is cut down from the
+version's sample files, keeping only the fields the schema requires, so a field
+renamed in the schema shows up renamed in the paper. The hand-written listings
+they replace had drifted from the schema and four of five were not valid JSON.
+The captions are written for the paper by hand and kept in examples.json.
 
     python src/generate_latex.py                 text and PDFs
     python src/generate_latex.py --no-pdf        text only, no TeX needed
@@ -24,6 +30,8 @@ derived from the schemas.
 import json
 import os
 import re
+
+import jsonschema
 import pathlib
 import shutil
 import subprocess
@@ -34,7 +42,9 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from cdf.validators import VERSION  # noqa: E402
 
-TABLES = ROOT / "cdf" / "files" / f"v{VERSION}" / "latex" / "tables.json"
+FILES = ROOT / "cdf" / "files" / f"v{VERSION}"
+TABLES = FILES / "latex" / "tables.json"
+EXAMPLES = FILES / "latex" / "examples.json"
 # The paper's own preamble, so a rendered table matches the paper exactly.
 ASSETS = pathlib.Path(__file__).resolve().parent / "latex_assets"
 OUT = ROOT / "docs" / "latest" / "latex"
@@ -113,6 +123,212 @@ def render_table(table):
     return "\n".join(lines) + "\n"
 
 
+# ---------------------------------------------------------------------
+# Rendering a JSON figure from a sample file
+#
+# The sample files validate against their schema (tests/test_validators.py),
+# so anything cut out of them carries the schema's current field names. The
+# cut keeps the required fields, including those an if/then in the schema makes
+# required -- has_extratime: true is what pulls first_half_extratime into the
+# match figure.
+# ---------------------------------------------------------------------
+
+# Stand-ins for what a figure leaves out: list items, rendered "...", and whole
+# objects named in an example's "omit", rendered "{...}" (an omitted list
+# becomes [ELLIPSIS], so "[...]"). This is the paper's notation, and these are
+# the only ways a listing departs from valid JSON.
+ELLIPSIS = object()
+OMITTED = object()
+
+# Most listing lines a figure may have. A minipage cannot break across pages,
+# so a taller figure runs off the bottom of the page in the paper -- and the
+# preview PDFs cannot show that, because standalone.tex lengthens their page.
+# Measured in the paper's preamble: the text height is 692.7pt, each listing
+# line 9.5pt, and the rest of the figure 65.7pt with a two-line caption plus
+# 11pt per further caption line. That fits 65 lines beside a two-line caption
+# and 62 beside a five-line one; 60 keeps two lines spare at five.
+MAX_LINES = 60
+
+# Longest listing line, in characters. The listing sits in a 0.8\linewidth
+# minipage, 409.7pt in the paper's preamble, and lstlisting sets each character
+# in a fixed 0.6em column: 5.1pt, since the footnotesize typewriter em is 8.5pt.
+# So 80 characters fit and the 81st wraps mid-string (compiled and checked).
+# 76 keeps four columns spare.
+WIDTH = 76
+INDENT = "    "
+
+
+def _resolve(schema, root):
+    while "$ref" in schema:
+        # Every $ref in the schemas is local: "#/definitions/<name>".
+        schema = root["definitions"][schema["$ref"].split("/")[-1]]
+    return schema
+
+
+def _applicable(schemas, data, root):
+    """The subschemas governing `data`, with each if/then/else branch that applies."""
+
+    def branch(cond):
+        # A condition sits either on the schema itself (match.periods: play_direction
+        # unless shootout) or inside its allOf (event: official_id for referees).
+        if "if" not in cond:
+            return []
+        holds = jsonschema.Draft7Validator(cond["if"]).is_valid(data)
+        taken = cond.get("then" if holds else "else")
+        return [taken] if taken else []
+
+    out = []
+    for schema in schemas:
+        schema = _resolve(schema, root)
+        out += [schema] + branch(schema)
+        for cond in schema.get("allOf", []):
+            out += branch(cond) if "if" in cond else [cond]
+    return out
+
+
+def prune(data, schemas, root, max_items, key=None):
+    """`data` reduced to its required fields, with lists cut short.
+
+    `schemas` is every subschema that applies at this point, because an if/then
+    can add requirements to a child -- match.result gains its extratime keys
+    from a condition on match.status.
+    """
+    if isinstance(data, dict):
+        applicable = _applicable(schemas, data, root)
+        required = set().union(*(s.get("required", []) for s in applicable))
+        return {
+            k: prune(
+                v,
+                [
+                    s["properties"][k]
+                    for s in applicable
+                    if isinstance(s.get("properties", {}).get(k), dict)
+                ],
+                root,
+                max_items,
+                key=k,
+            )
+            for k, v in data.items()
+            if k in required
+        }
+    if isinstance(data, list):
+        items = [
+            _resolve(s, root)["items"] for s in schemas if "items" in _resolve(s, root)
+        ]
+        keep = max_items.get(key, max_items.get("default", 1))
+        kept = [prune(v, items, root, max_items) for v in data[:keep]]
+        return kept + [ELLIPSIS] if len(data) > keep else kept
+    return data
+
+
+def _scalar(v):
+    if v is ELLIPSIS:
+        return "..."
+    if v is OMITTED:
+        return "{...}"
+    return json.dumps(v)
+
+
+def render_json(value, used=0, level=0):
+    """`value` as indented JSON, short flat objects on one line, ELLIPSIS as "..."."""
+    if not isinstance(value, (dict, list)):
+        return _scalar(value)
+    items = list(value.items()) if isinstance(value, dict) else list(value)
+    if not items:
+        return "{}" if isinstance(value, dict) else "[]"
+    opening, closing = ("{", "}") if isinstance(value, dict) else ("[", "]")
+
+    def entry(item, used, level):
+        if isinstance(value, dict):
+            k, v = item
+            prefix = f"{json.dumps(k)}: "
+            return prefix + render_json(v, used + len(prefix), level)
+        return render_json(item, used, level)
+
+    flat = all(
+        not isinstance(v, (dict, list)) or not v
+        for v in (value.values() if isinstance(value, dict) else value)
+    )
+    if flat:
+        line = opening + ", ".join(entry(i, 0, 0) for i in items) + closing
+        # One column is held back for the comma the parent may append.
+        if used + len(line) + 1 <= WIDTH:
+            return line
+    pad = INDENT * (level + 1)
+    body = ",\n".join(pad + entry(i, len(pad), level + 1) for i in items)
+    return f"{opening}\n{body}\n{INDENT * level}{closing}"
+
+
+FIGURE = r"""\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+%s
+\end{lstlisting}
+\captionof{figure}{%s}
+\label{%s}
+\end{minipage}
+\end{center}
+"""
+
+
+def example_records(example):
+    """The sample records a figure shows, cut to their required fields."""
+    schema = json.loads((FILES / "schema" / example["schema"]).read_text())
+    sample = FILES / "sample" / example["sample"]
+    if sample.suffix == ".jsonl":
+        records = [json.loads(l) for l in sample.read_text().splitlines() if l]
+        wanted = example.get("records", 1)
+        if len(records) < wanted:
+            # Showing fewer records than the caption promises would read as a
+            # mistake in the paper, so fail rather than quietly shrink.
+            raise SystemExit(
+                f"{example['name']}: wants {wanted} records, {sample} has {len(records)}"
+            )
+        records = records[:wanted]
+    else:
+        records = [json.loads(sample.read_text())]
+    return [prune(r, [schema], schema, example.get("max_items", {})) for r in records]
+
+
+def _omit(record, path):
+    """Replace the value at dotted `path` with its stand-in, in place."""
+    *parents, last = path.split(".")
+    for key in parents:
+        record = record[key]
+    # A KeyError here is a typo in examples.json, or a field the schema dropped.
+    record[last] = [ELLIPSIS] if isinstance(record[last], list) else OMITTED
+
+
+def render_example(example):
+    """One JSON figure's complete LaTeX source, ready to paste into the paper."""
+    rendered = []
+    for record in example_records(example):
+        for path in example.get("omit", []):
+            _omit(record, path)
+        rendered.append(render_json(record))
+    listing = "\n".join(rendered)
+    check_fits(example["name"], listing)
+    return FIGURE % (listing, example["caption"], example["label"])
+
+
+def check_fits(name, listing):
+    """Fail unless `listing` fits the paper's page: see MAX_LINES and WIDTH."""
+    lines = listing.split("\n")
+    if len(lines) > MAX_LINES:
+        raise SystemExit(
+            f"{name}: {len(lines)} listing lines, but only {MAX_LINES} fit on a"
+            " page. Add to its omit or max_items in examples.json."
+        )
+    for number, line in enumerate(lines, 1):
+        # Only a single value can get here -- render_json breaks every object
+        # and list that is too wide -- so the fix is in the sample file.
+        if len(line) > WIDTH:
+            raise SystemExit(
+                f"{name}: listing line {number} is {len(line)} characters, but"
+                f" only {WIDTH} fit without wrapping: {line.strip()[:60]}"
+            )
+
+
 # pdflatex stamps the current time into every PDF, so two runs a second apart
 # produce different bytes and CI could never tell a stale PDF from a fresh one.
 # SOURCE_DATE_EPOCH pins that stamp; the value is arbitrary but must not move.
@@ -158,7 +374,7 @@ def render_pdf(name, source, refs, out_dir):
 
 PAGE = """<!doctype html>
 <meta charset="utf-8">
-<title>{title} - LaTeX tables</title>
+<title>{title} - LaTeX</title>
 <style>
   body {{ font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
          max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }}
@@ -176,27 +392,43 @@ PAGE = """<!doctype html>
   footer {{ margin-top: 3rem; color: #57606a; font-size: .85rem;
             border-top: 1px solid #d0d7de; padding-top: 1rem; }}
   a {{ color: #0969da; }}
+  .preview {{ font: inherit; font-size: .8rem; color: #0969da; background: #fff;
+              border: 1px solid #d0d7de; border-radius: 4px; padding: 0 .5rem;
+              margin-left: .25rem; cursor: pointer; }}
+  .preview:hover {{ background: #f6f8fa; }}
+  .preview.failed {{ color: #cf222e; }}
+  .render {{ padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
+             color: #57606a; font-size: .85rem; overflow-x: auto; }}
+  .render canvas {{ display: block; max-width: 100%; height: auto; }}
 </style>
-<h1>{title}: LaTeX tables</h1>
-<p class="lede">Copy a block straight into the paper. These carry the paper's own
-wording, which differs from the schema's in places, and are regenerated from
-format version {version} whenever the schemas change.</p>
+<h1>{title}: LaTeX</h1>
+<p class="lede">Copy a block straight into the paper. The tables carry the paper's
+own wording, which differs from the schema's in places.{figure_note} All blocks
+are regenerated from format version {version} whenever the schemas change.</p>
 {blocks}
 <footer>
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../{schema_page}">{title} JSON Schema</a>
 </footer>
+<script src="preview.js" defer></script>
 """
+
+FIGURE_NOTE = """ The JSON figure
+is cut down from the format's sample file to the fields the schema requires, so its
+field names always match the validator."""
 
 BLOCK = """<div class="table-block">
   <div class="table-head">
     <h2>{name}</h2>
-    <span class="meta">{rows} rows &middot;
+    <span class="meta">{count} &middot;
       <a href="{name}.txt">.txt</a>{pdf}</span>
   </div>
   <pre>{source}</pre>
 </div>
 """
+
+# Renders the PDF into the page in place of the source; see the script itself.
+PREVIEW_JS = "preview.js"
 
 # Which paper tables belong to which schema page, in the order the paper uses.
 SCHEMA_TITLES = {
@@ -213,36 +445,44 @@ def escape_html(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def write_pages(data, have_pdf):
-    """One page per schema, listing that schema's tables."""
+def write_pages(data, examples, have_pdf):
+    """One page per schema, listing that schema's tables, then its JSON figure."""
     by_schema = {}
     for table in data["tables"]:
-        by_schema.setdefault(table["schema"], []).append(table)
+        count = f"{len(table['rows'])} rows"
+        by_schema.setdefault(table["schema"], []).append((table["name"], count))
+    for example in examples:
+        by_schema.setdefault(example["schema"], []).append(
+            (example["name"], "JSON figure")
+        )
 
-    for schema, tables in by_schema.items():
+    shutil.copy(ASSETS / PREVIEW_JS, OUT / PREVIEW_JS)
+    for schema, entries in by_schema.items():
         blocks = []
-        for t in tables:
-            name = t["name"]
+        for name, count in entries:
             # Link a PDF that exists on disk even if this run did not build one.
             # A --no-pdf run used to silently strip working links from the pages.
             pdf = (
                 f' &middot; <a href="{name}.pdf">.pdf</a>'
+                f' <button class="preview" data-pdf="{name}.pdf">Preview</button>'
                 if name in have_pdf or (OUT / f"{name}.pdf").exists()
                 else ""
             )
             blocks.append(
                 BLOCK.format(
                     name=name,
-                    rows=len(t["rows"]),
+                    count=count,
                     pdf=pdf,
                     source=escape_html((OUT / f"{name}.txt").read_text()),
                 )
             )
         stem = schema.replace(".json", "")
+        has_figure = any(e["schema"] == schema for e in examples)
         (OUT / f"{stem}.html").write_text(
             PAGE.format(
                 title=SCHEMA_TITLES.get(schema, stem),
                 version=data["version"],
+                figure_note=FIGURE_NOTE if has_figure else "",
                 blocks="\n".join(blocks),
                 schema_page=schema.replace(".json", ".html"),
             )
@@ -266,19 +506,38 @@ def main():
         print("  pdflatex not found; writing text only")
         want_pdf = False
 
+    for needed in (TABLES, EXAMPLES):
+        if not needed.exists():
+            # Usually a VERSION bump made before the new version's folder was
+            # complete. Stopping here leaves docs/ as it was.
+            print(
+                f"  VERSION is {VERSION}, but {needed.relative_to(ROOT)} does not exist."
+            )
+            print("  Copy it from the previous version's folder.")
+            return 1
+
     data = json.loads(TABLES.read_text())
+    examples = json.loads(EXAMPLES.read_text())["examples"]
     OUT.mkdir(parents=True, exist_ok=True)
+
+    fragments = [
+        (
+            t["name"],
+            render_table(t),
+            t["tex"].get("refs", ""),
+            f"{len(t['rows']):3} rows",
+        )
+        for t in data["tables"]
+    ] + [(e["name"], render_example(e), e["refs"], "JSON figure") for e in examples]
 
     failed = []
     made, have_pdf = 0, set()
-    for table in data["tables"]:
-        name = table["name"]
-        source = render_table(table)
+    for name, source, refs, what in fragments:
         (OUT / f"{name}.txt").write_text(source)
         made += 1
-        line = f"  {name:28} {len(table['rows']):3} rows"
+        line = f"  {name:28} {what}"
         if want_pdf:
-            ok, detail = render_pdf(name, source, table["tex"].get("refs", ""), OUT)
+            ok, detail = render_pdf(name, source, refs, OUT)
             if not ok:
                 failed.append(name)
                 line += "   PDF FAILED"
@@ -289,8 +548,8 @@ def main():
             line += f"   pdf{'  ' + str(detail) + ' overfull' if detail else ''}"
         print(line)
 
-    pages = write_pages(data, have_pdf)
-    print(f"\n  {made} tables, {len(pages)} pages -> {OUT.relative_to(ROOT)}")
+    pages = write_pages(data, examples, have_pdf)
+    print(f"\n  {made} fragments, {len(pages)} pages -> {OUT.relative_to(ROOT)}")
     print(f"  format version {data['version']}")
 
     # A failed render leaves the previous PDF in place, so a staleness check

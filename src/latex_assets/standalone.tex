@@ -15,8 +15,13 @@
 % blank apart from the page number. Lengthen the page -- but not the text
 % width, because `adjustbox{max width=\textwidth}` scales the table to it and
 % a different width would misrepresent how the table looks in the paper.
+%
+% The page height is set through \paperheight, because hyperref resets
+% \pdfpageheight from it at \begin{document}. Setting \pdfpageheight alone left
+% every PDF on an A4 page, and the two longest tables ran off its bottom edge.
 \addtolength{\textheight}{60cm}
-\setlength{\pdfpageheight}{\dimexpr\textheight+2in\relax}
+\setlength{\paperheight}{\dimexpr\textheight+2in\relax}
+\setlength{\pdfpageheight}{\paperheight}
 \pagestyle{empty}
 
 % Cross-references point at labels that live in the parent document. Without

@@ -1,0 +1,50 @@
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "frame_id": 0,
+    "timestamp": "2023-10-01T12:00:00Z",
+    "period": "first_half",
+    "match": {"id": "match_20230415_team1_team2"},
+    "teams": {
+        "home": {
+            "id": "team1",
+            "players": [
+                {
+                    "id": "player_h1",
+                    "landmarks": [
+                        {
+                            "name": "head",
+                            "x": 23.45,
+                            "y": 15.67,
+                            "z": 1.82,
+                            "is_visible": true
+                        },
+                        {
+                            "name": "neck",
+                            "x": 23.48,
+                            "y": 15.7,
+                            "z": 1.65,
+                            "is_visible": true
+                        },
+                        {
+                            "name": "shoulder_right",
+                            "x": 23.3,
+                            "y": 15.75,
+                            "z": 1.65,
+                            "is_visible": true
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ]
+        },
+        "away": {...}
+    }
+}
+\end{lstlisting}
+\captionof{figure}{Example of the JSON Lines ({$.jsonl$}) for the Landmark Tracking Data. One frame is shown, with the first three landmarks of one home team player. The coordinate system is the same used in \ref{p:coords}.}
+\label{fig:skeletal-hierarchy}
+\end{minipage}
+\end{center}

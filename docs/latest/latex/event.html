@@ -1,6 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Event Data - LaTeX tables</title>
+<title>Event Data - LaTeX</title>
 <style>
   body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
          max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
@@ -18,16 +18,26 @@
   footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
             border-top: 1px solid #d0d7de; padding-top: 1rem; }
   a { color: #0969da; }
+  .preview { font: inherit; font-size: .8rem; color: #0969da; background: #fff;
+              border: 1px solid #d0d7de; border-radius: 4px; padding: 0 .5rem;
+              margin-left: .25rem; cursor: pointer; }
+  .preview:hover { background: #f6f8fa; }
+  .preview.failed { color: #cf222e; }
+  .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
+             color: #57606a; font-size: .85rem; overflow-x: auto; }
+  .render canvas { display: block; max-width: 100%; height: auto; }
 </style>
-<h1>Event Data: LaTeX tables</h1>
-<p class="lede">Copy a block straight into the paper. These carry the paper's own
-wording, which differs from the schema's in places, and are regenerated from
-format version 0.3.2 whenever the schemas change.</p>
+<h1>Event Data: LaTeX</h1>
+<p class="lede">Copy a block straight into the paper. The tables carry the paper's
+own wording, which differs from the schema's in places. The JSON figure
+is cut down from the format's sample file to the fields the schema requires, so its
+field names always match the validator. All blocks
+are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
     <h2>cdf-event-required</h2>
     <span class="meta">21 rows &middot;
-      <a href="cdf-event-required.txt">.txt</a> &middot; <a href="cdf-event-required.pdf">.pdf</a></span>
+      <a href="cdf-event-required.txt">.txt</a> &middot; <a href="cdf-event-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-event-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -68,7 +78,7 @@ event &amp; receiver\_team\_id &amp; Unique team identifier of the player identi
   <div class="table-head">
     <h2>cdf-event-optional</h2>
     <span class="meta">11 rows &middot;
-      <a href="cdf-event-optional.txt">.txt</a> &middot; <a href="cdf-event-optional.pdf">.pdf</a></span>
+      <a href="cdf-event-optional.txt">.txt</a> &middot; <a href="cdf-event-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-event-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -95,7 +105,73 @@ event/var &amp; upheld &amp; Was the on-field ruling confirmed (true) or overtur
 </pre>
 </div>
 
+<div class="table-block">
+  <div class="table-head">
+    <h2>event-data</h2>
+    <span class="meta">JSON figure &middot;
+      <a href="event-data.txt">.txt</a> &middot; <a href="event-data.pdf">.pdf</a> <button class="preview" data-pdf="event-data.pdf">Preview</button></span>
+  </div>
+  <pre>\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "match": {"id": "match_2023_05_15_team789_team101"},
+    "meta": {"is_synced": true},
+    "event": {
+        "id": "event_12345",
+        "time": "2023-05-15T20:15:30Z",
+        "period": "first_half",
+        "type": "pass",
+        "sub_type": "corner_kick",
+        "is_successful": true,
+        "outcome_type": "successful",
+        "player_id": "player_7",
+        "team_id": "team_789",
+        "receiver_id": "player_9",
+        "receiver_time": "2023-05-15T20:15:33Z",
+        "x": 44.0,
+        "y": 0.5,
+        "x_end": 51.2,
+        "y_end": 8.7,
+        "body_part": "right_foot",
+        "related_event_ids": ["event_12346"],
+        "receiver_team_id": "team_789"
+    }
+}
+{
+    "match": {"id": "match_2023_05_15_team789_team101"},
+    "meta": {"is_synced": true},
+    "event": {
+        "id": "event_12347",
+        "time": "2023-05-15T20:16:02Z",
+        "period": "first_half",
+        "type": "save",
+        "sub_type": null,
+        "is_successful": true,
+        "outcome_type": "successful",
+        "player_id": "player_1",
+        "team_id": "team_101",
+        "receiver_id": null,
+        "receiver_time": null,
+        "x": -49.5,
+        "y": 1.2,
+        "x_end": null,
+        "y_end": null,
+        "body_part": "hands",
+        "related_event_ids": null,
+        "receiver_team_id": null
+    }
+}
+\end{lstlisting}
+\captionof{figure}{Example of JSON Lines ({$.jsonl$}) that covers the mandatory CDF fields for Event Data. The file describes two events which are expanded over multiple lines for readability.}
+\label{fig:event-data}
+\end{minipage}
+\end{center}
+</pre>
+</div>
+
 <footer>
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../event.html">Event Data JSON Schema</a>
 </footer>
+<script src="preview.js" defer></script>

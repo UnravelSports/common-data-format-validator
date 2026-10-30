@@ -1,6 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Landmark Data - LaTeX tables</title>
+<title>Landmark Data - LaTeX</title>
 <style>
   body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
          max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
@@ -18,16 +18,26 @@
   footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
             border-top: 1px solid #d0d7de; padding-top: 1rem; }
   a { color: #0969da; }
+  .preview { font: inherit; font-size: .8rem; color: #0969da; background: #fff;
+              border: 1px solid #d0d7de; border-radius: 4px; padding: 0 .5rem;
+              margin-left: .25rem; cursor: pointer; }
+  .preview:hover { background: #f6f8fa; }
+  .preview.failed { color: #cf222e; }
+  .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
+             color: #57606a; font-size: .85rem; overflow-x: auto; }
+  .render canvas { display: block; max-width: 100%; height: auto; }
 </style>
-<h1>Landmark Data: LaTeX tables</h1>
-<p class="lede">Copy a block straight into the paper. These carry the paper's own
-wording, which differs from the schema's in places, and are regenerated from
-format version 0.3.2 whenever the schemas change.</p>
+<h1>Landmark Data: LaTeX</h1>
+<p class="lede">Copy a block straight into the paper. The tables carry the paper's
+own wording, which differs from the schema's in places. The JSON figure
+is cut down from the format's sample file to the fields the schema requires, so its
+field names always match the validator. All blocks
+are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
     <h2>cdf-limb-tracking-required</h2>
     <span class="meta">11 rows &middot;
-      <a href="cdf-limb-tracking-required.txt">.txt</a> &middot; <a href="cdf-limb-tracking-required.pdf">.pdf</a></span>
+      <a href="cdf-limb-tracking-required.txt">.txt</a> &middot; <a href="cdf-limb-tracking-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-limb-tracking-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -58,7 +68,7 @@ teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; is\_visibl
   <div class="table-head">
     <h2>cdf-limb-tracking-optional</h2>
     <span class="meta">15 rows &middot;
-      <a href="cdf-limb-tracking-optional.txt">.txt</a> &middot; <a href="cdf-limb-tracking-optional.pdf">.pdf</a></span>
+      <a href="cdf-limb-tracking-optional.txt">.txt</a> &middot; <a href="cdf-limb-tracking-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-limb-tracking-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -89,7 +99,67 @@ officials/\{i\} &amp; is\_visible &amp; Denotes if an official was visible (in v
 </pre>
 </div>
 
+<div class="table-block">
+  <div class="table-head">
+    <h2>skeletal-hierarchy</h2>
+    <span class="meta">JSON figure &middot;
+      <a href="skeletal-hierarchy.txt">.txt</a> &middot; <a href="skeletal-hierarchy.pdf">.pdf</a> <button class="preview" data-pdf="skeletal-hierarchy.pdf">Preview</button></span>
+  </div>
+  <pre>\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "frame_id": 0,
+    "timestamp": "2023-10-01T12:00:00Z",
+    "period": "first_half",
+    "match": {"id": "match_20230415_team1_team2"},
+    "teams": {
+        "home": {
+            "id": "team1",
+            "players": [
+                {
+                    "id": "player_h1",
+                    "landmarks": [
+                        {
+                            "name": "head",
+                            "x": 23.45,
+                            "y": 15.67,
+                            "z": 1.82,
+                            "is_visible": true
+                        },
+                        {
+                            "name": "neck",
+                            "x": 23.48,
+                            "y": 15.7,
+                            "z": 1.65,
+                            "is_visible": true
+                        },
+                        {
+                            "name": "shoulder_right",
+                            "x": 23.3,
+                            "y": 15.75,
+                            "z": 1.65,
+                            "is_visible": true
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ]
+        },
+        "away": {...}
+    }
+}
+\end{lstlisting}
+\captionof{figure}{Example of the JSON Lines ({$.jsonl$}) for the Landmark Tracking Data. One frame is shown, with the first three landmarks of one home team player. The coordinate system is the same used in \ref{p:coords}.}
+\label{fig:skeletal-hierarchy}
+\end{minipage}
+\end{center}
+</pre>
+</div>
+
 <footer>
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../landmark.html">Landmark Data JSON Schema</a>
 </footer>
+<script src="preview.js" defer></script>

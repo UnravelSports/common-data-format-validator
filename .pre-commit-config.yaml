@@ -19,10 +19,33 @@ repos:
         always_run: true
         stages: [pre-commit]
 
+  # The generated files below are what CI's "Check generated files are up to
+  # date" step compares. Regenerating them here means a schema change is one
+  # commit: if a generator changes anything, pre-commit reports the files as
+  # modified and fails -- stage the result and commit again, as with black.
+  #
+  # cdf/validators/__init__.py holds VERSION, which picks the cdf/files/v*/
+  # folder every generator reads, so a version bump triggers all three.
   - repo: local
     hooks:
+      - id: schema-docs
+        name: Schema HTML docs are current
+        entry: python src/generate_docs.py
+        language: system
+        pass_filenames: false
+        files: ^(cdf/files/v[^/]+/schema/.+|cdf/validators/__init__\.py|src/generate_docs\.py|docs/index\.html)$
+        stages: [pre-commit]
+
+      - id: domain-models
+        name: Domain models are current
+        entry: python src/generate_latest_domain.py
+        language: system
+        pass_filenames: false
+        files: ^(cdf/files/v[^/]+/schema/.+|cdf/validators/__init__\.py|src/generate_latest_domain\.py)$
+        stages: [pre-commit]
+
       - id: latex-pdfs
-        name: LaTeX table PDFs are current
+        name: LaTeX tables and JSON figures are current
         # The PDFs under docs/latest/latex/ are committed because CI cannot
         # rebuild them: pdflatex output varies with the TeX Live version, so
         # CI's bytes would never match a contributor's. They are regenerated
@@ -31,9 +54,29 @@ repos:
         #
         # --require-pdf so a missing TeX installation is an error rather than a
         # silent fall back to text-only, which would leave the PDFs stale.
+        # The PDFs render with the paper's own preamble, which pulls in 26
+        # packages: MnSymbol lives in TeX Live's fonts-extra and authblk in
+        # latex-extra, so the recommended set alone is not enough.
         entry: python src/generate_latex.py --require-pdf
         language: system
         pass_filenames: false
-        files: ^(cdf/files/v[^/]+/latex/tables\.json|src/generate_latex\.py|src/latex_assets/.+)$
+        # The JSON figures are cut from the sample files to the schema's required
+        # fields, so a change to either can change a figure too.
+        files: ^(cdf/files/v[^/]+/(latex|sample|schema)/.+|cdf/validators/__init__\.py|src/generate_latex\.py|src/latex_assets/.+)$
+        stages: [pre-commit]
+
+      - id: generated-files-tracked
+        name: New generated files are staged
+        # pre-commit notices files a hook modified, but not files it created. A
+        # new table or figure writes new .txt and .pdf files, so without this
+        # the commit would link to files that are not in it. Runs last, after
+        # the generators above.
+        entry: >-
+          bash -c 'new=$(git ls-files --others --exclude-standard -- docs cdf/domain/latest);
+          [ -z "$new" ] || { echo "Generated files not tracked yet; git add them and commit again:";
+          echo "$new"; exit 1; }'
+        language: system
+        pass_filenames: false
+        always_run: true
         stages: [pre-commit]
 

@@ -122,8 +122,15 @@ def update_index_badge():
 
 
 if __name__ == "__main__":
-    schemas_ok = generate_schema_docs()
-    badge_ok = update_index_badge()
+    version_dir = ROOT / f"cdf/files/v{VERSION}"
+    if not version_dir.is_dir():
+        # Checked before anything is written, so a VERSION bump made ahead of
+        # its folder leaves the docs, and the badge, as they were.
+        print(f"✗ Error: VERSION is {VERSION}, but {version_dir} does not exist.")
+        print("  Create it, e.g. by copying the previous version's folder.")
+        sys.exit(1)
 
-    if not (schemas_ok and badge_ok):
+    # The badge names the version the docs describe, so it is only stamped
+    # once those docs have been generated.
+    if not (generate_schema_docs() and update_index_badge()):
         sys.exit(1)

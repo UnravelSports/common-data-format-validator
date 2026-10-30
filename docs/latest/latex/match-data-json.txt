@@ -1,0 +1,30 @@
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "match": {
+        "id": "123456789",
+        "status": {
+            "is_neutral": false,
+            "has_extratime": true,
+            "has_shootout": true
+        },
+        "result": {
+            "final": {"home": 1, "away": 1, "winning_team_id": "T1000"},
+            "first_half": {"home": 1, "away": 0},
+            "second_half": {"home": 1, "away": 1},
+            "first_half_extratime": {"home": 1, "away": 1},
+            "second_half_extratime": {"home": 1, "away": 1},
+            "shootout": {"home": 5, "away": 4}
+        }
+    },
+    "teams": {...},
+    "officials": [...],
+    "events": {...},
+    "meta": {...}
+}
+\end{lstlisting}
+\captionof{figure}{Simplified example of a partial JSON Object that depicts the structure of the match sheet data. In particular, it describes the format of the results in this data source.}
+\label{fig:match-data-json}
+\end{minipage}
+\end{center}
