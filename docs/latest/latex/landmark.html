@@ -26,6 +26,8 @@
   .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
              color: #57606a; font-size: .85rem; overflow-x: auto; }
   .render canvas { display: block; max-width: 100%; height: auto; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 <h1>Landmark Data: LaTeX</h1>
 <p class="lede">Copy a block straight into the paper. The tables carry the paper's
@@ -35,9 +37,9 @@ field names always match the validator. All blocks
 are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-limb-tracking-required</h2>
+    <h2 id="cdf-limb-tracking-required-title">cdf-limb-tracking-required</h2>
     <span class="meta">11 rows &middot;
-      <a href="cdf-limb-tracking-required.txt">.txt</a> &middot; <a href="cdf-limb-tracking-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-limb-tracking-required.pdf">Preview</button></span>
+      <a href="cdf-limb-tracking-required.txt">.txt</a> &middot; <a href="cdf-limb-tracking-required.pdf">.pdf</a> <button class="preview" id="cdf-limb-tracking-required-preview" aria-labelledby="cdf-limb-tracking-required-preview cdf-limb-tracking-required-title" data-pdf="cdf-limb-tracking-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -66,9 +68,9 @@ teams/\{home\text{\textbar}away\}/players/\{i\}/landmarks/\{j\} &amp; is\_visibl
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-limb-tracking-optional</h2>
+    <h2 id="cdf-limb-tracking-optional-title">cdf-limb-tracking-optional</h2>
     <span class="meta">15 rows &middot;
-      <a href="cdf-limb-tracking-optional.txt">.txt</a> &middot; <a href="cdf-limb-tracking-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-limb-tracking-optional.pdf">Preview</button></span>
+      <a href="cdf-limb-tracking-optional.txt">.txt</a> &middot; <a href="cdf-limb-tracking-optional.pdf">.pdf</a> <button class="preview" id="cdf-limb-tracking-optional-preview" aria-labelledby="cdf-limb-tracking-optional-preview cdf-limb-tracking-optional-title" data-pdf="cdf-limb-tracking-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -101,9 +103,9 @@ officials/\{i\} &amp; is\_visible &amp; Denotes if an official was visible (in v
 
 <div class="table-block">
   <div class="table-head">
-    <h2>skeletal-hierarchy</h2>
+    <h2 id="skeletal-hierarchy-title">skeletal-hierarchy</h2>
     <span class="meta">JSON figure &middot;
-      <a href="skeletal-hierarchy.txt">.txt</a> &middot; <a href="skeletal-hierarchy.pdf">.pdf</a> <button class="preview" data-pdf="skeletal-hierarchy.pdf">Preview</button></span>
+      <a href="skeletal-hierarchy.txt">.txt</a> &middot; <a href="skeletal-hierarchy.pdf">.pdf</a> <button class="preview" id="skeletal-hierarchy-preview" aria-labelledby="skeletal-hierarchy-preview skeletal-hierarchy-title" data-pdf="skeletal-hierarchy.pdf">Preview</button></span>
   </div>
   <pre>\begin{center}
 \begin{minipage}{0.8\linewidth}
@@ -162,4 +164,5 @@ officials/\{i\} &amp; is\_visible &amp; Denotes if an official was visible (in v
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../landmark.html">Landmark Data JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
 <script src="preview.js" defer></script>

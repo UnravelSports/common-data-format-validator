@@ -26,6 +26,8 @@
   .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
              color: #57606a; font-size: .85rem; overflow-x: auto; }
   .render canvas { display: block; max-width: 100%; height: auto; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 <h1>Meta Data: LaTeX</h1>
 <p class="lede">Copy a block straight into the paper. The tables carry the paper's
@@ -35,9 +37,9 @@ field names always match the validator. All blocks
 are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-meta-required</h2>
+    <h2 id="cdf-meta-required-title">cdf-meta-required</h2>
     <span class="meta">27 rows &middot;
-      <a href="cdf-meta-required.txt">.txt</a> &middot; <a href="cdf-meta-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-meta-required.pdf">Preview</button></span>
+      <a href="cdf-meta-required.txt">.txt</a> &middot; <a href="cdf-meta-required.pdf">.pdf</a> <button class="preview" id="cdf-meta-required-preview" aria-labelledby="cdf-meta-required-preview cdf-meta-required-title" data-pdf="cdf-meta-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H] % Use [H] to force the table placement
 \caption{Description of mandatory Match Meta CDF. Any description ending with a $^\star$ is repeated once per player. Note that \{i\} is used as an index for the items in a list. Separate ball version, name, fps and collection timing is only required when providing an independent ball file (i.e. when the ball sampling rate is different).}
@@ -82,9 +84,9 @@ match/periods/\{i\} &amp; period &amp; Period of the match which can be first\_h
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-meta-optional</h2>
+    <h2 id="cdf-meta-optional-title">cdf-meta-optional</h2>
     <span class="meta">17 rows &middot;
-      <a href="cdf-meta-optional.txt">.txt</a> &middot; <a href="cdf-meta-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-meta-optional.pdf">Preview</button></span>
+      <a href="cdf-meta-optional.txt">.txt</a> &middot; <a href="cdf-meta-optional.pdf">.pdf</a> <button class="preview" id="cdf-meta-optional-preview" aria-labelledby="cdf-meta-optional-preview cdf-meta-optional-title" data-pdf="cdf-meta-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H] % Use [H] to force the table placement
 \centering
@@ -119,9 +121,9 @@ teams/\{home\text{\textbar}away\} &amp; jersey\_colour &amp; Jersey colour of th
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-meta-optional-1</h2>
+    <h2 id="cdf-meta-optional-1-title">cdf-meta-optional-1</h2>
     <span class="meta">15 rows &middot;
-      <a href="cdf-meta-optional-1.txt">.txt</a> &middot; <a href="cdf-meta-optional-1.pdf">.pdf</a> <button class="preview" data-pdf="cdf-meta-optional-1.pdf">Preview</button></span>
+      <a href="cdf-meta-optional-1.txt">.txt</a> &middot; <a href="cdf-meta-optional-1.pdf">.pdf</a> <button class="preview" id="cdf-meta-optional-1-preview" aria-labelledby="cdf-meta-optional-1-preview cdf-meta-optional-1-title" data-pdf="cdf-meta-optional-1.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H] % Use [H] to force the table placement
 \centering
@@ -154,9 +156,9 @@ officials/\{i\} &amp; type &amp; Role of the official (e.g., `main\_referee', `a
 
 <div class="table-block">
   <div class="table-head">
-    <h2>meta-data</h2>
+    <h2 id="meta-data-title">meta-data</h2>
     <span class="meta">JSON figure &middot;
-      <a href="meta-data.txt">.txt</a> &middot; <a href="meta-data.pdf">.pdf</a> <button class="preview" data-pdf="meta-data.pdf">Preview</button></span>
+      <a href="meta-data.txt">.txt</a> &middot; <a href="meta-data.pdf">.pdf</a> <button class="preview" id="meta-data-preview" aria-labelledby="meta-data-preview meta-data-title" data-pdf="meta-data.pdf">Preview</button></span>
   </div>
   <pre>\begin{center}
 \begin{minipage}{0.8\linewidth}
@@ -231,4 +233,5 @@ officials/\{i\} &amp; type &amp; Role of the official (e.g., `main\_referee', `a
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../meta.html">Meta Data JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
 <script src="preview.js" defer></script>

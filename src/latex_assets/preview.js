@@ -69,15 +69,21 @@
   // `width` is the CSS width to fill. It is measured by the caller before
   // anything is hidden: a hidden target reads as 0 wide, which once drew an
   // empty canvas that every later click then reused.
-  async function render(url, target, width) {
+  async function render(url, target, width, label) {
     var pdfjs = await loadPdfjs();
-    var doc = await pdfjs.getDocument(url).promise;
+    // isEvalSupported: false stops PDF.js turning a PDF's font data into
+    // JavaScript, the code path CVE-2024-4367 abuses in versions up to 4.1.392.
+    var task = pdfjs.getDocument({ url: url, isEvalSupported: false });
     try {
-      target.replaceChildren(await draw(doc, width));
+      var canvas = await draw(await task.promise, width);
+      canvas.setAttribute("role", "img");
+      canvas.setAttribute("aria-label", label);
+      target.replaceChildren(canvas);
     } finally {
-      // Ends the PDF.js worker thread too, which otherwise stays alive for each
-      // preview. The canvas keeps its pixels.
-      doc.destroy();
+      // Ends the PDF.js worker thread, which otherwise stays alive for each
+      // preview. Destroying the loading task rather than the document also
+      // ends it when the PDF fails to load. The canvas keeps its pixels.
+      task.destroy();
     }
   }
 
@@ -117,17 +123,26 @@
     return block.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
   }
 
+  // Screen readers read the page's status line aloud when its text changes;
+  // the visible "Rendering…" and button text alone are never announced.
+  function announce(text) {
+    var status = document.getElementById("preview-status");
+    if (status) status.textContent = text;
+  }
+
   document.addEventListener("click", function (event) {
     var button = event.target.closest("button.preview");
     if (!button) return;
     var block = button.closest(".table-block");
     var source = block.querySelector("pre");
     var shown = block.querySelector(".render");
+    var name = button.dataset.pdf.replace(/\.pdf$/, "");
 
     if (shown && !shown.hidden) {
       shown.hidden = true;
       source.hidden = false;
       button.textContent = "Preview";
+      announce("Showing the LaTeX source of " + name);
       return;
     }
     source.hidden = true;
@@ -135,13 +150,18 @@
     button.classList.remove("failed");
     if (shown) {
       shown.hidden = false;
+      announce("Showing the rendered " + name);
       return;
     }
     shown = document.createElement("div");
     shown.className = "render";
     shown.textContent = "Rendering…";
     block.appendChild(shown);
-    render(button.dataset.pdf, shown, contentWidth(block, shown)).catch(function (err) {
+    announce("Rendering " + name);
+    var label = "Rendered " + name + "; the Source button shows its LaTeX as text";
+    render(button.dataset.pdf, shown, contentWidth(block, shown), label).then(function () {
+      announce("Showing the rendered " + name);
+    }, function (err) {
       // A failed render is not cached, so the next click tries again.
       shown.remove();
       source.hidden = false;
@@ -151,6 +171,7 @@
       window.console.error("Preview failed for " + button.dataset.pdf, err);
       button.textContent = "Preview failed";
       button.classList.add("failed");
+      announce("Preview of " + name + " failed");
     });
   });
 })();

@@ -26,6 +26,8 @@
   .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
              color: #57606a; font-size: .85rem; overflow-x: auto; }
   .render canvas { display: block; max-width: 100%; height: auto; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 <h1>Event Data: LaTeX</h1>
 <p class="lede">Copy a block straight into the paper. The tables carry the paper's
@@ -35,9 +37,9 @@ field names always match the validator. All blocks
 are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-event-required</h2>
+    <h2 id="cdf-event-required-title">cdf-event-required</h2>
     <span class="meta">21 rows &middot;
-      <a href="cdf-event-required.txt">.txt</a> &middot; <a href="cdf-event-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-event-required.pdf">Preview</button></span>
+      <a href="cdf-event-required.txt">.txt</a> &middot; <a href="cdf-event-required.pdf">.pdf</a> <button class="preview" id="cdf-event-required-preview" aria-labelledby="cdf-event-required-preview cdf-event-required-title" data-pdf="cdf-event-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -76,9 +78,9 @@ event &amp; receiver\_team\_id &amp; Unique team identifier of the player identi
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-event-optional</h2>
+    <h2 id="cdf-event-optional-title">cdf-event-optional</h2>
     <span class="meta">11 rows &middot;
-      <a href="cdf-event-optional.txt">.txt</a> &middot; <a href="cdf-event-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-event-optional.pdf">Preview</button></span>
+      <a href="cdf-event-optional.txt">.txt</a> &middot; <a href="cdf-event-optional.pdf">.pdf</a> <button class="preview" id="cdf-event-optional-preview" aria-labelledby="cdf-event-optional-preview cdf-event-optional-title" data-pdf="cdf-event-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -107,9 +109,9 @@ event/var &amp; upheld &amp; Was the on-field ruling confirmed (true) or overtur
 
 <div class="table-block">
   <div class="table-head">
-    <h2>event-data</h2>
+    <h2 id="event-data-title">event-data</h2>
     <span class="meta">JSON figure &middot;
-      <a href="event-data.txt">.txt</a> &middot; <a href="event-data.pdf">.pdf</a> <button class="preview" data-pdf="event-data.pdf">Preview</button></span>
+      <a href="event-data.txt">.txt</a> &middot; <a href="event-data.pdf">.pdf</a> <button class="preview" id="event-data-preview" aria-labelledby="event-data-preview event-data-title" data-pdf="event-data.pdf">Preview</button></span>
   </div>
   <pre>\begin{center}
 \begin{minipage}{0.8\linewidth}
@@ -174,4 +176,5 @@ event/var &amp; upheld &amp; Was the on-field ruling confirmed (true) or overtur
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../event.html">Event Data JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
 <script src="preview.js" defer></script>

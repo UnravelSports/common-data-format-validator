@@ -26,6 +26,8 @@
   .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
              color: #57606a; font-size: .85rem; overflow-x: auto; }
   .render canvas { display: block; max-width: 100%; height: auto; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 <h1>Match Data: LaTeX</h1>
 <p class="lede">Copy a block straight into the paper. The tables carry the paper's
@@ -35,9 +37,9 @@ field names always match the validator. All blocks
 are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-matchdata-required</h2>
+    <h2 id="cdf-matchdata-required-title">cdf-matchdata-required</h2>
     <span class="meta">40 rows &middot;
-      <a href="cdf-matchdata-required.txt">.txt</a> &middot; <a href="cdf-matchdata-required.pdf">.pdf</a> <button class="preview" data-pdf="cdf-matchdata-required.pdf">Preview</button></span>
+      <a href="cdf-matchdata-required.txt">.txt</a> &middot; <a href="cdf-matchdata-required.pdf">.pdf</a> <button class="preview" id="cdf-matchdata-required-preview" aria-labelledby="cdf-matchdata-required-preview cdf-matchdata-required-title" data-pdf="cdf-matchdata-required.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
     \caption{Description of the mandatory Match Sheet Data CDF fields. Any description ending with a $^\star$ is repeated once per player. Only players named to the match day squad are listed. Any description ending with a $^\dagger$ is repeated once per event. Note that \{i\} is used as an index for the items in a list. Figure~\ref{fig:match-data-json} describes the specific format for providing results.}
@@ -94,9 +96,9 @@ events/cards/\{i\} &amp; period &amp; Period of the game when the card was shown
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-matchdata-optional</h2>
+    <h2 id="cdf-matchdata-optional-title">cdf-matchdata-optional</h2>
     <span class="meta">19 rows &middot;
-      <a href="cdf-matchdata-optional.txt">.txt</a> &middot; <a href="cdf-matchdata-optional.pdf">.pdf</a> <button class="preview" data-pdf="cdf-matchdata-optional.pdf">Preview</button></span>
+      <a href="cdf-matchdata-optional.txt">.txt</a> &middot; <a href="cdf-matchdata-optional.pdf">.pdf</a> <button class="preview" id="cdf-matchdata-optional-preview" aria-labelledby="cdf-matchdata-optional-preview cdf-matchdata-optional-title" data-pdf="cdf-matchdata-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -133,9 +135,9 @@ officials/\{i\} &amp; type &amp; Role of the official (e.g., `main\_referee', `a
 
 <div class="table-block">
   <div class="table-head">
-    <h2>match-data-json</h2>
+    <h2 id="match-data-json-title">match-data-json</h2>
     <span class="meta">JSON figure &middot;
-      <a href="match-data-json.txt">.txt</a> &middot; <a href="match-data-json.pdf">.pdf</a> <button class="preview" data-pdf="match-data-json.pdf">Preview</button></span>
+      <a href="match-data-json.txt">.txt</a> &middot; <a href="match-data-json.pdf">.pdf</a> <button class="preview" id="match-data-json-preview" aria-labelledby="match-data-json-preview match-data-json-title" data-pdf="match-data-json.pdf">Preview</button></span>
   </div>
   <pre>\begin{center}
 \begin{minipage}{0.8\linewidth}
@@ -174,4 +176,5 @@ officials/\{i\} &amp; type &amp; Role of the official (e.g., `main\_referee', `a
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../match.html">Match Data JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
 <script src="preview.js" defer></script>

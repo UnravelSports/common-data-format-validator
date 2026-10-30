@@ -400,6 +400,8 @@ PAGE = """<!doctype html>
   .render {{ padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
              color: #57606a; font-size: .85rem; overflow-x: auto; }}
   .render canvas {{ display: block; max-width: 100%; height: auto; }}
+  .visually-hidden {{ position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }}
 </style>
 <h1>{title}: LaTeX</h1>
 <p class="lede">Copy a block straight into the paper. The tables carry the paper's
@@ -410,6 +412,7 @@ are regenerated from format version {version} whenever the schemas change.</p>
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../{schema_page}">{title} JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
 <script src="preview.js" defer></script>
 """
 
@@ -419,7 +422,7 @@ field names always match the validator."""
 
 BLOCK = """<div class="table-block">
   <div class="table-head">
-    <h2>{name}</h2>
+    <h2 id="{name}-title">{name}</h2>
     <span class="meta">{count} &middot;
       <a href="{name}.txt">.txt</a>{pdf}</span>
   </div>
@@ -462,9 +465,14 @@ def write_pages(data, examples, have_pdf):
         for name, count in entries:
             # Link a PDF that exists on disk even if this run did not build one.
             # A --no-pdf run used to silently strip working links from the pages.
+            # The button's accessible name is its own text plus the block's
+            # heading ("Preview meta-data"), so a screen reader can tell the
+            # buttons apart, and it follows the text as that changes.
             pdf = (
                 f' &middot; <a href="{name}.pdf">.pdf</a>'
-                f' <button class="preview" data-pdf="{name}.pdf">Preview</button>'
+                f' <button class="preview" id="{name}-preview"'
+                f' aria-labelledby="{name}-preview {name}-title"'
+                f' data-pdf="{name}.pdf">Preview</button>'
                 if name in have_pdf or (OUT / f"{name}.pdf").exists()
                 else ""
             )
@@ -528,7 +536,10 @@ def main():
             f"{len(t['rows']):3} rows",
         )
         for t in data["tables"]
-    ] + [(e["name"], render_example(e), e["refs"], "JSON figure") for e in examples]
+    ] + [
+        (e["name"], render_example(e), e.get("refs", ""), "JSON figure")
+        for e in examples
+    ]
 
     failed = []
     made, have_pdf = 0, set()

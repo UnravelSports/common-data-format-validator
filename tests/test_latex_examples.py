@@ -126,6 +126,22 @@ def test_lists_are_cut_to_max_items(example):
             assert len(shown) <= limits.get(key, limits.get("default", 1)), key
 
 
+def test_cut_lists_end_in_an_ellipsis():
+    # Without the "..." a cut list reads as complete: three skeleton joints
+    # would look like the whole skeleton. A list that fits keeps no marker.
+    schema = {
+        "type": "object",
+        "required": ["cut", "whole"],
+        "properties": {
+            "cut": {"type": "array", "items": {"type": "string"}},
+            "whole": {"type": "array", "items": {"type": "string"}},
+        },
+    }
+    data = {"cut": ["a", "b", "c"], "whole": ["a", "b"]}
+    pruned = generate_latex.prune(data, [schema], schema, {"default": 2})
+    assert pruned == {"cut": ["a", "b", generate_latex.ELLIPSIS], "whole": ["a", "b"]}
+
+
 @pytest.mark.parametrize("length", range(40, 58))
 def test_inline_objects_leave_room_for_their_comma(length):
     # An inline object followed by a comma once rendered at 81 characters, one

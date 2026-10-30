@@ -70,9 +70,10 @@ repos:
         # pre-commit notices files a hook modified, but not files it created. A
         # new table or figure writes new .txt and .pdf files, so without this
         # the commit would link to files that are not in it. Runs last, after
-        # the generators above.
+        # the generators above. Only the folders the generators write to are
+        # checked, so an unrelated draft elsewhere in docs/ blocks no commit.
         entry: >-
-          bash -c 'new=$(git ls-files --others --exclude-standard -- docs cdf/domain/latest);
+          bash -c 'new=$(git ls-files --others --exclude-standard -- docs/latest cdf/domain/latest);
           [ -z "$new" ] || { echo "Generated files not tracked yet; git add them and commit again:";
           echo "$new"; exit 1; }'
         language: system
