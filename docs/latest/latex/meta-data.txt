@@ -1,0 +1,66 @@
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "competition": {"id": "comp_123"},
+    "season": {"id": "season_2023"},
+    "match": {
+        "id": "match_456",
+        "kickoff_time": "2023-05-15T19:45:00Z",
+        "periods": [
+            {"period": "first_half", "play_direction": "left_right"},
+            {"period": "second_half", "play_direction": "right_left"}
+        ],
+        "whistles": [
+            {
+                "type": "first_half",
+                "sub_type": "start",
+                "time": "2023-05-15T19:45:00Z"
+            },
+            ...
+        ]
+    },
+    "teams": {
+        "home": {
+            "id": "team_789",
+            "players": [
+                {
+                    "id": "player_1",
+                    "team_id": "team_789",
+                    "jersey_number": 1,
+                    "is_starter": true
+                },
+                ...
+            ]
+        },
+        "away": {...}
+    },
+    "venue": {"id": "stadium_202"},
+    "meta": {
+        "video": {...},
+        "tracking": {...},
+        "landmarks": {
+            "version": "0.1.0",
+            "name": "LimbTrackingVendor",
+            "fps": 25,
+            "collection_timing": "post_match",
+            "skeleton": {
+                "root": "neck",
+                "joints": ["head", "neck", "torso", ...],
+                "connections": [
+                    {"source": "neck", "target": "head"},
+                    ...
+                ]
+            }
+        },
+        "ball": {...},
+        "event": {...},
+        "meta": {"version": "0.1.0", "name": "Meta Vendor"},
+        "cdf": {"version": "0.2.0"}
+    }
+}
+\end{lstlisting}
+\captionof{figure}{Example of a JSON ($.json$) meta data file with the mandatory CDF fields. Lists are cut short after their first items and some objects are left out for readability, both marked with ``...''.}
+\label{fig:meta-data}
+\end{minipage}
+\end{center}

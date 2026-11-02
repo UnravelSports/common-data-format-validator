@@ -1,6 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Video Data - LaTeX tables</title>
+<title>Video Data - LaTeX</title>
 <style>
   body { font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
          max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem; color: #24292f; }
@@ -18,16 +18,26 @@
   footer { margin-top: 3rem; color: #57606a; font-size: .85rem;
             border-top: 1px solid #d0d7de; padding-top: 1rem; }
   a { color: #0969da; }
+  .preview { font: inherit; font-size: .8rem; color: #0969da; background: #fff;
+              border: 1px solid #d0d7de; border-radius: 4px; padding: 0 .5rem;
+              margin-left: .25rem; cursor: pointer; }
+  .preview:hover { background: #f6f8fa; }
+  .preview.failed { color: #cf222e; }
+  .render { padding: 1rem; background: #fff; border-radius: 0 0 6px 6px;
+             color: #57606a; font-size: .85rem; overflow-x: auto; }
+  .render canvas { display: block; max-width: 100%; height: auto; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+                      clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
-<h1>Video Data: LaTeX tables</h1>
-<p class="lede">Copy a block straight into the paper. These carry the paper's own
-wording, which differs from the schema's in places, and are regenerated from
-format version 0.3.2 whenever the schemas change.</p>
+<h1>Video Data: LaTeX</h1>
+<p class="lede">Copy a block straight into the paper. The tables carry the paper's
+own wording, which differs from the schema's in places. All blocks
+are regenerated from format version 0.3.2 whenever the schemas change.</p>
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-video</h2>
+    <h2 id="cdf-video-title">cdf-video</h2>
     <span class="meta">11 rows &middot;
-      <a href="cdf-video.txt">.txt</a> &middot; <a href="cdf-video.pdf">.pdf</a></span>
+      <a href="cdf-video.txt">.txt</a> &middot; <a href="cdf-video.pdf">.pdf</a> <button class="preview" id="cdf-video-preview" aria-labelledby="cdf-video-preview cdf-video-title" data-pdf="cdf-video.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -56,9 +66,9 @@ whistles/\{i\} &amp; video\_time &amp; The time tag of the whistle in millisecon
 
 <div class="table-block">
   <div class="table-head">
-    <h2>cdf-video-optional</h2>
+    <h2 id="cdf-video-optional-title">cdf-video-optional</h2>
     <span class="meta">3 rows &middot;
-      <a href="cdf-video-optional.txt">.txt</a> &middot; <a href="cdf-video-optional.pdf">.pdf</a></span>
+      <a href="cdf-video-optional.txt">.txt</a> &middot; <a href="cdf-video-optional.pdf">.pdf</a> <button class="preview" id="cdf-video-optional-preview" aria-labelledby="cdf-video-optional-preview cdf-video-optional-title" data-pdf="cdf-video-optional.pdf">Preview</button></span>
   </div>
   <pre>\begin{table}[H]
 \centering
@@ -81,3 +91,5 @@ recording/camera &amp; z &amp; z location of the camera in relation to the pitch
   <a href="../../index.html">All schemas</a> &middot;
   <a href="../video.html">Video Data JSON Schema</a>
 </footer>
+<p id="preview-status" class="visually-hidden" role="status"></p>
+<script src="preview.js" defer></script>

@@ -1,0 +1,56 @@
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "match": {"id": "match_2023_05_15_team789_team101"},
+    "meta": {"is_synced": true},
+    "event": {
+        "id": "event_12345",
+        "time": "2023-05-15T20:15:30Z",
+        "period": "first_half",
+        "type": "pass",
+        "sub_type": "corner_kick",
+        "is_successful": true,
+        "outcome_type": "successful",
+        "player_id": "player_7",
+        "team_id": "team_789",
+        "receiver_id": "player_9",
+        "receiver_time": "2023-05-15T20:15:33Z",
+        "x": 44.0,
+        "y": 0.5,
+        "x_end": 51.2,
+        "y_end": 8.7,
+        "body_part": "right_foot",
+        "related_event_ids": ["event_12346"],
+        "receiver_team_id": "team_789"
+    }
+}
+{
+    "match": {"id": "match_2023_05_15_team789_team101"},
+    "meta": {"is_synced": true},
+    "event": {
+        "id": "event_12347",
+        "time": "2023-05-15T20:16:02Z",
+        "period": "first_half",
+        "type": "save",
+        "sub_type": null,
+        "is_successful": true,
+        "outcome_type": "successful",
+        "player_id": "player_1",
+        "team_id": "team_101",
+        "receiver_id": null,
+        "receiver_time": null,
+        "x": -49.5,
+        "y": 1.2,
+        "x_end": null,
+        "y_end": null,
+        "body_part": "hands",
+        "related_event_ids": null,
+        "receiver_team_id": null
+    }
+}
+\end{lstlisting}
+\captionof{figure}{Example of JSON Lines ({$.jsonl$}) that covers the mandatory CDF fields for Event Data. The file describes two events which are expanded over multiple lines for readability.}
+\label{fig:event-data}
+\end{minipage}
+\end{center}

@@ -1,0 +1,31 @@
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{lstlisting}
+{
+    "frame_id": 0,
+    "timestamp": "2023-10-01T12:00:00Z",
+    "period": "first_half",
+    "match": {"id": "match_12345"},
+    "teams": {
+        "home": {
+            "id": "team_1",
+            "players": [
+                {"id": "player_1", "x": 23.5, "y": 24.2},
+                ...
+            ]
+        },
+        "away": {
+            "id": "team_2",
+            "players": [
+                {"id": "player_3", "x": 33.1, "y": 34.9},
+                ...
+            ]
+        }
+    },
+    "ball": {"x": 50, "y": 12, "z": 0.5}
+}
+\end{lstlisting}
+\captionof{figure}{Example of the JSON Lines ({$.jsonl$}) for the Center of Body Tracking Data representation. One frame is shown, expanded over multiple lines for readability. We show the position of only one player per team.}
+\label{fig:tracking-data}
+\end{minipage}
+\end{center}
